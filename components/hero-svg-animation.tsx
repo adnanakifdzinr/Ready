@@ -12,21 +12,21 @@ export function HeroSVGAnimation() {
       initial={{ opacity: 0, y: 40 }}
       animate={isWebOpenAnimating ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
-        duration: 1.2,
-        delay: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        duration: 0.8,
+        delay: 0.3,
+        ease: "easeOut",
       }}
     >
       <motion.svg
         viewBox="0 0 1739.38 371.37"
         className="w-full h-auto"
         xmlns="http://www.w3.org/2000/svg"
-        initial={{ y: 60, opacity: 0, filter: "blur(8px)" }}
-        animate={isWebOpenAnimating ? { y: 0, opacity: 1, filter: "blur(0px)" } : { y: 60, opacity: 0, filter: "blur(8px)" }}
+        initial={{ y: 50, opacity: 0, filter: "blur(6px)" }}
+        animate={isWebOpenAnimating ? { y: 0, opacity: 1, filter: "blur(0px)" } : { y: 50, opacity: 0, filter: "blur(6px)" }}
         transition={{
-          duration: 2.3,
-          delay: 0.9,
-          ease: [0.25, 0.46, 0.45, 0.94],
+          duration: 1.2,
+          delay: 0.4,
+          ease: "easeOut",
         }}
       >
         <g id="Layer_1" data-name="Layer 1">
