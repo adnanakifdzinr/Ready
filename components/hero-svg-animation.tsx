@@ -14,7 +14,7 @@ export function HeroSVGAnimation() {
       transition={{
         duration: 0.8,
         delay: 0.3,
-        ease: "easeOut",
+        ease: [0.16, 1, 0.3, 1],
       }}
     >
       <motion.svg
@@ -26,7 +26,7 @@ export function HeroSVGAnimation() {
         transition={{
           duration: 1.2,
           delay: 0.4,
-          ease: "easeOut",
+          ease: [0.16, 1, 0.3, 1],
         }}
       >
         <g id="Layer_1" data-name="Layer 1">
