@@ -359,50 +359,85 @@ export function SiteHeader() {
           </nav>
 
           {/* Bottom Section - Social links */}
-          <div className="flex items-center justify-center w-full">
-            <div
+          <motion.div className="flex items-center justify-center w-full">
+            <motion.div
               className="flex flex-row items-center gap-4 md:gap-6"
-              style={{
-                transform: isMenuOpen ? "translateY(0)" : "translateY(100%)",
-                opacity: isMenuOpen ? 1 : 0,
-                transitionDelay: isMenuOpen ? "1500ms" : "0ms",
+              initial={{ opacity: 0, y: 50 }}
+              animate={isMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+              transition={{
+                duration: 0.8,
+                delay: isMenuOpen ? 1.6 : 0,
+                ease: [0.23, 1, 0.32, 1]
               }}
             >
-              <a
+              <motion.a
                 href="https://www.instagram.com/adnanahmedakif/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-opacity"
+                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                initial={{ opacity: 0, x: -20, scale: 0.8 }}
+                animate={isMenuOpen ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -20, scale: 0.8 }}
+                transition={{
+                  duration: 0.6,
+                  delay: isMenuOpen ? 1.7 : 0,
+                  ease: [0.23, 1, 0.32, 1]
+                }}
+                whileHover={{ x: 5 }}
               >
                 Instagram
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45" strokeWidth={2.5} />
-                </div>
-              </a>
-              <a
+                <motion.div 
+                  className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                  whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
+                >
+                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45 group-hover:text-white transition-colors duration-300" strokeWidth={2.5} />
+                </motion.div>
+              </motion.a>
+              <motion.a
                 href="https://www.facebook.com/adnanahakif"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09]  transition-opacity"
+                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                initial={{ opacity: 0, x: -20, scale: 0.8 }}
+                animate={isMenuOpen ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -20, scale: 0.8 }}
+                transition={{
+                  duration: 0.6,
+                  delay: isMenuOpen ? 1.85 : 0,
+                  ease: [0.23, 1, 0.32, 1]
+                }}
+                whileHover={{ x: 5 }}
               >
                 Facebook
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45 group-hover:text-[#ff3a09]" strokeWidth={2.5} />
-                </div>
-              </a>
-              <a
+                <motion.div 
+                  className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                  whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
+                >
+                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45 group-hover:text-white transition-colors duration-300" strokeWidth={2.5} />
+                </motion.div>
+              </motion.a>
+              <motion.a
                 href="https://www.youtube.com/@adnanahmedakif"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-opacity"
+                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                initial={{ opacity: 0, x: -20, scale: 0.8 }}
+                animate={isMenuOpen ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -20, scale: 0.8 }}
+                transition={{
+                  duration: 0.6,
+                  delay: isMenuOpen ? 2.0 : 0,
+                  ease: [0.23, 1, 0.32, 1]
+                }}
+                whileHover={{ x: 5 }}
               >
                 YouTube
-                <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0">
-                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45" strokeWidth={2.5} />
-                </div>
-              </a>
-            </div>
-          </div>
+                <motion.div 
+                  className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                  whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
+                >
+                  <ArrowRight className="w-2.5 h-2.5 md:w-3 md:h-3 text-black -rotate-45 group-hover:text-white transition-colors duration-300" strokeWidth={2.5} />
+                </motion.div>
+              </motion.a>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
