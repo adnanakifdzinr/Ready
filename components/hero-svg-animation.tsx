@@ -8,7 +8,7 @@ export function HeroSVGAnimation() {
 
   return (
     <motion.div
-      className="w-full pointer-events-none overflow-hidden px-0 sm:px-0 lg:px-0 mb-0"
+      className="w-full pointer-events-none overflow-hidden pt-30 px-0 sm:px-0 lg:px-0 mb-0"
       initial={{ opacity: 0, y: 40 }}
       animate={isWebOpenAnimating ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
       transition={{
