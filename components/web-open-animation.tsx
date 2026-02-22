@@ -44,14 +44,15 @@ export function WebOpenAnimation() {
   const textSize = 'text-[16px]';
   const gap = 'gap-2';
 
-  // Overlay animation variants
+  // Overlay animation variants - smooth fade with blur effect
   const overlayVariants = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0, backdropFilter: 'blur(0px)' },
     visible: {
-      opacity: 0.6,
-      transition: { duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }
+      opacity: 0.5,
+      backdropFilter: 'blur(8px)',
+      transition: { duration: 1.2, ease: [0.23, 1, 0.32, 1] }
     },
-    exit: { opacity: 0, transition: { duration: 0.7 } }
+    exit: { opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
   };
 
   const sliceVariants = {
@@ -60,52 +61,52 @@ export function WebOpenAnimation() {
   };
 
   const topSliceExit = {
-    exit: { y: '-100vh', transition: { duration: 2, ease: [0.25, 0.46, 0.45, 0.94] } }
+    exit: { y: '-100vh', transition: { duration: 1.8, ease: [0.23, 1, 0.32, 1] } }
   };
 
   const bottomSliceExit = {
-    exit: { y: '100vh', transition: { duration: 2, ease: [0.25, 0.46, 0.45, 0.94] } }
+    exit: { y: '100vh', transition: { duration: 1.8, ease: [0.23, 1, 0.32, 1] } }
   };
 
-  // Button container with perspective
+  // Button container with smooth perspective and scale
   const containerVariants = {
-    hidden: { opacity: 0, scale: 0.9, rotateY: -20 },
+    hidden: { opacity: 0, scale: 0.85, y: 30 },
     visible: {
       opacity: 1,
       scale: 1,
-      rotateY: 0,
+      y: 0,
       transition: {
-        duration: 1.2,
-        delay: 0.3,
-        ease: [0.25, 0.46, 0.45, 0.94]
+        duration: 0.9,
+        delay: 0.2,
+        ease: [0.23, 1, 0.32, 1]
       }
     },
     exit: {
       x: '150vw',
       opacity: 0,
-      rotateY: 20,
-      transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+      scale: 0.95,
+      transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   };
 
-  // Button width expansion
+  // Button width expansion with smooth easing
   const buttonVariants = {
     collapsed: { width: 56 },
     expanded: {
       width: 180,
-      transition: { duration: 1.1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }
+      transition: { duration: 0.95, delay: 0.3, ease: [0.23, 1, 0.32, 1] }
     }
   };
 
-  // Enhanced 3D text reveal with character stagger
+  // Smooth 3D text reveal with character stagger
   const textVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0.75,
-        duration: 0.8
+        staggerChildren: 0.04,
+        delayChildren: 0.65,
+        duration: 0.6
       }
     }
   };
@@ -113,10 +114,10 @@ export function WebOpenAnimation() {
   const charVariants = {
     hidden: {
       opacity: 0,
-      rotateX: 90,
-      rotateY: -45,
-      y: 20,
-      filter: 'blur(4px)'
+      rotateX: 80,
+      rotateY: -40,
+      y: 15,
+      filter: 'blur(3px)'
     },
     visible: {
       opacity: 1,
@@ -125,8 +126,8 @@ export function WebOpenAnimation() {
       y: 0,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.7,
-        ease: [0.23, 1, 0.320, 1]
+        duration: 0.6,
+        ease: [0.23, 1, 0.32, 1]
       }
     }
   };
@@ -203,9 +204,14 @@ export function WebOpenAnimation() {
                 ))}
               </motion.span>
 
-              {/* Arrow circle */}
+              {/* Arrow circle with smooth color transition */}
               <motion.div
-                className="w-10 h-10 rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0"
+                className="w-10 h-10 rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0 transition-all duration-500"
+                animate={{
+                  scale: isHovering ? 1.1 : 1,
+                  boxShadow: isHovering ? '0 0 20px rgba(255, 58, 9, 0.6)' : '0 0 0px rgba(255, 58, 9, 0)'
+                }}
+                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
               >
                 <motion.div
                   animate={{
@@ -213,7 +219,7 @@ export function WebOpenAnimation() {
                     opacity: isHovering ? 0 : 1,
                     rotate: isHovering ? 45 : 0
                   }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute"
                 >
                   <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
@@ -225,7 +231,7 @@ export function WebOpenAnimation() {
                     opacity: isHovering ? 1 : 0,
                     rotate: isHovering ? -45 : 0
                   }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                  transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute"
                 >
                   <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
