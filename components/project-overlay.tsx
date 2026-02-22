@@ -205,7 +205,7 @@ export function ProjectOverlay({ isOpen, onClose, project }: ProjectOverlayProps
             }}
             onHoverStart={() => { }}
             onHoverEnd={() => { }}
-            className="h-[44px] bg-[#1A1A1A] border-l-2 border-r-2 border-white rounded-full flex items-center justify-center px-2 py-1 gap-2 overflow-hidden hover:bg-white/5 cursor-pointer focus:outline-none relative"
+            className="h-[44px] bg-[#1A1A1A] rounded-full flex items-center justify-center px-2 py-1 gap-2 overflow-hidden cursor-pointer focus:outline-none relative"
             aria-label="Go back"
           >
             <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center overflow-hidden relative flex-shrink-0">
