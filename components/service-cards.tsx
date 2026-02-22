@@ -113,10 +113,12 @@ const services = [
 
 export function ServiceCards() {
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set())
+  const [animatedIcons, setAnimatedIcons] = useState<Set<number>>(new Set())
   const [expandedCards, setExpandedCards] = useState<Set<number>>(new Set())
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const iconAnimationRefs = useRef<Set<number>>(new Set())
 
   useEffect(() => {
     const observerOptions = {
@@ -131,9 +133,22 @@ export function ServiceCards() {
           if (entry.isIntersecting) {
             // Card enters view - add to visible set
             setVisibleCards((prev) => new Set([...prev, index]))
+            
+            // Trigger icon rotation animation only if not already animated in this view
+            if (!iconAnimationRefs.current.has(index)) {
+              iconAnimationRefs.current.add(index)
+              setAnimatedIcons((prev) => new Set([...prev, index]))
+            }
           } else {
             // Card leaves view - remove from visible set to re-trigger animation
             setVisibleCards((prev) => {
+              const newSet = new Set(prev)
+              newSet.delete(index)
+              return newSet
+            })
+            // Reset icon animation ref when card leaves view
+            iconAnimationRefs.current.delete(index)
+            setAnimatedIcons((prev) => {
               const newSet = new Set(prev)
               newSet.delete(index)
               return newSet
@@ -246,14 +261,14 @@ export function ServiceCards() {
                   ease: "easeOut",
                 }}
               >
-                {/* Icon Badge - Rotating spin on hover */}
+                {/* Icon Badge - Rotating spin on view and hover */}
                 <motion.div
                   className="mb-8 inline-flex w-fit"
                   animate={{
-                    rotate: isHovered ? 360 : 0,
+                    rotate: isHovered ? 360 : animatedIcons.has(index) ? 360 : 0,
                   }}
                   transition={{
-                    duration: 0.8,
+                    duration: isHovered ? 0.8 : 1.2,
                     ease: "easeInOut",
                   }}
                 >
