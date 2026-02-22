@@ -48,10 +48,17 @@ export function ProjectThumbnails() {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const projectId = entry.target.getAttribute("data-project-id")
-          if (projectId) {
+        const projectId = entry.target.getAttribute("data-project-id")
+        if (projectId) {
+          if (entry.isIntersecting) {
             setVisibleCards((prev) => new Set([...prev, projectId]))
+          } else {
+            // Remove from visible cards when scrolling away
+            setVisibleCards((prev) => {
+              const newSet = new Set(prev)
+              newSet.delete(projectId)
+              return newSet
+            })
           }
         }
       })
