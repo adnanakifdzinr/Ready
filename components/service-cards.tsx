@@ -199,8 +199,8 @@ export function ServiceCards() {
             .split("\n")
             .filter((item) => item.trim())
           const isExpanded = expandedCards.has(index)
-          const itemsToShow = isExpanded ? items : items.slice(0, 3)
-          const hasMore = items.length > 3
+          const itemsToShow = isExpanded ? items : items.slice(0, 5)
+          const hasMore = items.length > 5
 
           const isVisible = visibleCards.has(index)
           const variants = createCardVariants(index)
@@ -301,19 +301,26 @@ export function ServiceCards() {
                 </motion.h3>
 
                 {/* Description List - Staggered reveal */}
-                <motion.ul className="text-sm md:text-base lg:text-[16px] text-black leading-relaxed flex-grow space-y-2 list-none">
+                <motion.ul 
+                  className="text-sm md:text-base lg:text-[16px] text-black leading-relaxed flex-grow space-y-2 list-none overflow-hidden"
+                  animate={{ height: "auto" }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
                   {itemsToShow.map((item, idx) => (
                     <motion.li
                       key={idx}
                       className="text-black relative pl-0 overflow-hidden"
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -20, height: 0 }}
                       animate={isVisible ? {
                         opacity: 1,
-                        x: isHovered ? 0 : 0,
+                        x: 0,
+                        height: "auto",
                       } : {
                         opacity: 0,
-                        x: -20
+                        x: -20,
+                        height: 0
                       }}
+                      exit={{ opacity: 0, x: -20, height: 0 }}
                       transition={{
                         duration: 0.4,
                         delay: (index * 0.15) + (idx * 0.05),
@@ -345,7 +352,7 @@ export function ServiceCards() {
                         duration: 0.4,
                       }}
                     >
-                      {isExpanded ? "Show less" : `+${items.length - 3} more`}
+                      {isExpanded ? "Show less" : `+${items.length - 5} more`}
                     </motion.span>
                   </motion.button>
                 )}
