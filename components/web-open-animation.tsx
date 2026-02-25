@@ -152,7 +152,7 @@ export function WebOpenAnimation() {
             animate="visible"
             exit="exit"
             variants={topSliceExit}
-            className="fixed top-0 left-0 right-0 h-1/2 bg-white"
+            className="fixed top-0 left-0 right-0 h-1/2 bg-black"
             style={{ zIndex: 9997 }}
           />
 
@@ -162,7 +162,7 @@ export function WebOpenAnimation() {
             animate="visible"
             exit="exit"
             variants={bottomSliceExit}
-            className="fixed bottom-0 left-0 right-0 h-1/2 bg-white"
+            className="fixed bottom-0 left-0 right-0 h-1/2 bg-black"
             style={{ zIndex: 9997 }}
           />
 
@@ -183,14 +183,14 @@ export function WebOpenAnimation() {
               onHoverStart={handleHoverStart}
               onHoverEnd={handleHoverEnd}
               onClick={handleEnter}
-              className={`relative ${buttonHeight} bg-black backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-5 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300 shadow-black/40 shadow-lg`}
+              className={`relative ${buttonHeight} bg-white backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-5 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300`}
             >
               {/* Left text - reveals with character-level 3D flip */}
               <motion.span
                 initial="hidden"
                 animate={isVisible ? "visible" : "hidden"}
                 variants={textVariants}
-                className={`text-white tracking-tight font-medium ${textSize} whitespace-nowrap flex`}
+                className={`text-black tracking-tight font-medium ${textSize} whitespace-nowrap flex`}
                 style={{ perspective: 1200 }}
               >
                 {'Open Website'.split('').map((char, index) => (
@@ -208,7 +208,6 @@ export function WebOpenAnimation() {
               <motion.div
                 className="w-10 h-10 rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0 transition-all duration-500"
                 animate={{
-                  scale: isHovering ? 1.1 : 1,
                   boxShadow: isHovering ? '0 0 20px rgba(255, 58, 9, 0.6)' : '0 0 0px rgba(255, 58, 9, 0)'
                 }}
                 transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
