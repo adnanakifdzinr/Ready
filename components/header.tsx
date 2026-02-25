@@ -127,104 +127,6 @@ export function SiteHeader() {
 
           {/* CTA Button and Hamburger */}
           <div className="flex items-center gap-3 md:gap-4">
-            <motion.button
-              onClick={() => {
-                const contactSection = document.getElementById('contact')
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' })
-                }
-              }}
-              initial={{ width: 44 }}
-              animate={isWebOpenAnimating ? { width: 185 } : { width: 44 }}
-              exit={{ width: 44 }}
-              transition={{
-                duration: 1.1,
-                delay: 0.8,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-              onHoverStart={() => setIsCtaHovering(true)}
-              onHoverEnd={() => setIsCtaHovering(false)}
-              className="hidden md:flex relative h-[52px] bg-black border-l-2 border-r-2 border-white rounded-full items-center justify-between px-5 py-2 gap-2 overflow-hidden cursor-pointer"
-            >
-              <motion.span
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={isWebOpenAnimating ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                transition={{
-                  staggerChildren: 0.04,
-                  delayChildren: 1.0,
-                  duration: 0.6
-                }}
-                className="text-white font-medium tracking-tight text-base left-9 whitespace-nowrap flex"
-                style={{ perspective: 1200 }}
-              >
-                {'Schedule a Call'.split('').map((char, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{
-                      opacity: 0,
-                      rotateX: 90,
-                      y: 10,
-                      filter: 'blur(2px)'
-                    }}
-                    animate={{
-                      opacity: 1,
-                      rotateX: 0,
-                      y: 0,
-                      filter: 'blur(0px)'
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      ease: [0.34, 1.56, 0.64, 1]
-                    }}
-                    style={{ perspective: 1200 }}
-                  >
-                    {char === ' ' ? '\u00A0' : char}
-                  </motion.span>
-                ))}
-              </motion.span>
-
-              <motion.div
-                className="w-9 h-9 rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0"
-                initial={{ boxShadow: '0 0 0px rgba(255, 255, 255, 0)' }}
-                animate={isWebOpenAnimating ? {
-                  boxShadow: [
-                    '0 0 0px rgba(255, 255, 255, 0)',
-                    '0 0 20px rgba(255, 255, 255, 0.4)',
-                    '0 0 0px rgba(255, 255, 255, 0)'
-                  ]
-                } : {}}
-                transition={isWebOpenAnimating ? {
-                  duration: 2.5,
-                  repeat: Infinity,
-                  delay: 1.5
-                } : {}}
-              >
-                <motion.div
-                  animate={{
-                    x: isCtaHovering ? 40 : 0,
-                    opacity: isCtaHovering ? 0 : 1,
-                    rotate: isCtaHovering ? 45 : 0
-                  }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute"
-                >
-                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
-                </motion.div>
-
-                <motion.div
-                  animate={{
-                    x: isCtaHovering ? 0 : -40,
-                    opacity: isCtaHovering ? 1 : 0,
-                    rotate: isCtaHovering ? -45 : 0
-                  }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="absolute"
-                >
-                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
-                </motion.div>
-              </motion.div>
-            </motion.button>
-
             {/* Hamburger Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -234,19 +136,19 @@ export function SiteHeader() {
             >
               <div className="relative w-5 h-3.5">
                 <span
-                  className={`absolute left-0 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `top-1/2 -translate-y-1/2 rotate-45 w-full`
                     : `top-0 w-full group-hover:w-3/5`
                     }`}
                 />
                 <span
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `w-0 opacity-0`
                     : `w-full opacity-100 group-hover:w-4/5 group-hover:translate-x-1`
                     }`}
                 />
                 <span
-                  className={`absolute left-0 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `bottom-1/2 translate-y-1/2 -rotate-45 w-full`
                     : `bottom-0 w-full group-hover:w-2/5`
                     }`}
