@@ -1,13 +1,19 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface CursorState {
   x: number
   y: number
   label: string
   isVisible: boolean
-  rotation: number
+}
+
+interface DotPos {
+  id: number
+  x: number
+  y: number
+  scale: number
 }
 
 export function MagneticCursor() {
@@ -16,12 +22,28 @@ export function MagneticCursor() {
     y: 0,
     label: '',
     isVisible: false,
-    rotation: 0,
   })
-  const animationFrameRef = useRef<number>()
-  const rotationRef = useRef(0)
+  const [dots, setDots] = useState<DotPos[]>([])
 
   useEffect(() => {
+    // Initialize dot matrix positions
+    const initialDots: DotPos[] = []
+    const gridSize = 3
+    const dotSize = 8
+    const spacing = 6
+
+    for (let row = 0; row < gridSize; row++) {
+      for (let col = 0; col < gridSize; col++) {
+        initialDots.push({
+          id: row * gridSize + col,
+          x: (col - 1) * spacing,
+          y: (row - 1) * spacing,
+          scale: 1,
+        })
+      }
+    }
+    setDots(initialDots)
+
     const handleMouseMove = (e: MouseEvent) => {
       setCursor((prev) => ({
         ...prev,
@@ -38,18 +60,34 @@ export function MagneticCursor() {
         target.classList.contains('magnetic-trigger')
 
       if (isInteractive) {
-        const label = target.getAttribute('data-cursor-label') || 'view'
+        const label = target.getAttribute('data-cursor-label') || 'click'
         setCursor((prev) => ({
           ...prev,
           label,
           isVisible: true,
         }))
+
+        // Animate dots on hover
+        setDots((prevDots) =>
+          prevDots.map((dot) => ({
+            ...dot,
+            scale: 1.4,
+          }))
+        )
       } else {
         setCursor((prev) => ({
           ...prev,
           label: '',
           isVisible: false,
         }))
+
+        // Reset dots
+        setDots((prevDots) =>
+          prevDots.map((dot) => ({
+            ...dot,
+            scale: 1,
+          }))
+        )
       }
     }
 
@@ -59,29 +97,18 @@ export function MagneticCursor() {
         isVisible: false,
         label: '',
       }))
+      setDots((prevDots) =>
+        prevDots.map((dot) => ({
+          ...dot,
+          scale: 1,
+        }))
+      )
     }
 
-    // Continuous rotation animation
-    const animate = () => {
-      rotationRef.current += 2
-      if (rotationRef.current >= 360) {
-        rotationRef.current = 0
-      }
-      setCursor((prev) => ({
-        ...prev,
-        rotation: rotationRef.current,
-      }))
-      animationFrameRef.current = requestAnimationFrame(animate)
-    }
-
-    animationFrameRef.current = requestAnimationFrame(animate)
     window.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
@@ -96,7 +123,7 @@ export function MagneticCursor() {
         }
       `}</style>
 
-      {/* Custom text cursor */}
+      {/* Dot matrix cursor */}
       <div
         className="pointer-events-none fixed z-50"
         style={{
@@ -105,68 +132,50 @@ export function MagneticCursor() {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        {/* Rotating text cursor - always visible */}
-        <div
-          className="relative w-16 h-16"
-          style={{
-            transform: `rotate(${cursor.rotation}deg)`,
-          }}
-        >
-          {/* Text that rotates around the cursor */}
-          <svg
-            className="absolute w-16 h-16 -top-8 -left-8"
-            viewBox="0 0 100 100"
-            style={{
-              filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))',
-            }}
-          >
-            <defs>
-              <path
-                id="circlePath"
-                d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
-                fill="none"
-              />
-            </defs>
-            <text
-              className="text-xs font-bold fill-white"
-              letterSpacing="8"
-              style={{
-                fontSize: '11px',
-                fontWeight: '700',
-                textTransform: 'uppercase',
-              }}
-            >
-              <textPath href="#circlePath" startOffset="0%">
-                • scroll • view • explore • scroll • view • explore •
-              </textPath>
-            </text>
-          </svg>
-
-          {/* Center dot */}
+        {/* Grid of dots */}
+        {dots.map((dot) => (
           <div
-            className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full"
+            key={dot.id}
+            className="absolute rounded-full bg-white"
             style={{
-              transform: 'translate(-50%, -50%)',
-              boxShadow: '0 0 12px rgba(255, 255, 255, 0.6)',
+              width: 6,
+              height: 6,
+              left: dot.x,
+              top: dot.y,
+              transform: `translate(-50%, -50%) scale(${dot.scale})`,
+              transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)',
+              boxShadow: '0 0 8px rgba(255, 255, 255, 0.6)',
+              opacity: 0.8,
             }}
           />
-        </div>
+        ))}
 
-        {/* Interactive label when hovering */}
+        {/* Center dot - accent color */}
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: 4,
+            height: 4,
+            backgroundColor: '#60a5fa',
+            left: 0,
+            top: 0,
+            transform: 'translate(-50%, -50%)',
+            boxShadow: '0 0 12px #60a5fa, 0 0 24px rgba(96, 165, 250, 0.4)',
+            transition: 'box-shadow 0.2s ease',
+          }}
+        />
+
+        {/* Interactive label */}
         {cursor.isVisible && cursor.label && (
           <div
-            className="absolute left-12 top-1/2 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold text-white pointer-events-none opacity-0 animate-in"
+            className="absolute left-10 top-1/2 whitespace-nowrap px-3 py-1 rounded-md text-xs font-semibold text-white pointer-events-none"
             style={{
               transform: 'translateY(-50%)',
-              animation: 'fadeIn 0.3s ease-out forwards',
-              background: 'rgba(255, 255, 255, 0.2)',
+              animation: 'slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+              background: 'rgba(96, 165, 250, 0.15)',
               backdropFilter: 'blur(8px)',
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
-              '@keyframes fadeIn': {
-                from: { opacity: 0, transform: 'translateY(-50%) scale(0.8)' },
-                to: { opacity: 1, transform: 'translateY(-50%) scale(1)' },
-              },
+              border: '1px solid rgba(96, 165, 250, 0.3)',
+              boxShadow: '0 8px 16px rgba(96, 165, 250, 0.1)',
             }}
           >
             {cursor.label}
@@ -174,16 +183,16 @@ export function MagneticCursor() {
         )}
       </div>
 
-      {/* Keyframe animation for label */}
+      {/* Animations */}
       <style>{`
-        @keyframes fadeIn {
+        @keyframes slideIn {
           from {
             opacity: 0;
-            transform: translateY(-50%) scale(0.8);
+            transform: translateY(-50%) translateX(-8px);
           }
           to {
             opacity: 1;
-            transform: translateY(-50%) scale(1);
+            transform: translateY(-50%) translateX(0);
           }
         }
       `}</style>
