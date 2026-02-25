@@ -228,7 +228,7 @@ export function SiteHeader() {
             {/* Hamburger Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group"
+              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group bg-black"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             >

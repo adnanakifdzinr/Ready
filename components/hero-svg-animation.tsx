@@ -24,9 +24,9 @@ export function HeroSVGAnimation() {
         initial={{ y: 50, opacity: 0, filter: "blur(6px)" }}
         animate={isWebOpenAnimating ? { y: 0, opacity: 1, filter: "blur(0px)" } : { y: 50, opacity: 0, filter: "blur(6px)" }}
         transition={{
-          duration: 1.2,
+          duration: 1.4,
           delay: 0.4,
-          ease: [0.16, 1, 0.3, 1],
+          ease: [0.23, 1, 0.32, 1],
         }}
       >
         <g id="Layer_1" data-name="Layer 1">
