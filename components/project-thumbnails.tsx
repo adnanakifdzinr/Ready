@@ -94,8 +94,6 @@ export function ProjectThumbnails() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {projects.map((project, index) => {
             const isVisible = visibleCards.has(project.id)
-            const slideFromLeft = index % 2 === 0
-            const slideFromTop = Math.floor(index / 2) % 2 === 0
 
             return (
               <motion.div
@@ -105,11 +103,15 @@ export function ProjectThumbnails() {
                 data-project-id={project.id}
                 initial={{
                   opacity: 0,
-                  x: slideFromLeft ? -80 : 80,
-                  y: slideFromTop ? -80 : 80
+                  y: 60
                 }}
-                animate={isVisible ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: slideFromLeft ? -80 : 80, y: slideFromTop ? -80 : 80 }}
-                transition={{ duration: 0.9, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
+                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.15, 
+                  type: "spring",
+                  bounce: 0.4
+                }}
               >
                 <button
                   onClick={() => {
