@@ -228,25 +228,25 @@ export function SiteHeader() {
             {/* Hamburger Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group bg-black"
+              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             >
               <div className="relative w-5 h-3.5">
                 <span
-                  className={`absolute left-0 h-[1.9px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `top-1/2 -translate-y-1/2 rotate-45 w-full`
                     : `top-0 w-full group-hover:w-3/5`
                     }`}
                 />
                 <span
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[1.9px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `w-0 opacity-0`
                     : `w-full opacity-100 group-hover:w-4/5 group-hover:translate-x-1`
                     }`}
                 />
                 <span
-                  className={`absolute left-0 h-[1.9px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
+                  className={`absolute left-0 h-[1.9px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
                     ? `bottom-1/2 translate-y-1/2 -rotate-45 w-full`
                     : `bottom-0 w-full group-hover:w-2/5`
                     }`}
