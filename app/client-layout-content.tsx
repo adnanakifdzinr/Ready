@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/header"
 import { AnimationProvider } from "@/context/animation-context"
 import { usePathname } from "next/navigation"
+import { MagneticCursor } from "@/components/magnetic-cursor"
 
 export function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
@@ -12,6 +13,7 @@ export function ClientLayoutContent({ children }: { children: React.ReactNode })
 
   return (
     <AnimationProvider>
+      <MagneticCursor />
       <div className="relative">
         {/* Main content - scrollable overlay */}
         <div className="relative z-20">
