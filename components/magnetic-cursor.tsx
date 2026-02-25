@@ -1,14 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
+import { useEffect, useRef, useState } from 'react'
 
 interface CursorState {
   x: number
   y: number
   label: string
   isVisible: boolean
-  color: string
+  rotation: number
 }
 
 export function MagneticCursor() {
@@ -17,8 +16,10 @@ export function MagneticCursor() {
     y: 0,
     label: '',
     isVisible: false,
-    color: '#ffffff',
+    rotation: 0,
   })
+  const animationFrameRef = useRef<number>()
+  const rotationRef = useRef(0)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -37,13 +38,11 @@ export function MagneticCursor() {
         target.classList.contains('magnetic-trigger')
 
       if (isInteractive) {
-        const label = target.getAttribute('data-cursor-label') || 'Click'
-        const color = target.getAttribute('data-cursor-color') || '#ffffff'
+        const label = target.getAttribute('data-cursor-label') || 'view'
         setCursor((prev) => ({
           ...prev,
           label,
           isVisible: true,
-          color,
         }))
       } else {
         setCursor((prev) => ({
@@ -62,10 +61,27 @@ export function MagneticCursor() {
       }))
     }
 
+    // Continuous rotation animation
+    const animate = () => {
+      rotationRef.current += 2
+      if (rotationRef.current >= 360) {
+        rotationRef.current = 0
+      }
+      setCursor((prev) => ({
+        ...prev,
+        rotation: rotationRef.current,
+      }))
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+
+    animationFrameRef.current = requestAnimationFrame(animate)
     window.addEventListener('mousemove', handleMouseMove)
     document.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current)
+      }
       window.removeEventListener('mousemove', handleMouseMove)
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
@@ -80,7 +96,7 @@ export function MagneticCursor() {
         }
       `}</style>
 
-      {/* Custom cursor - glassmorphism style */}
+      {/* Custom text cursor */}
       <div
         className="pointer-events-none fixed z-50"
         style={{
@@ -89,45 +105,88 @@ export function MagneticCursor() {
           transform: 'translate(-50%, -50%)',
         }}
       >
-        {/* Glassmorphism cursor ring */}
+        {/* Rotating text cursor - always visible */}
         <div
-          className="relative w-10 h-10 rounded-full"
+          className="relative w-16 h-16"
           style={{
-            backdropFilter: 'blur(10px)',
-            background: 'rgba(255, 255, 255, 0.1)',
-            border: '2px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
+            transform: `rotate(${cursor.rotation}deg)`,
           }}
         >
-          {/* Inner dot */}
+          {/* Text that rotates around the cursor */}
+          <svg
+            className="absolute w-16 h-16 -top-8 -left-8"
+            viewBox="0 0 100 100"
+            style={{
+              filter: 'drop-shadow(0 0 8px rgba(255, 255, 255, 0.3))',
+            }}
+          >
+            <defs>
+              <path
+                id="circlePath"
+                d="M 50, 50 m -40, 0 a 40,40 0 1,1 80,0 a 40,40 0 1,1 -80,0"
+                fill="none"
+              />
+            </defs>
+            <text
+              className="text-xs font-bold fill-white"
+              letterSpacing="8"
+              style={{
+                fontSize: '11px',
+                fontWeight: '700',
+                textTransform: 'uppercase',
+              }}
+            >
+              <textPath href="#circlePath" startOffset="0%">
+                • scroll • view • explore • scroll • view • explore •
+              </textPath>
+            </text>
+          </svg>
+
+          {/* Center dot */}
           <div
-            className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full"
+            className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full"
             style={{
               transform: 'translate(-50%, -50%)',
+              boxShadow: '0 0 12px rgba(255, 255, 255, 0.6)',
             }}
           />
         </div>
 
-        {/* Label bubble with glassmorphism */}
+        {/* Interactive label when hovering */}
         {cursor.isVisible && cursor.label && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: -8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -8 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="absolute left-14 top-1/2 whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold text-white pointer-events-none"
+          <div
+            className="absolute left-12 top-1/2 whitespace-nowrap px-3 py-1.5 rounded-full text-xs font-semibold text-white pointer-events-none opacity-0 animate-in"
             style={{
               transform: 'translateY(-50%)',
-              backdropFilter: 'blur(12px)',
-              background: `rgba(255, 255, 255, 0.15)`,
-              border: `1.5px solid ${cursor.color}`,
-              boxShadow: `0 8px 32px rgba(31, 38, 135, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 0 20px ${cursor.color}40`,
+              animation: 'fadeIn 0.3s ease-out forwards',
+              background: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(8px)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 8px 16px rgba(0, 0, 0, 0.1)',
+              '@keyframes fadeIn': {
+                from: { opacity: 0, transform: 'translateY(-50%) scale(0.8)' },
+                to: { opacity: 1, transform: 'translateY(-50%) scale(1)' },
+              },
             }}
           >
             {cursor.label}
-          </motion.div>
+          </div>
         )}
       </div>
+
+      {/* Keyframe animation for label */}
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(-50%) scale(0.8);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+          }
+        }
+      `}</style>
     </>
   )
 }
