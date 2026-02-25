@@ -74,48 +74,10 @@ export function ProjectThumbnails() {
   return (
     <section className="bg-[#0E0E0E] text-secondary">
       <style>{`
-        .arrow-icon {
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          width: 2rem;
-          height: 2rem;
-          border-radius: 9999px;
-          background: white;
-          color: black;
-          margin-top: -8px;
-          transform: rotate(-30deg);
-        }
-
-        @media (min-width: 768px) {
-          .arrow-icon {
-            width: 3.5rem;
-            height: 3.5rem;
-          }
-        }
-
-        .arrow-svg {
-          width: 1.5rem;
-          height: 1.5rem;
-          transition: transform 0.5s cubic-bezier(0.33, 0, 0.2, 1);
-        }
-
-        @media (min-width: 768px) {
-          .arrow-svg {
-            width: 2.5rem;
-            height: 2.5rem;
-          }
-        }
-
         .project-card {
           opacity: 1;
           transform: translateY(0px);
           will-change: transform, opacity;
-        }
-
-        .project-card:hover .arrow-svg {
-          transform: rotate(30deg);
         }
       `}</style>
 
@@ -128,8 +90,8 @@ export function ProjectThumbnails() {
 
       {/* Grid Layout */}
       <div className="px-3 md:px-5 lg:px-8 pb-8 md:pb-12 lg:pb-16">
-        {/* Mobile: 1 col, Tablet: 2 col */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:hidden">
+        {/* Unified grid: 1 col on mobile, 2 cols on tablet and up */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {projects.map((project, index) => {
             const isVisible = visibleCards.has(project.id)
             const slideFromLeft = index % 2 === 0
@@ -173,7 +135,7 @@ export function ProjectThumbnails() {
                         src={project.image || "/placeholder.jpg"}
                         alt={project.title}
                         fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover transition-transform duration-500"
                         priority={index === 0}
                       />
@@ -187,112 +149,6 @@ export function ProjectThumbnails() {
                       </h3>
                       {/* Description/Category */}
                       <p className="text-sm md:text-base font-medium tracking-tight text-white/90">
-                        {project.category}
-                      </p>
-                    </div>
-                  </div>
-                </button>
-              </motion.div>
-            )
-          })}
-        </div>
-
-        {/* Desktop: Masonry-style grid */}
-        <div
-          className="hidden lg:grid gap-6"
-          style={{
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gridAutoFlow: 'dense'
-          }}
-        >
-          {projects.map((project, index) => {
-            const isVisible = visibleCards.has(project.id)
-            const slideFromLeft = Math.floor(index / 3) % 2 === 0 ? index % 2 === 0 : index % 2 === 1
-            const slideFromTop = Math.floor(index / 3) % 2 === 0
-
-            // Clean alternating masonry pattern
-            let gridColSpan = 1
-            let gridRowSpan = 1
-
-            // Pattern: Large-Medium-Small alternating
-            if (index % 5 === 0) {
-              // Large featured item
-              gridColSpan = 2
-              gridRowSpan = 2
-            } else if (index % 5 === 1) {
-              // Regular item
-              gridColSpan = 1
-              gridRowSpan = 1
-            } else if (index % 5 === 2) {
-              // Regular item
-              gridColSpan = 1
-              gridRowSpan = 1
-            } else if (index % 5 === 3) {
-              // Regular item
-              gridColSpan = 1
-              gridRowSpan = 1
-            } else if (index % 5 === 4) {
-              // Medium item
-              gridColSpan = 2
-              gridRowSpan = 1
-            }
-
-            return (
-              <motion.div
-                key={project.id}
-                className="bg-transparent flex flex-col"
-                ref={(el) => { if (el) cardRefs.current[project.id] = el }}
-                data-project-id={project.id}
-                style={{
-                  gridColumn: `span ${gridColSpan}`,
-                  gridRow: `span ${gridRowSpan}`
-                }}
-                initial={{
-                  opacity: 0,
-                  x: slideFromLeft ? -80 : 80,
-                  y: slideFromTop ? -80 : 80
-                }}
-                animate={isVisible ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: slideFromLeft ? -80 : 80, y: slideFromTop ? -80 : 80 }}
-                transition={{ duration: 1, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                <button
-                  onClick={() => {
-                    setSelectedProject(project)
-                    setIsOverlayOpen(true)
-                  }}
-                  className="w-full flex-1 flex flex-col text-left"
-                >
-                  <div
-                    className={`project-card cursor-pointer w-full flex flex-col h-full ${isVisible ? "in-view" : ""}`}
-                    style={{
-                      animationDelay: `${index * 0.1}s`
-                    }}
-                  >
-                    {/* Image Container */}
-                    <motion.div
-                      className="relative w-full aspect-square overflow-hidden bg-gray-200"
-                      initial={{ scale: 0.95, opacity: 0 }}
-                      animate={isVisible ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
-                      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.23, 1, 0.32, 1] }}
-                    >
-                      <Image
-                        src={project.image || "/placeholder.jpg"}
-                        alt={project.title}
-                        fill
-                        sizes="(max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500"
-                        priority={index === 0}
-                      />
-                    </motion.div>
-
-                    {/* Title Section */}
-                    <div className="bg-transparent text-white pt-6 w-full flex flex-col text-left">
-                      {/* Title */}
-                      <h3 className="text-xl lg:text-2xl font-medium leading-tight tracking-tight uppercase mb-0">
-                        {project.title}
-                      </h3>
-                      {/* Description/Category */}
-                      <p className="text-sm lg:text-base font-medium tracking-tight text-white/90">
                         {project.category}
                       </p>
                     </div>
