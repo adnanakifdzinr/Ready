@@ -210,7 +210,7 @@ export function WebOpenAnimation() {
                 animate={{
                   boxShadow: isHovering ? '0 0 20px rgba(255, 58, 9, 0.6)' : '0 0 0px rgba(255, 58, 9, 0)'
                 }}
-                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
               >
                 <motion.div
                   animate={{
@@ -230,7 +230,7 @@ export function WebOpenAnimation() {
                     opacity: isHovering ? 1 : 0,
                     rotate: isHovering ? -45 : 0
                   }}
-                  transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 1.3, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute"
                 >
                   <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />

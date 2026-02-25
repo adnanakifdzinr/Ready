@@ -144,7 +144,7 @@ export function SiteHeader() {
               }}
               onHoverStart={() => setIsCtaHovering(true)}
               onHoverEnd={() => setIsCtaHovering(false)}
-              className="hidden md:flex relative h-[52px] bg-black border-l-2 border-r-2 border-white rounded-full items-center justify-between px-5 py-2 gap-2 overflow-hidden cursor-pointer shadow-black/40 shadow-lg"
+              className="hidden md:flex relative h-[52px] bg-black border-l-2 border-r-2 border-white rounded-full items-center justify-between px-5 py-2 gap-2 overflow-hidden cursor-pointer"
             >
               <motion.span
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -228,7 +228,7 @@ export function SiteHeader() {
             {/* Hamburger Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative flex items-center justify-center bg-black rounded-full w-9 h-9 md:w-12 md:h-12 shadow-black/40 shadow-lg group"
+              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMenuOpen}
             >
