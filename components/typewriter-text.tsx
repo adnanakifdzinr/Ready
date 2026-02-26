@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useTypewriterTrigger } from '@/context/animation-context'
 
 interface TypewriterTextProps {
@@ -10,59 +10,114 @@ interface TypewriterTextProps {
 }
 
 export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
+  const [shouldAnimateNow, setShouldAnimateNow] = useState(false)
   const { startTypewriterAnimation } = useTypewriterTrigger()
+  const ref = useRef(null)
 
+  // Trigger animation after hero SVG animation completes
   useEffect(() => {
-    // Start typewriter animation 1.5s after the web-open CTA is clicked
-    if (!startTypewriterAnimation) return
-    
-    const delayMs = 1500
-    const startTimer = setTimeout(() => {
-      setIsTyping(true)
-    }, delayMs)
+    if (startTypewriterAnimation) {
+      // SVG animation: 0.4s delay + 1.4s duration = 1.8s total
+      // Add small buffer to ensure it starts after SVG finishes
+      const timer = setTimeout(() => {
+        setShouldAnimateNow(true)
+        console.log('[v0] Starting typewriter animation after SVG completes')
+      }, 1800)
 
-    return () => clearTimeout(startTimer)
+      return () => clearTimeout(timer)
+    }
   }, [startTypewriterAnimation])
 
-  useEffect(() => {
-    if (!isTyping) return
+  // Split text into words for line-by-line animation
+  const words = text.split(' ')
 
-    let currentIndex = 0
-    
-    // Calculate interval to complete typing in 1.6s (1600ms)
-    const totalChars = text.length
-    const typingDuration = 1600
-    const interval = Math.max(1, typingDuration / totalChars)
-    
-    const typeInterval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setDisplayText(text.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typeInterval)
-      }
-    }, interval)
+  // Group words for responsive layout:
+  // Mobile: We / create premium / brands that command / attention.
+  // Desktop: We create premium / brands that command / attention.
+  const getMobileGroups = () => {
+    return [
+      [words[0]], // "We"
+      words.slice(1, 3), // "create premium"
+      words.slice(3, 6), // "brands that command"
+      words.slice(6), // "attention."
+    ]
+  }
 
-    return () => clearInterval(typeInterval)
-  }, [isTyping, text])
+  const getDesktopGroups = () => {
+    return [
+      words.slice(0, 3), // "We create premium "
+      words.slice(3, 6), // "brands that command"
+      words.slice(6), // "attention."
+    ]
+  }
+
+  const mobileGroups = getMobileGroups()
+  const desktopGroups = getDesktopGroups()
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0,
+      },
+    },
+  }
+
+  const lineVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.9,
+        ease: [0.23, 1, 0.32, 1],
+      },
+    },
+  }
 
   return (
-    <motion.h1
-      initial={{ opacity: 0, y: 20 }}
-      animate={startTypewriterAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: 0.3 }}
-      className={`text-black ${className}`}
+    <motion.div
+      ref={ref}
+      variants={containerVariants}
+      initial="hidden"
+      animate={shouldAnimateNow ? "visible" : "hidden"}
+      className={className}
     >
-      {displayText}
-      {isTyping && displayText.length < text.length && (
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity }}
-          className="inline-block ml-1 h-[0.9em] w-[0.05em] bg-black"
-        />
-      )}
-    </motion.h1>
+      {/* Mobile layout: 4 lines */}
+      <div className="md:hidden">
+        {mobileGroups.map((group, idx) => (
+          <motion.div
+            key={`mobile-${idx}`}
+            variants={lineVariants}
+            className="block"
+          >
+            {group.map((word, wordIdx) => (
+              <span key={`${word}-${wordIdx}`} className="inline-block mr-[0.25em]">
+                {word}
+              </span>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Desktop layout: 3 lines */}
+      <div className="hidden md:block">
+        {desktopGroups.map((group, idx) => (
+          <motion.div
+            key={`desktop-${idx}`}
+            variants={lineVariants}
+            className="block"
+          >
+            {group.map((word, wordIdx) => (
+              <span key={`${word}-${wordIdx}`} className="inline-block mr-[0.25em]">
+                {word}
+              </span>
+            ))}
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   )
 }

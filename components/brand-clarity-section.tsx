@@ -2,17 +2,32 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { PricingPopup } from '@/components/pricing-popup'
-
-import { HeadingAnimation, ContentBlockAnimation, BrandClarityTextAnimation } from '@/components/section-animations'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
 export function BrandClaritySection() {
   const [isPricingOpen, setIsPricingOpen] = useState(false)
   const [hoveredCta, setHoveredCta] = useState<string | null>(null)
-  const ctaRef = useRef<HTMLButtonElement>(null)
+  const [isInView, setIsInView] = useState(false)
   const [isCtaInView, setIsCtaInView] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const ctaRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true)
+          observer.unobserve(entry.target)
+        }
+      },
+      { threshold: 0.15 }
+    )
+
+    if (sectionRef.current) observer.observe(sectionRef.current)
+    return () => sectionRef.current && observer.unobserve(sectionRef.current)
+  }, [])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,51 +54,123 @@ export function BrandClaritySection() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  const headingLines = [
+    "When your brand is clear,",
+    "everything else moves faster."
+  ]
+
+  const paragraph1Lines = [
+    "Every strong brand begins with clarity. We start by",
+    "understanding your audience, your story, your personality,",
+    "and your product / service. When these align, your brand",
+    "becomes unmistakable. From there, we build your brand",
+    "strategy, messaging, and visual identity that express who",
+    "you are with confidence and consistency. The result is a",
+    "premium, cohesive brand that resonates deeply and performs",
+    "across every touchpoint."
+  ]
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0,
+      },
+    },
+  }
+
+  const lineVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      filter: 'blur(4px)'
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.85,
+        ease: [0.34, 1.56, 0.64, 1],
+      },
+    },
+  }
+
   return (
-    <section className="w-full bg-[#f9f9f9] py-12 md:py-20 lg:py-24">
+    <section ref={sectionRef} className="w-full bg-[#f9f9f9] py-12 md:py-20 lg:py-24">
       <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
-        {/* Top Text Section - Gradient reveal effect */}
-        <HeadingAnimation className="mb-12 md:mb-16 lg:mb-10">
-          <h2 className="text-4xl md:text-5xl lg:text-[45px] text-black font-medium leading-tight tracking-tighter">
-            When your brand is clear,
-            <br />
-            everything else moves faster.
-          </h2>
-        </HeadingAnimation>
+        {/* Top Text Section - Line by line slide up */}
+        <motion.div
+          className="mb-12 md:mb-16 lg:mb-10"
+        >
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-[45px] text-black font-medium leading-tight tracking-tighter"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {headingLines.map((line, idx) => (
+              <motion.div
+                key={`heading-line-${idx}`}
+                variants={lineVariants}
+                className="block overflow-hidden"
+              >
+                <motion.span className="block">
+                  {line}
+                </motion.span>
+              </motion.div>
+            ))}
+          </motion.h2>
+        </motion.div>
 
         {/* Bottom Section */}
-        <ContentBlockAnimation>
+        <div>
           <div className="grid grid-cols-1 md:grid-cols-10 gap-8 md:gap-12 lg:gap-16 items-start">
             {/* Left Side - 70% Text Content */}
             <div className="w-full md:col-span-7 space-y-6">
-              <BrandClarityTextAnimation>
+              {/* Paragraph 1 - Enhanced line-by-line animation */}
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
                 <motion.p
-                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-tight"
-                  initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: true, amount: 0.5 }}
+                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-relaxed"
                 >
-                  Every strong brand begins with clarity. We start by understanding your
-                  audience, your story, your personality, and your product / service. When these align,
-                  your brand becomes unmistakable. From there, we build your brand strategy, messaging, and visual identity that express who you are with confidence and consistency. The result is a premium, cohesive brand that resonates deeply and performs across every touchpoint.
+                  {paragraph1Lines.map((line, idx) => (
+                    <motion.span
+                      key={`para1-line-${idx}`}
+                      variants={lineVariants}
+                      className="block overflow-hidden"
+                    >
+                      {line}
+                    </motion.span>
+                  ))}
                 </motion.p>
-              </BrandClarityTextAnimation>
+              </motion.div>
 
-              <BrandClarityTextAnimation>
+              {/* Paragraph 2 - Call to action line */}
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+              >
                 <motion.p
-                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-tight"
-                  initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                  transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: true, amount: 0.5 }}
+                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-relaxed"
                 >
-                  Schedule a call to see if we're a good fit to work together.
+                  <motion.span
+                    variants={lineVariants}
+                    className="block overflow-hidden"
+                  >
+                    Schedule a call to see if we're a good fit to work together.
+                  </motion.span>
                 </motion.p>
-              </BrandClarityTextAnimation>
+              </motion.div>
             </div>
           </div>
-        </ContentBlockAnimation>
+        </div>
       </div>
 
       {/* Pricing Popup */}
