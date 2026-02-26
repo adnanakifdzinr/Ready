@@ -29,61 +29,89 @@ export function BrandStrategySection() {
     }
   }, [])
 
-  // Split heading text into sentences for line-by-line animation
-  const headingText = "We're a Brand Strategy & Identity Design studio based in Toronto. We help founders build premium, iconic brands that stand out and command attention."
-  const headingSentences = headingText.split('. ').map((s, i) => 
-    i < headingText.split('. ').length - 1 ? s + '.' : s
-  )
+  // Split heading text into lines for mobile and desktop
+  const getHeadingLines = () => {
+    return [
+      "We're a Brand Strategy & Identity Design",
+      "studio based in Toronto. We help founders",
+      "build premium, iconic brands that stand out",
+      "and command attention."
+    ]
+  }
+
+  const getParagraphLines = (text: string) => {
+    // Split by natural sentence/phrase breaks for better line animation
+    if (text.includes("Our work brings")) {
+      return [
+        "Our work brings structure, clarity, and intention",
+        "to your brand – so you can attract high paying",
+        "customers, raise your value, and grow with confidence."
+      ]
+    }
+    return [text]
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
+        staggerChildren: 0.08,
         delayChildren: 0,
       },
     },
   }
 
   const lineVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      filter: 'blur(4px)'
+    },
     visible: {
       opacity: 1,
       y: 0,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.9,
-        ease: [0.23, 1, 0.32, 1],
+        duration: 0.85,
+        ease: [0.34, 1.56, 0.64, 1],
       },
     },
   }
 
+  const headingLines = getHeadingLines()
+  const paragraph1Lines = getParagraphLines("Our work brings structure, clarity, and intention to your brand – so you can attract high paying customers, raise your value, and grow with confidence.")
+
   return (
     <section ref={ref} className="w-full bg-[#0E0E0E] transition-colors duration-300 py-16 md:py-24 lg:py-32 px-3 md:px-5 lg:px-8">
       <div className="max-w-full mx-auto">
-        {/* Top Text Section - Line by line slide up */}
+        {/* Top Text Section - Enhanced line by line slide up */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
           className="mb-12 md:mb-16 lg:mb-20"
         >
-          <h2 className="text-3xl md:text-5xl lg:text-[45px] font-medium text-white tracking-tighter leading-tight">
-            {headingSentences.map((sentence, idx) => (
+          <motion.h2 
+            className="text-3xl md:text-5xl lg:text-[45px] font-medium text-white tracking-tighter leading-tight"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+          >
+            {headingLines.map((line, idx) => (
               <motion.div
-                key={`sentence-${idx}`}
+                key={`heading-line-${idx}`}
                 variants={lineVariants}
-                className="block"
+                className="block overflow-hidden"
               >
-                {sentence}
+                <motion.span className="block">
+                  {line}
+                </motion.span>
               </motion.div>
             ))}
-          </h2>
+          </motion.h2>
         </motion.div>
 
         {/* Bottom Section: Text Only */}
         <div className="grid grid-cols-1 md:grid-cols-10 gap-6 md:gap-8 lg:gap-8">
-          {/* Text with line-by-line animations */}
+          {/* Text with enhanced line-by-line animations */}
           <div className="md:col-span-10 flex flex-col justify-start gap-6 md:gap-8 max-w-4xl">
             {/* Paragraph 1 */}
             <motion.div
@@ -92,10 +120,17 @@ export function BrandStrategySection() {
               animate={isInView ? "visible" : "hidden"}
             >
               <motion.p
-                variants={lineVariants}
-                className="text-base md:text-lg lg:text-[22px] font-regular text-white font-medium tracking-tight leading-tight block"
+                className="text-base md:text-lg lg:text-[22px] font-regular text-white font-medium tracking-tight leading-relaxed block"
               >
-                Our work brings structure, clarity, and intention to your brand – so you can attract high paying customers, raise your value, and grow with confidence.
+                {paragraph1Lines.map((line, idx) => (
+                  <motion.span
+                    key={`para1-line-${idx}`}
+                    variants={lineVariants}
+                    className="block overflow-hidden"
+                  >
+                    {line}
+                  </motion.span>
+                ))}
               </motion.p>
             </motion.div>
 
@@ -106,10 +141,14 @@ export function BrandStrategySection() {
               animate={isInView ? "visible" : "hidden"}
             >
               <motion.p
-                variants={lineVariants}
-                className="text-base md:text-lg lg:text-[22px] font-regular text-white font-medium tracking-tight leading-tight block"
+                className="text-base md:text-lg lg:text-[22px] font-regular text-white font-medium tracking-tight leading-relaxed block"
               >
-                We work with founders who think big and want their brand to reflect that ambition.
+                <motion.span
+                  variants={lineVariants}
+                  className="block overflow-hidden"
+                >
+                  We work with founders who think big and want their brand to reflect that ambition.
+                </motion.span>
               </motion.p>
             </motion.div>
           </div>

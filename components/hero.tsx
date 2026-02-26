@@ -255,7 +255,7 @@ export function Hero() {
 
         {/* Unified Hero for all devices */}
         <motion.div
-          className="flex pt-90 md:pt-70 lg:pt-70 items-center justify-between overflow-hidden w-full relative"
+          className="flex pt-90 md:pt-70 lg:pt-70 pb-40 md:pb-56 lg:pb-72 items-center justify-between overflow-hidden w-full relative"
           ref={svgContainerRef}
           style={{ opacity }}
         >
