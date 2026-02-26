@@ -10,31 +10,23 @@ interface TypewriterTextProps {
 }
 
 export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
-  const [isInView, setIsInView] = useState(false)
+  const [shouldAnimateNow, setShouldAnimateNow] = useState(false)
   const { startTypewriterAnimation } = useTypewriterTrigger()
   const ref = useRef(null)
 
+  // Trigger animation after hero SVG animation completes
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsInView(true)
-          observer.unobserve(entry.target)
-        }
-      },
-      { threshold: 0.3 }
-    )
+    if (startTypewriterAnimation) {
+      // SVG animation: 0.4s delay + 1.4s duration = 1.8s total
+      // Add small buffer to ensure it starts after SVG finishes
+      const timer = setTimeout(() => {
+        setShouldAnimateNow(true)
+        console.log('[v0] Starting typewriter animation after SVG completes')
+      }, 1800)
 
-    if (ref.current) {
-      observer.observe(ref.current)
+      return () => clearTimeout(timer)
     }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current)
-      }
-    }
-  }, [])
+  }, [startTypewriterAnimation])
 
   // Split text into words for line-by-line animation
   const words = text.split(' ')
@@ -67,32 +59,30 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.12,
+        delayChildren: 0,
       },
     },
   }
 
   const lineVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.33, 0.66, 0.66, 1],
+        duration: 0.9,
+        ease: [0.23, 1, 0.32, 1],
       },
     },
   }
-
-  const shouldAnimate = startTypewriterAnimation || isInView
 
   return (
     <motion.div
       ref={ref}
       variants={containerVariants}
       initial="hidden"
-      animate={shouldAnimate ? "visible" : "hidden"}
+      animate={shouldAnimateNow ? "visible" : "hidden"}
       className={className}
     >
       {/* Mobile layout: 4 lines */}
