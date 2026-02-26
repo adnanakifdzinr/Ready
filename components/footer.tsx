@@ -273,8 +273,7 @@ export function Footer() {
                       onMouseLeave={() => setHoveredCta(null)}
                     >
                       <motion.div
-                        className="flex items-center gap-12 bg-transparent border-b border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden shadow-lg"
-                        style={{ boxShadow: "0 -10px 10px -5px rgba(0, 0, 0, 0.4)" }}
+                        className="flex items-center gap-12 bg-transparent border-b border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
                         initial={{ width: 'auto' }}
                         animate={{ width: 'auto' }}
                         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0 }}
@@ -325,8 +324,7 @@ export function Footer() {
                       onMouseLeave={() => setHoveredCta(null)}
                     >
                       <motion.div
-                        className="flex items-center gap-2 bg-transparent border-t border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden shadow-lg"
-                        style={{ boxShadow: "0 10px 10px -5px rgba(0, 0, 0, 0.4)" }}
+                        className="flex items-center gap-2 bg-transparent border-t border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
                         initial={{ width: 'auto' }}
                         animate={{ width: 'auto' }}
                         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
@@ -545,7 +543,6 @@ export function Footer() {
             whileInView="visible"
             viewport={{ amount: 0.1 }}
             variants={svgVariants}
-            whileHover="hover"
           >
             <path d="M3.01,5.66h84.41v284.2h166.33v75.42H3.01V5.66Z" fill="black" />
             <path d="M328.98,340.81c-26.71-15.92-46.89-37.47-60.56-64.67-13.68-27.18-20.51-57.5-20.51-90.97s6.83-63.78,20.51-90.97c13.67-27.18,33.86-48.74,60.56-64.66,26.7-15.92,58.55-23.89,95.55-23.89s68.84,7.96,95.55,23.89c26.7,15.92,46.89,37.48,60.56,64.66,13.67,27.19,20.51,57.51,20.51,90.97s-6.84,63.78-20.51,90.97c-13.68,27.19-33.86,48.74-60.56,64.67-26.71,15.92-58.56,23.89-95.55,23.89s-68.85-7.96-95.55-23.89ZM355.52,262.63c15.12,20.11,38.12,30.16,69.01,30.16s53.88-10.05,69.01-30.16c15.12-20.1,22.68-45.92,22.68-77.45s-7.56-57.34-22.68-77.45c-15.13-20.1-38.12-30.16-69.01-30.16s-53.89,10.06-69.01,30.16c-15.13,20.11-22.68,45.93-22.68,77.45s7.56,57.35,22.68,77.45Z" fill="black" />

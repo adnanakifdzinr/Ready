@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { useTypewriterTrigger } from '@/context/animation-context'
+import { useMediaQuery } from '@/hooks/use-mobile'
 
 interface TypewriterTextProps {
   text: string
@@ -10,59 +11,63 @@ interface TypewriterTextProps {
 }
 
 export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState('')
-  const [isTyping, setIsTyping] = useState(false)
+  const [lines, setLines] = useState<string[]>([])
   const { startTypewriterAnimation } = useTypewriterTrigger()
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
   useEffect(() => {
-    // Start typewriter animation 1.5s after the web-open CTA is clicked
-    if (!startTypewriterAnimation) return
-    
-    const delayMs = 1500
-    const startTimer = setTimeout(() => {
-      setIsTyping(true)
-    }, delayMs)
+    // Split text into lines based on screen size
+    // Mobile: 3 lines | Desktop: 1 line
+    if (isMobile) {
+      // "We create premium brands that command attention."
+      // Split into 3 lines for mobile
+      setLines(['We create premium', 'brands that', 'command attention.'])
+    } else {
+      // 1 line for desktop
+      setLines(['We create premium brands that command attention.'])
+    }
+  }, [isMobile])
 
-    return () => clearTimeout(startTimer)
-  }, [startTypewriterAnimation])
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  }
 
-  useEffect(() => {
-    if (!isTyping) return
-
-    let currentIndex = 0
-    
-    // Calculate interval to complete typing in 1.6s (1600ms)
-    const totalChars = text.length
-    const typingDuration = 1600
-    const interval = Math.max(1, typingDuration / totalChars)
-    
-    const typeInterval = setInterval(() => {
-      if (currentIndex <= text.length) {
-        setDisplayText(text.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        clearInterval(typeInterval)
-      }
-    }, interval)
-
-    return () => clearInterval(typeInterval)
-  }, [isTyping, text])
+  const lineVariants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      filter: 'blur(8px)',
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.7,
+        ease: [0.23, 1, 0.32, 1],
+      },
+    },
+  }
 
   return (
     <motion.h1
-      initial={{ opacity: 0, y: 20 }}
-      animate={startTypewriterAnimation ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-      transition={{ duration: 0.6, delay: 0.3 }}
       className={`text-black ${className}`}
+      variants={containerVariants}
+      initial="hidden"
+      animate={startTypewriterAnimation ? 'visible' : 'hidden'}
     >
-      {displayText}
-      {isTyping && displayText.length < text.length && (
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ duration: 0.5, repeat: Infinity }}
-          className="inline-block ml-1 h-[0.9em] w-[0.05em] bg-black"
-        />
-      )}
+      {lines.map((line, index) => (
+        <motion.div key={index} variants={lineVariants}>
+          {line}
+        </motion.div>
+      ))}
     </motion.h1>
   )
 }

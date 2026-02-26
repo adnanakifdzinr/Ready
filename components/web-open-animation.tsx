@@ -35,13 +35,13 @@ export function WebOpenAnimation() {
     setIsHovering(false);
   };
 
-  // Responsive sizing - same size for mobile and desktop
-  const buttonWidth = '56px';
-  const expandedWidth = '200px';
-  const buttonHeight = 'h-[52px]';
-  const circleSize = 'w-9 h-9';
-  const arrowSize = 'w-6 h-6';
-  const textSize = 'text-[16px]';
+  // Responsive sizing - smaller on mobile
+  const buttonWidth = isMobile ? '44px' : '56px';
+  const expandedWidth = isMobile ? '140px' : '165px';
+  const buttonHeight = isMobile ? 'h-[44px]' : 'h-[52px]';
+  const circleSize = isMobile ? 'w-7 h-7' : 'w-9 h-9';
+  const arrowSize = isMobile ? 'w-5 h-5' : 'w-6 h-6';
+  const textSize = isMobile ? 'text-[12px]' : 'text-[16px]';
   const gap = 'gap-2';
 
   // Overlay animation variants - smooth fade with blur effect
@@ -91,9 +91,9 @@ export function WebOpenAnimation() {
 
   // Button width expansion with smooth easing
   const buttonVariants = {
-    collapsed: { width: 56 },
+    collapsed: { width: isMobile ? 44 : 56 },
     expanded: {
-      width: 180,
+      width: isMobile ? 140 : 165,
       transition: { duration: 0.95, delay: 0.3, ease: [0.23, 1, 0.32, 1] }
     }
   };
@@ -183,7 +183,7 @@ export function WebOpenAnimation() {
               onHoverStart={handleHoverStart}
               onHoverEnd={handleHoverEnd}
               onClick={handleEnter}
-              className={`relative ${buttonHeight} bg-white backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-5 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300`}
+              className={`relative ${buttonHeight} bg-white backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-3 lg:px-2 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300`}
             >
               {/* Left text - reveals with character-level 3D flip */}
               <motion.span
@@ -206,7 +206,7 @@ export function WebOpenAnimation() {
 
               {/* Arrow circle with smooth color transition */}
               <motion.div
-                className="w-10 h-10 rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0 transition-all duration-500"
+                className={`${isMobile ? 'w-8 h-8' : 'w-10 h-10'} rounded-full bg-[#ff3a09] flex items-center justify-center overflow-hidden relative flex-shrink-0 transition-all duration-500`}
                 animate={{
                   boxShadow: isHovering ? '0 0 20px rgba(255, 58, 9, 0.6)' : '0 0 0px rgba(255, 58, 9, 0)'
                 }}
@@ -218,10 +218,10 @@ export function WebOpenAnimation() {
                     opacity: isHovering ? 0 : 1,
                     rotate: isHovering ? 45 : 0
                   }}
-                  transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute"
                 >
-                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
+                  <ArrowRight className={`${arrowSize} text-white`} strokeWidth={2} />
                 </motion.div>
 
                 <motion.div
@@ -230,10 +230,10 @@ export function WebOpenAnimation() {
                     opacity: isHovering ? 1 : 0,
                     rotate: isHovering ? -45 : 0
                   }}
-                  transition={{ duration: 1.3, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
                   className="absolute"
                 >
-                  <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
+                  <ArrowRight className={`${arrowSize} text-white`} strokeWidth={2} />
                 </motion.div>
               </motion.div>
             </motion.button>
