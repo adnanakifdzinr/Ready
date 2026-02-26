@@ -56,7 +56,7 @@ export default function Home() {
             <div className="flex items-center">
               <TypewriterText
                 text="We create premium brands that command attention."
-                className="text-[20px] md:text-5xl lg:text-[35px] font-regular text-[#F7F7F7] leading-none tracking-tighter"
+                className="text-[20px] md:text-5xl lg:text-[35px] font-regular text-black leading-none tracking-tighter"
               />
             </div>
           </div>
