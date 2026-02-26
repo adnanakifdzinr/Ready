@@ -266,47 +266,50 @@ export function Hero() {
             transition={{ duration: 0.5 }}
           >
             <motion.h1
-              className="text-[42px] md:text-[80px] lg:text-[120px] xl:text-[160px] 2xl:text-[196px] font-medium text-black leading-[0.9] sm:leading-[0.85] md:leading-[0.8] tracking-tighter text-left sm:text-left w-full break-words"
+              className="text-[42px] md:text-[80px] lg:text-[120px] xl:text-[160px] 2xl:text-[196px] font-medium text-black leading-[0.9] sm:leading-[1.1] md:leading-[0.85] tracking-tighter text-left w-full"
             >
-              {/* Line 1: "Brands," */}
-              <motion.div className="block">
-                <motion.span
-                  initial={{ opacity: 0, y: 50, rotateX: 90 }}
-                  animate={isHeroInView ? { opacity: 1, y: 0, rotateX: 0 } : { opacity: 0, y: 50, rotateX: 90 }}
-                  transition={{
-                    duration: 0.8,
-                    delay: 0.1,
-                    ease: [0.33, 0.66, 0.66, 1],
-                  }}
-                  style={{
-                    display: "inline-block",
-                    perspective: "1000px",
-                  }}
-                  className="floating-text"
-                >
-                  Brands,
-                </motion.span>
+              {/* Mobile: 3 lines, Desktop: 1 line */}
+              
+              {/* Line 1: "Brands," - visible on mobile and desktop */}
+              <motion.div 
+                className="block md:inline"
+                initial={{ opacity: 0, y: 40 }}
+                animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.1,
+                  ease: [0.33, 0.66, 0.66, 1],
+                }}
+              >
+                <span className="inline-block mr-0 md:mr-4">Brands,</span>
               </motion.div>
 
-              {/* Line 2: "built with intention." */}
-              <motion.div className="block">
-                <div className="inline-block">
-                  {["built", "with", "intention."].map((word, idx) => (
-                    <motion.span
-                      key={`${word}-${idx}`}
-                      initial={{ opacity: 0, y: 50 }}
-                      animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-                      transition={{
-                        duration: 0.8,
-                        delay: 0.2 + idx * 0.12,
-                        ease: [0.33, 0.66, 0.66, 1],
-                      }}
-                      className="inline-block mr-3"
-                    >
-                      {word}
-                    </motion.span>
-                  ))}
-                </div>
+              {/* Line 2: "built" - visible on mobile and desktop */}
+              <motion.div 
+                className="block md:inline"
+                initial={{ opacity: 0, y: 40 }}
+                animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.25,
+                  ease: [0.33, 0.66, 0.66, 1],
+                }}
+              >
+                <span className="inline-block mr-0 md:mr-4">built</span>
+              </motion.div>
+
+              {/* Line 3: "with intention." - visible on mobile and desktop */}
+              <motion.div 
+                className="block md:inline"
+                initial={{ opacity: 0, y: 40 }}
+                animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{
+                  duration: 0.7,
+                  delay: 0.4,
+                  ease: [0.33, 0.66, 0.66, 1],
+                }}
+              >
+                <span className="inline-block">with intention.</span>
               </motion.div>
             </motion.h1>
 
