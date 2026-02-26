@@ -37,11 +37,11 @@ export function WebOpenAnimation() {
 
   // Responsive sizing - smaller on mobile
   const buttonWidth = isMobile ? '44px' : '56px';
-  const expandedWidth = isMobile ? '130px' : '200px';
+  const expandedWidth = isMobile ? '145px' : '170px';
   const buttonHeight = isMobile ? 'h-[44px]' : 'h-[52px]';
   const circleSize = isMobile ? 'w-7 h-7' : 'w-9 h-9';
   const arrowSize = isMobile ? 'w-5 h-5' : 'w-6 h-6';
-  const textSize = isMobile ? 'text-[14px]' : 'text-[16px]';
+  const textSize = isMobile ? 'text-[12px]' : 'text-[16px]';
   const gap = 'gap-2';
 
   // Overlay animation variants - smooth fade with blur effect
@@ -93,7 +93,7 @@ export function WebOpenAnimation() {
   const buttonVariants = {
     collapsed: { width: isMobile ? 44 : 56 },
     expanded: {
-      width: isMobile ? 130 : 180,
+      width: isMobile ? 145 : 170,
       transition: { duration: 0.95, delay: 0.3, ease: [0.23, 1, 0.32, 1] }
     }
   };
@@ -183,7 +183,7 @@ export function WebOpenAnimation() {
               onHoverStart={handleHoverStart}
               onHoverEnd={handleHoverEnd}
               onClick={handleEnter}
-              className={`relative ${buttonHeight} bg-white backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-5 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300`}
+              className={`relative ${buttonHeight} bg-white backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-3 lg:px-2 py-2 ${gap} overflow-hidden cursor-pointer focus:outline-none transition-colors duration-300`}
             >
               {/* Left text - reveals with character-level 3D flip */}
               <motion.span
