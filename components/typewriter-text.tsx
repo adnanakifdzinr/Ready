@@ -30,7 +30,7 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
 
   // Split text into words for line-by-line animation
   const words = text.split(' ')
-  
+
   // Group words for responsive layout:
   // Mobile: We / create premium / brands that command / attention.
   // Desktop: We create premium / brands that command / attention.
@@ -45,7 +45,7 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
 
   const getDesktopGroups = () => {
     return [
-      words.slice(0, 3), // "We create premium"
+      words.slice(0, 3), // "We create premium brands that command"
       words.slice(3, 6), // "brands that command"
       words.slice(6), // "attention."
     ]
