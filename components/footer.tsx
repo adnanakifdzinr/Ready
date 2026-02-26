@@ -273,8 +273,7 @@ export function Footer() {
                       onMouseLeave={() => setHoveredCta(null)}
                     >
                       <motion.div
-                        className="flex items-center gap-12 bg-transparent border-b border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden shadow-lg"
-                        style={{ boxShadow: "0 -10px 10px -5px rgba(0, 0, 0, 0.4)" }}
+                        className="flex items-center gap-12 bg-transparent border-b border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
                         initial={{ width: 'auto' }}
                         animate={{ width: 'auto' }}
                         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0 }}
@@ -325,8 +324,7 @@ export function Footer() {
                       onMouseLeave={() => setHoveredCta(null)}
                     >
                       <motion.div
-                        className="flex items-center gap-2 bg-transparent border-t border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden shadow-lg"
-                        style={{ boxShadow: "0 10px 10px -5px rgba(0, 0, 0, 0.4)" }}
+                        className="flex items-center gap-2 bg-transparent border-t border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
                         initial={{ width: 'auto' }}
                         animate={{ width: 'auto' }}
                         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
