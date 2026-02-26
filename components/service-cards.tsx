@@ -221,19 +221,23 @@ export function ServiceCards() {
             >
               {/* Animated gradient border blur effect */}
               <motion.div
-                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 pointer-events-none"
                 animate={{
+                  opacity: isHovered ? 1 : 0,
+                }}
+                transition={{ duration: 0.5 }}
+                style={{
                   boxShadow: isHovered
                     ? "0 0 10px rgba(255, 255, 255, 0), inset 0 0 40px rgba(255, 255, 255, 0.1)"
                     : "0 0 0px rgba(255, 255, 255, 0)",
                 }}
-                transition={{ duration: 0.5 }}
               />
 
               {/* Shimmer effect on hover */}
               <motion.div
                 className="absolute inset-0 rounded-3xl overflow-hidden opacity-0 group-hover:opacity-100"
                 animate={{ opacity: isHovered ? 1 : 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <motion.div
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent"
@@ -251,11 +255,8 @@ export function ServiceCards() {
               </motion.div>
 
               <motion.div
-                className="service-card-inner h-full bg-black/20 rounded-3xl p-8 md:p-9 flex flex-col relative z-10 transition-all duration-500"
-                animate={{
-                  y: isHovered ? 0 : 0,
-                  scale: isHovered ? 1 : 1,
-                }}
+                className="service-card-inner h-full bg-black/20 rounded-3xl p-8 md:p-9 flex flex-col relative z-10"
+                animate={{}}
                 transition={{
                   duration: 0.4,
                   ease: "easeOut",
