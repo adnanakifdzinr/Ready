@@ -110,46 +110,60 @@ export function WhyChooseUsSection() {
   ]
 
   return (
-    <section className="w-full bg-[#0e0e0e] py-12 md:py-20 lg:py-24">
-      <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
-        {/* Top Heading */}
-        <HeadingAnimation className="mb-8 md:mb-2">
-          <h2 className="text-[32px] sm:text-[48px] md:text-[56px] lg:text-[64px] text-white font-medium leading-tighter tracking-tight">
-            Want to work with us?
-          </h2>
-        </HeadingAnimation>
+    <section className="w-full bg-[#0e0e0e] py-16 md:py-32 lg:py-40">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div className="mb-20 md:mb-28 lg:mb-32">
+          {/* Top Heading */}
+          <HeadingAnimation className="mb-6">
+            <h2 className="text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px] text-white font-medium leading-tight tracking-tight">
+              Want to work with us?
+            </h2>
+          </HeadingAnimation>
 
-        {/* Subheading */}
-        <HeadingAnimation className="mb-16 md:mb-20" delay={0.1}>
-          <p className="text-lg md:text-xl lg:text-[22px] text-gray-300 font-medium">
-            Here's our branding & design process
-          </p>
-        </HeadingAnimation>
+          {/* Subheading */}
+          <HeadingAnimation delay={0.1}>
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-400 font-medium max-w-2xl">
+              Here's our branding & design process
+            </p>
+          </HeadingAnimation>
+        </div>
 
-        {/* Process Steps */}
-        <div className="space-y-12 md:space-y-16 lg:space-y-20">
+        {/* Process Steps - Enhanced Card Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
           {processes.map((process, index) => (
             <ProcessStepAnimation key={index} index={index}>
-              {({ isInView, isHovered }: { isInView: boolean; isHovered: boolean; index: number }) => (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
-                {/* Left Side - Step Number, Title, Image */}
-                <div className="flex flex-col space-y-6">
-                  {/* Step Number - Subtle fade and scale */}
-                  <motion.p 
-                    className="text-sm md:text-base lg:text-[18px] text-white/70 font-medium mb-2 tracking-tight"
+              {({ isInView }: { isInView: boolean; isHovered: boolean; index: number }) => (
+              <motion.div 
+                className="group relative flex flex-col h-full"
+                whileHover={{ y: -8 }}
+                transition={{ duration: 0.3, ease: 'easeOut' }}
+              >
+                {/* Card Background */}
+                <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/0 rounded-2xl border border-white/10 group-hover:border-white/20 transition-colors duration-300" />
+                
+                {/* Card Content */}
+                <div className="relative flex flex-col h-full p-8 md:p-6 lg:p-8">
+                  {/* Step Number */}
+                  <motion.div
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{
                       duration: 0.6,
                       delay: index * 0.15 + 0.1,
                     }}
+                    className="mb-6"
                   >
-                    Step {process.step}
-                  </motion.p>
+                    <div className="inline-block px-4 py-2 rounded-full bg-white/10 border border-white/20">
+                      <span className="text-sm md:text-xs lg:text-sm font-medium text-white/70">
+                        Step {process.step}
+                      </span>
+                    </div>
+                  </motion.div>
 
-                  {/* Title - Smooth reveal */}
+                  {/* Title */}
                   <motion.h3 
-                    className="text-3xl md:text-4xl lg:text-[40px] text-white font-medium tracking-tight"
+                    className="text-2xl md:text-2xl lg:text-3xl text-white font-medium tracking-tight mb-6"
                     initial={{ opacity: 0, y: 10 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                     transition={{
@@ -161,50 +175,49 @@ export function WhyChooseUsSection() {
                     {process.title}
                   </motion.h3>
 
-                  {/* Image Placeholder - Blank */}
+                  {/* Description with line-by-line animation */}
                   <motion.div
-                    className="relative w-full h-80 md:h-96 rounded-xl overflow-hidden bg-transparent"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: index * 0.15 + 0.2,
-                      ease: 'easeOut',
-                    }}
-                  />
-                  
-                </div>
-
-                {/* Right Side - Description with line-by-line animation */}
-                <motion.div 
-                  className="flex flex-col justify-start mt-25"
-                >
-                  <motion.p 
-                    className="text-base md:text-lg lg:text-[18px] text-gray-400 leading-relaxed"
+                    className="flex-grow"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{
                       staggerChildren: 0.08,
-                      delayChildren: index * 0.15 + 0.25,
+                      delayChildren: index * 0.15 + 0.2,
                     }}
                   >
-                    {process.descriptionLines.map((line, lineIdx) => (
-                      <motion.span
-                        key={`desc-line-${lineIdx}`}
-                        initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-                        animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(4px)' }}
-                        transition={{
-                          duration: 0.85,
-                          ease: [0.34, 1.56, 0.64, 1],
-                        }}
-                        className="block overflow-hidden"
-                      >
-                        {line}
-                      </motion.span>
-                    ))}
-                  </motion.p>
-                </motion.div>
-              </div>
+                    <motion.p 
+                      className="text-sm md:text-base lg:text-[16px] text-gray-400 leading-relaxed"
+                    >
+                      {process.descriptionLines.map((line, lineIdx) => (
+                        <motion.span
+                          key={`desc-line-${lineIdx}`}
+                          initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
+                          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(4px)' }}
+                          transition={{
+                            duration: 0.85,
+                            ease: [0.34, 1.56, 0.64, 1],
+                          }}
+                          className="block overflow-hidden"
+                        >
+                          {line}
+                        </motion.span>
+                      ))}
+                    </motion.p>
+                  </motion.div>
+
+                  {/* Decorative line at bottom */}
+                  <motion.div
+                    className="mt-8 h-1 bg-gradient-to-r from-white/20 to-transparent rounded-full"
+                    initial={{ scaleX: 0 }}
+                    animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                    transition={{
+                      duration: 0.8,
+                      delay: index * 0.15 + 0.4,
+                    }}
+                    style={{ originX: 0 }}
+                  />
+                </div>
+              </motion.div>
               )}
             </ProcessStepAnimation>
           ))}
