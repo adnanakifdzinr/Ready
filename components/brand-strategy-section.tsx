@@ -39,16 +39,19 @@ export function BrandStrategySection() {
     ]
   }
 
-  const getParagraphLines = (text: string) => {
-    // Split by natural sentence/phrase breaks for better line animation
-    if (text.includes("Our work brings")) {
-      return [
-        "Our work brings structure, clarity, and intention",
-        "to your brand – so you can attract high paying",
-        "customers, raise your value, and grow with confidence."
-      ]
-    }
-    return [text]
+  const getParagraph1Lines = () => {
+    return [
+      "Our work brings structure, clarity, and intention",
+      "to your brand – so you can attract high paying",
+      "customers, raise your value, and grow with confidence."
+    ]
+  }
+
+  const getParagraph2Lines = () => {
+    return [
+      "We work with founders who think big and want",
+      "their brand to reflect that ambition."
+    ]
   }
 
   const containerVariants = {
@@ -80,7 +83,8 @@ export function BrandStrategySection() {
   }
 
   const headingLines = getHeadingLines()
-  const paragraph1Lines = getParagraphLines("Our work brings structure, clarity, and intention to your brand – so you can attract high paying customers, raise your value, and grow with confidence.")
+  const paragraph1Lines = getParagraph1Lines()
+  const paragraph2Lines = getParagraph2Lines()
 
   return (
     <section ref={ref} className="w-full bg-[#0E0E0E] transition-colors duration-300 py-16 md:py-24 lg:py-32 px-3 md:px-5 lg:px-8">
@@ -143,12 +147,15 @@ export function BrandStrategySection() {
               <motion.p
                 className="text-base md:text-lg lg:text-[22px] font-regular text-white font-medium tracking-tight leading-relaxed block"
               >
-                <motion.span
-                  variants={lineVariants}
-                  className="block overflow-hidden"
-                >
-                  We work with founders who think big and want their brand to reflect that ambition.
-                </motion.span>
+                {paragraph2Lines.map((line, idx) => (
+                  <motion.span
+                    key={`para2-line-${idx}`}
+                    variants={lineVariants}
+                    className="block overflow-hidden"
+                  >
+                    {line}
+                  </motion.span>
+                ))}
               </motion.p>
             </motion.div>
           </div>
