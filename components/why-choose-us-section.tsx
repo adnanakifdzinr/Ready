@@ -75,18 +75,36 @@ export function WhyChooseUsSection() {
       step: '01',
       title: 'Discovery',
       description: 'We dive deep into understanding your business, audience, values, and goals. Through research and strategy sessions, we uncover the insights that form the foundation of your brand identity.',
+      descriptionLines: [
+        'We dive deep into understanding your business,',
+        'audience, values, and goals. Through research and',
+        'strategy sessions, we uncover the insights that form',
+        'the foundation of your brand identity.'
+      ],
       image: '/images/demo.jpg',
     },
     {
       step: '02',
       title: 'Strategy',
       description: 'With a clear understanding of your brand essence, we develop a comprehensive brand strategy, messaging framework, and visual identity system that authentically represents your business.',
+      descriptionLines: [
+        'With a clear understanding of your brand essence,',
+        'we develop a comprehensive brand strategy, messaging',
+        'framework, and visual identity system that authentically',
+        'represents your business.'
+      ],
       image: '/images/process-strategy.png',
     },
     {
       step: '03',
       title: 'Design',
       description: 'We bring your brand to life across all touchpoints—from logo design to brand guidelines—ensuring consistency and impact everywhere your customers interact with your brand.',
+      descriptionLines: [
+        'We bring your brand to life across all touchpoints—',
+        'from logo design to brand guidelines—ensuring',
+        'consistency and impact everywhere your customers',
+        'interact with your brand.'
+      ],
       image: '/images/process-implementation.png',
     },
   ]
@@ -157,31 +175,34 @@ export function WhyChooseUsSection() {
                   
                 </div>
 
-                {/* Right Side - Description */}
+                {/* Right Side - Description with line-by-line animation */}
                 <motion.div 
                   className="flex flex-col justify-start mt-25"
-                  initial={{ opacity: 0 }}
-                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.15 + 0.25,
-                    ease: 'easeOut',
-                  }}
                 >
                   <motion.p 
                     className="text-base md:text-lg lg:text-[18px] text-gray-400 leading-relaxed"
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{
-                      duration: 0.7,
-                      delay: index * 0.15 + 0.3,
-                      ease: 'easeOut',
+                      staggerChildren: 0.08,
+                      delayChildren: index * 0.15 + 0.25,
                     }}
                   >
-                    {process.description}
+                    {process.descriptionLines.map((line, lineIdx) => (
+                      <motion.span
+                        key={`desc-line-${lineIdx}`}
+                        initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
+                        animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(4px)' }}
+                        transition={{
+                          duration: 0.85,
+                          ease: [0.34, 1.56, 0.64, 1],
+                        }}
+                        className="block overflow-hidden"
+                      >
+                        {line}
+                      </motion.span>
+                    ))}
                   </motion.p>
-
-
                 </motion.div>
               </div>
               )}
