@@ -45,10 +45,12 @@ export default function Home() {
     <>
       <WebOpenAnimation />
       <main className="relative bg-[#f9f9f9] transition-colors duration-300">
+        {/* ==================== HERO & INTRODUCTION ==================== */}
+        
         {/* Hero SVG Section */}
-        <section id="home" className="w-full lg:py-60 lg:px-8 py-30 px-3 overflow-hidden relative">
+        <section id="home" className="w-full lg:py-60 lg:px-8 py-30 px-3 overflow-hidden relative" aria-label="Hero section">
           <HeroSVGAnimation />
-          {/* Hero Text Section */}
+          {/* Hero Tagline */}
           <div className="grid grid-cols-2 gap-0 mt-4 md:mt-5">
             {/* Left - Empty */}
             <div></div>
@@ -62,19 +64,39 @@ export default function Home() {
           </div>
         </section>
         <Separator className="w-full h-px" />
+
+        {/* ==================== COMPANY POSITIONING ==================== */}
+        
+        {/* Primary Value Proposition - Brand Strategy */}
         <BrandStrategySection />
         <Separator className="w-full h-px" />
+
+        {/* ==================== CORE BENEFITS & APPROACH ==================== */}
+        
+        {/* Secondary Value Proposition - Brand Clarity & Differentiation */}
         <BrandClaritySection />
         <Separator className="w-full h-px" />
+
+        {/* ==================== PROOF & SHOWCASE ==================== */}
+        
         <div className="relative bg-background">
-          <section id="work">
+          {/* Portfolio/Work Section - Social Proof */}
+          <section id="work" aria-label="Portfolio section">
             <ProjectThumbnails />
           </section>
           <Separator className="w-full h-px" />
-          <section id="services">
+
+          {/* ==================== SERVICES & OFFERINGS ==================== */}
+          
+          {/* Services Breakdown */}
+          <section id="services" aria-label="Services section">
             <ServicesSection />
           </section>
           <Separator className="w-full h-px" />
+
+          {/* ==================== HOW WE WORK ==================== */}
+          
+          {/* Process & Methodology - Trust Building */}
           <WhyChooseUsSection />
           <Separator className="w-full h-px" />
         </div>

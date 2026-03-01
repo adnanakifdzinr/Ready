@@ -87,13 +87,26 @@ export function BrandStrategySection() {
   const paragraph2Lines = getParagraph2Lines()
 
   return (
-    <section ref={ref} className="w-full bg-[#0E0E0E] transition-colors duration-300 py-16 md:py-24 lg:py-32 px-3 md:px-5 lg:px-8">
+    <section ref={ref} className="w-full bg-[#0E0E0E] transition-colors duration-300 py-16 md:py-24 lg:py-32 px-3 md:px-5 lg:px-8" aria-labelledby="brand-strategy-heading">
       <div className="max-w-full mx-auto">
+        {/* Section Subheading */}
+        <motion.div 
+          className="mb-8"
+          variants={lineVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <p className="text-sm md:text-base tracking-widest uppercase text-white/50 font-medium">
+            Who We Are
+          </p>
+        </motion.div>
+
         {/* Top Text Section - Enhanced line by line slide up */}
         <motion.div
           className="mb-12 md:mb-16 lg:mb-20"
         >
           <motion.h2 
+            id="brand-strategy-heading"
             className="text-3xl md:text-5xl lg:text-[45px] font-medium text-white tracking-tighter leading-tight"
             variants={containerVariants}
             initial="hidden"

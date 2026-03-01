@@ -104,14 +104,27 @@ export function BrandClaritySection() {
   }
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#f9f9f9] py-12 md:py-20 lg:py-24">
+    <section ref={sectionRef} className="w-full bg-[#f9f9f9] py-12 md:py-20 lg:py-24" aria-labelledby="clarity-heading">
       <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
+        {/* Section Subheading */}
+        <motion.div
+          className="mb-8"
+          variants={lineVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+        >
+          <p className="text-sm md:text-base tracking-widest uppercase text-black/60 font-medium">
+            Core Philosophy
+          </p>
+        </motion.div>
+
         {/* Top Text Section - Line by line slide up */}
         <motion.div
           className="mb-12 md:mb-16 lg:mb-10"
         >
           <motion.h2 
-            className="text-4xl md:text-5xl lg:text-[45px] text-black font-medium leading-tight tracking-tighter"
+            id="clarity-heading"
+            className="text-3xl md:text-5xl lg:text-[45px] text-black font-medium leading-tight tracking-tighter"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}

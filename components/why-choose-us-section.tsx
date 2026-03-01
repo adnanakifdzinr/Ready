@@ -110,21 +110,35 @@ export function WhyChooseUsSection() {
   ]
 
   return (
-    <section className="w-full bg-[#0e0e0e] py-16 md:py-32 lg:py-40">
+    <section className="w-full bg-[#0e0e0e] py-16 md:py-32 lg:py-40" aria-labelledby="process-heading">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className="mb-20 md:mb-28 lg:mb-32">
-          {/* Top Heading */}
-          <HeadingAnimation className="mb-6">
-            <h2 className="text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px] text-white font-medium leading-tight tracking-tight">
-              Want to work with us?
+          {/* Section Subheading */}
+          <HeadingAnimation>
+            <p className="text-sm md:text-base tracking-widest uppercase text-white/50 mb-6 font-medium">
+              Proven Methodology
+            </p>
+          </HeadingAnimation>
+
+          {/* Main Heading */}
+          <HeadingAnimation className="mb-8">
+            <h2 id="process-heading" className="text-[40px] sm:text-[56px] md:text-[72px] lg:text-[80px] text-white font-medium leading-tight tracking-tight">
+              Our Process
             </h2>
           </HeadingAnimation>
 
-          {/* Subheading */}
+          {/* Descriptive Subheading */}
           <HeadingAnimation delay={0.1}>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-400 font-medium max-w-2xl">
-              Here's our branding & design process
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-300 font-medium max-w-3xl">
+              A systematic approach to building premium brands that command attention and drive results.
+            </p>
+          </HeadingAnimation>
+
+          {/* Section Description */}
+          <HeadingAnimation delay={0.15}>
+            <p className="text-base md:text-lg text-gray-400 font-regular max-w-2xl mt-4 leading-relaxed">
+              From initial discovery through final design, we follow a proven three-step methodology to create cohesive brand identities.
             </p>
           </HeadingAnimation>
         </div>

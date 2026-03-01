@@ -210,7 +210,7 @@ export function Footer() {
 
   return (
     <>
-      <footer id="contact" className={`text-black transition-colors duration-300 ${showSuccess ? 'bg-[#10b981]' : 'bg-[#f9f9f9]'}`}>
+      <footer id="contact" className={`text-black transition-colors duration-300 ${showSuccess ? 'bg-[#10b981]' : 'bg-[#f9f9f9]'}`} aria-labelledby="footer-heading">
         {/* Divider */}
         <div className="w-full h-px bg-black/10" />
 
@@ -237,6 +237,34 @@ export function Footer() {
         {/* Main Footer Content */}
         {!showSuccess && (
           <div className="w-full px-3 lg:px-8 py-16 lg:py-25">
+            {/* Footer Section Header */}
+            <motion.div
+              className="mb-16"
+              initial="hidden"
+              animate={ctasInView ? "visible" : "hidden"}
+              variants={containerVariants}
+            >
+              <motion.p
+                className="text-sm md:text-base tracking-widest uppercase text-black/60 mb-4 font-medium"
+                variants={itemVariants}
+              >
+                Get In Touch
+              </motion.p>
+              <motion.h2
+                id="footer-heading"
+                className="text-4xl md:text-5xl font-medium text-black tracking-tighter mb-4"
+                variants={itemVariants}
+              >
+                Ready to transform your brand?
+              </motion.h2>
+              <motion.p
+                className="text-base md:text-lg text-black/70 leading-relaxed"
+                variants={itemVariants}
+              >
+                Let's discuss your project and create something extraordinary together.
+              </motion.p>
+            </motion.div>
+
             {/* Two Column Layout */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
               {/* Left Column - Schedule a Chat */}
@@ -246,12 +274,12 @@ export function Footer() {
                 animate={ctasInView ? "visible" : "hidden"}
                 variants={containerVariants}
               >
-                <motion.h2
-                  className="text-[36px] font-regular text-black tracking-tighter mb-6 leading-tight"
+                <motion.h3
+                  className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-6"
                   variants={itemVariants}
                 >
-                  Schedule a chat
-                </motion.h2>
+                  Get in touch
+                </motion.h3>
                 <motion.p
                   className="text-base md:text-lg lg:text-[18px] text-black/70 mb-8 leading-tight"
                   variants={itemVariants}
@@ -389,13 +417,16 @@ export function Footer() {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Contact Us Title */}
+                  {/* Contact Form Title */}
                   <motion.div
                     variants={itemVariants}
                   >
-                    <h3 className="text-[36px] font-medium text-black tracking-tight mb-6">
-                      Contact Us
+                    <h3 className="text-2xl md:text-3xl font-medium text-black tracking-tight mb-6">
+                      Send us a message
                     </h3>
+                    <p className="text-sm text-black/60 mb-6 leading-relaxed">
+                      Fill out the form below and we'll get back to you within 24 hours.
+                    </p>
                   </motion.div>
 
                   {/* Name and Email - Side by Side */}
