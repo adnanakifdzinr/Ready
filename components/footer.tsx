@@ -236,9 +236,9 @@ export function Footer() {
 
         {/* Main Footer Content */}
         {!showSuccess && (
-          <div className="w-full px-3 lg:px-8 py-16 lg:py-25">
+          <div className="w-full px-3 lg:px-8 py-20 lg:py-32">
             {/* Two Column Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-24">
               {/* Left Column - Schedule a Chat */}
               <motion.div
                 className="flex flex-col justify-start"
@@ -246,17 +246,58 @@ export function Footer() {
                 animate={ctasInView ? "visible" : "hidden"}
                 variants={containerVariants}
               >
+                {/* Heading with line-by-line animation */}
                 <motion.h2
-                  className="text-[36px] font-regular text-black tracking-tighter mb-6 leading-tight"
-                  variants={itemVariants}
+                  className="text-5xl md:text-6xl lg:text-7xl font-medium text-black tracking-tighter mb-8 leading-tight"
+                  variants={containerVariants}
                 >
-                  Schedule a chat
+                  {["Schedule", "a chat"].map((word, idx) => (
+                    <motion.div
+                      key={`heading-${idx}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          filter: 'blur(0px)',
+                          transition: {
+                            duration: 0.85,
+                            ease: [0.34, 1.56, 0.64, 1],
+                          },
+                        },
+                      }}
+                      className="block overflow-hidden"
+                    >
+                      {word}
+                    </motion.div>
+                  ))}
                 </motion.h2>
+
+                {/* Description with line-by-line animation */}
                 <motion.p
-                  className="text-base md:text-lg lg:text-[18px] text-black/70 mb-8 leading-tight"
-                  variants={itemVariants}
+                  className="text-base md:text-lg lg:text-[18px] text-black/70 mb-12 leading-relaxed max-w-xl"
+                  variants={containerVariants}
                 >
-                  Ready to bring your vision to life? Let's talk about your project and how we can help you create something extraordinary.
+                  {["Ready to bring your vision to life? Let's talk about", "your project and how we can help you create", "something extraordinary."].map((line, idx) => (
+                    <motion.span
+                      key={`desc-${idx}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
+                        visible: {
+                          opacity: 1,
+                          y: 0,
+                          filter: 'blur(0px)',
+                          transition: {
+                            duration: 0.85,
+                            ease: [0.34, 1.56, 0.64, 1],
+                          },
+                        },
+                      }}
+                      className="block overflow-hidden"
+                    >
+                      {line}
+                    </motion.span>
+                  ))}
                 </motion.p>
                 <motion.div
                   className="flex flex-col gap-4"
@@ -389,12 +430,28 @@ export function Footer() {
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Contact Us Title */}
+                  {/* Contact Us Title with line animation */}
                   <motion.div
-                    variants={itemVariants}
+                    variants={containerVariants}
                   >
-                    <h3 className="text-[36px] font-medium text-black tracking-tight mb-6">
-                      Contact Us
+                    <h3 className="text-5xl md:text-6xl lg:text-7xl font-medium text-black tracking-tight mb-8">
+                      <motion.span
+                        variants={{
+                          hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
+                          visible: {
+                            opacity: 1,
+                            y: 0,
+                            filter: 'blur(0px)',
+                            transition: {
+                              duration: 0.85,
+                              ease: [0.34, 1.56, 0.64, 1],
+                            },
+                          },
+                        }}
+                        className="block overflow-hidden"
+                      >
+                        Contact Us
+                      </motion.span>
                     </h3>
                   </motion.div>
 
