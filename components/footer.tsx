@@ -14,35 +14,35 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.3,
+      staggerChildren: 0.08,
+      delayChildren: 0.2,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20, x: 0 },
+  hidden: { opacity: 0, y: 30, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
     y: 0,
-    x: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.9,
-      ease: [0.33, 1, 0.68, 1],
+      duration: 0.85,
+      ease: [0.34, 1.56, 0.64, 1],
     },
   },
 }
 
 // Reversed direction for alternating animations
 const itemVariantsReverse = {
-  hidden: { opacity: 0, y: -20, x: 0 },
+  hidden: { opacity: 0, y: -30, filter: 'blur(4px)' },
   visible: {
     opacity: 1,
     y: 0,
-    x: 0,
+    filter: 'blur(0px)',
     transition: {
-      duration: 0.9,
-      ease: [0.33, 1, 0.68, 1],
+      duration: 0.85,
+      ease: [0.34, 1.56, 0.64, 1],
     },
   },
 }
@@ -300,80 +300,32 @@ export function Footer() {
                   ))}
                 </motion.p>
                 <motion.div
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-6 md:gap-8"
                   ref={ctaContainerRef}
                   variants={containerVariants}
+                  initial="hidden"
+                  animate={ctasInView ? "visible" : "hidden"}
                 >
                   <motion.div variants={itemVariants}>
                     <Link
-                      href="https://wa.me/01615910614"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group inline-block w-fit"
-                      onMouseEnter={() => setHoveredCta('call')}
-                      onMouseLeave={() => setHoveredCta(null)}
-                    >
-                      <motion.div
-                        className="flex items-center gap-12 bg-transparent border-b border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
-                        initial={{ width: 'auto' }}
-                        animate={{ width: 'auto' }}
-                        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0 }}
-                      >
-                        <motion.span
-                          initial={{ opacity: 1 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.6, delay: 0.3, ease: [0.33, 1, 0.68, 1] }}
-                        >
-                          Call Now
-                        </motion.span>
-                        <motion.div
-                          className="w-9 h-9 rounded-full bg-[#ff3a09] flex items-center justify-center flex-shrink-0 overflow-hidden relative"
-                          animate={{ gap: hoveredCta === 'call' ? 12 : 8 }}
-                          initial={{ gap: 8 }}
-                        >
-                          <motion.div
-                            animate={{
-                              x: hoveredCta === 'call' ? 30 : 0,
-                              opacity: hoveredCta === 'call' ? 0 : 1,
-                              rotate: hoveredCta === 'call' ? 45 : 0
-                            }}
-                            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="absolute"
-                          >
-                            <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
-                          </motion.div>
-                          <motion.div
-                            animate={{
-                              x: hoveredCta === 'call' ? 0 : -30,
-                              opacity: hoveredCta === 'call' ? 1 : 0,
-                              rotate: hoveredCta === 'call' ? -45 : 0
-                            }}
-                            transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                            className="absolute"
-                          >
-                            <ArrowRight className="w-6 h-6 text-white" strokeWidth={2} />
-                          </motion.div>
-                        </motion.div>
-                      </motion.div>
-                    </Link>
-                  </motion.div>
-                  <motion.div variants={itemVariantsReverse}>
-                    <Link
-                      href="mailto:adnanakif.co@gmail.com"
+                      href="mailto:hello@ready.com"
                       className="group inline-block w-fit"
                       onMouseEnter={() => setHoveredCta('email')}
                       onMouseLeave={() => setHoveredCta(null)}
                     >
                       <motion.div
-                        className="flex items-center gap-2 bg-transparent border-t border-black text-black px-1.5 py-2 font-medium text-[16px] rounded-full transition-colors overflow-hidden"
-                        initial={{ width: 'auto' }}
-                        animate={{ width: 'auto' }}
-                        transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
+                        className="flex items-center gap-3 bg-transparent border border-black text-black px-6 py-3 font-medium text-[16px] rounded-lg transition-all overflow-hidden"
+                        whileHover={{ 
+                          backgroundColor: '#000',
+                          color: '#fff',
+                          scale: 1.02
+                        }}
+                        transition={{ duration: 0.3 }}
                       >
                         <motion.span
                           initial={{ opacity: 1 }}
                           animate={{ opacity: 1 }}
-                          transition={{ duration: 0.6, delay: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                          transition={{ duration: 0.6 }}
                         >
                           lozinrcontact@gmail.com
                         </motion.span>
