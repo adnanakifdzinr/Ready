@@ -129,90 +129,80 @@ export function WhyChooseUsSection() {
           </HeadingAnimation>
         </div>
 
-        {/* Process Steps - Vertical Timeline Layout */}
-        <div className="space-y-16 md:space-y-24 lg:space-y-32 relative">
-          {/* Timeline line (desktop only) */}
-          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-white/10" style={{ top: '40px' }} />
-
+        {/* Process Steps - Clean 3-Column Grid Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
           {processes.map((process, index) => (
             <ProcessStepAnimation key={index} index={index}>
               {({ isInView }: { isInView: boolean; isHovered: boolean; index: number }) => (
-              <div className="relative">
-                {/* Timeline dot */}
+              <div className="flex flex-col">
+                {/* Divider line at top (desktop only) */}
                 <motion.div
-                  className="hidden md:flex absolute -left-4 top-2 w-8 h-8 rounded-full bg-white items-center justify-center"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                  className="hidden md:block h-px bg-white/20 mb-8"
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.15 + 0.1,
+                  }}
+                  style={{ originX: 0 }}
+                />
+
+                {/* Step Number */}
+                <motion.p
+                  className="text-xs md:text-xs lg:text-sm font-medium text-white/50 uppercase tracking-widest mb-6"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                   transition={{
                     duration: 0.6,
                     delay: index * 0.15 + 0.1,
                   }}
                 >
-                  <div className="w-3 h-3 bg-[#0e0e0e] rounded-full" />
-                </motion.div>
+                  Step {process.step}
+                </motion.p>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-                  {/* Left column - Step info */}
-                  <div className="md:col-span-4">
-                    {/* Step Number */}
-                    <motion.p
-                      className="text-sm font-medium text-white/60 mb-6"
-                      initial={{ opacity: 0 }}
-                      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{
-                        duration: 0.6,
-                        delay: index * 0.15 + 0.1,
-                      }}
-                    >
-                      Step {process.step}
-                    </motion.p>
+                {/* Title */}
+                <motion.h3 
+                  className="text-2xl md:text-2xl lg:text-3xl text-white font-medium tracking-tight mb-6"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  transition={{
+                    duration: 0.7,
+                    delay: index * 0.15 + 0.15,
+                    ease: 'easeOut',
+                  }}
+                >
+                  {process.title}
+                </motion.h3>
 
-                    {/* Title */}
-                    <motion.h3 
-                      className="text-3xl md:text-3xl lg:text-4xl text-white font-medium tracking-tight"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                      transition={{
-                        duration: 0.7,
-                        delay: index * 0.15 + 0.15,
-                        ease: 'easeOut',
-                      }}
-                    >
-                      {process.title}
-                    </motion.h3>
-                  </div>
-
-                  {/* Right column - Description */}
-                  <div className="md:col-span-8">
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                      transition={{
-                        staggerChildren: 0.08,
-                        delayChildren: index * 0.15 + 0.2,
-                      }}
-                    >
-                      <motion.p 
-                        className="text-base md:text-lg lg:text-[18px] text-gray-300 leading-relaxed"
+                {/* Description with line-by-line animation */}
+                <motion.div
+                  className="flex-grow"
+                  initial={{ opacity: 0 }}
+                  animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{
+                    staggerChildren: 0.08,
+                    delayChildren: index * 0.15 + 0.2,
+                  }}
+                >
+                  <motion.p 
+                    className="text-sm md:text-sm lg:text-base text-gray-400 leading-relaxed"
+                  >
+                    {process.descriptionLines.map((line, lineIdx) => (
+                      <motion.span
+                        key={`desc-line-${lineIdx}`}
+                        initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
+                        animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(4px)' }}
+                        transition={{
+                          duration: 0.85,
+                          ease: [0.34, 1.56, 0.64, 1],
+                        }}
+                        className="block overflow-hidden"
                       >
-                        {process.descriptionLines.map((line, lineIdx) => (
-                          <motion.span
-                            key={`desc-line-${lineIdx}`}
-                            initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
-                            animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 30, filter: 'blur(4px)' }}
-                            transition={{
-                              duration: 0.85,
-                              ease: [0.34, 1.56, 0.64, 1],
-                            }}
-                            className="block overflow-hidden"
-                          >
-                            {line}
-                          </motion.span>
-                        ))}
-                      </motion.p>
-                    </motion.div>
-                  </div>
-                </div>
+                        {line}
+                      </motion.span>
+                    ))}
+                  </motion.p>
+                </motion.div>
               </div>
               )}
             </ProcessStepAnimation>
