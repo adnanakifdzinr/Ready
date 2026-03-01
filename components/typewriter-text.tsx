@@ -18,11 +18,10 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
   useEffect(() => {
     if (startTypewriterAnimation) {
       // SVG animation: 0.4s delay + 1.4s duration = 1.8s total
-      // Add small buffer to ensure it starts after SVG finishes
+      // Reduced gap to 400ms for snappier transition
       const timer = setTimeout(() => {
         setShouldAnimateNow(true)
-        console.log('[v0] Starting typewriter animation after SVG completes')
-      }, 1800)
+      }, 1200)
 
       return () => clearTimeout(timer)
     }
@@ -33,7 +32,7 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
 
   // Group words for responsive layout:
   // Mobile: We / create premium / brands that command / attention.
-  // Desktop: We create premium / brands that command / attention.
+  // Desktop: We create premium brands that command attention. (one line)
   const getMobileGroups = () => {
     return [
       [words[0]], // "We"
@@ -44,11 +43,7 @@ export function TypewriterText({ text, className = '' }: TypewriterTextProps) {
   }
 
   const getDesktopGroups = () => {
-    return [
-      words.slice(0, 3), // "We create premium "
-      words.slice(3, 6), // "brands that command"
-      words.slice(6), // "attention."
-    ]
+    return [words] // All words on one line for desktop
   }
 
   const mobileGroups = getMobileGroups()

@@ -70,6 +70,11 @@ export function BrandClaritySection() {
     "across every touchpoint."
   ]
 
+  const paragraph2Lines = [
+    "Schedule a call to see if we're a good fit",
+    "to work together."
+  ]
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -151,7 +156,7 @@ export function BrandClaritySection() {
                 </motion.p>
               </motion.div>
 
-              {/* Paragraph 2 - Call to action line */}
+              {/* Paragraph 2 - Call to action with line animation */}
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -160,12 +165,15 @@ export function BrandClaritySection() {
                 <motion.p
                   className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-relaxed"
                 >
-                  <motion.span
-                    variants={lineVariants}
-                    className="block overflow-hidden"
-                  >
-                    Schedule a call to see if we're a good fit to work together.
-                  </motion.span>
+                  {paragraph2Lines.map((line, idx) => (
+                    <motion.span
+                      key={`para2-line-${idx}`}
+                      variants={lineVariants}
+                      className="block overflow-hidden"
+                    >
+                      {line}
+                    </motion.span>
+                  ))}
                 </motion.p>
               </motion.div>
             </div>
