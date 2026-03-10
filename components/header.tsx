@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation"
 import { useScrollDirection } from "@/hooks/use-scroll-direction"
 import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import { useWebOpenAnimation } from "@/context/animation-context"
 import { AboutPopup } from "@/components/about-popup"
 
 // Animated Text Component for letter-by-letter animation
@@ -38,22 +37,9 @@ export function SiteHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
   const [isCtaHovering, setIsCtaHovering] = useState(false)
-  const [isWebOpenActive, setIsWebOpenActive] = useState(false)
-  const [isWebOpenVisible, setIsWebOpenVisible] = useState(false)
   const [hoveredNavLink, setHoveredNavLink] = useState<string | null>(null)
   const isScrollDirectionUp = useScrollDirection()
   const pathname = usePathname()
-  const { isWebOpenAnimating } = useWebOpenAnimation()
-
-  const handleWebOpenClick = () => {
-    setIsWebOpenActive(true)
-    setTimeout(() => setIsWebOpenVisible(true), 50)
-  }
-
-  const handleWebOpenExit = () => {
-    setIsWebOpenVisible(false)
-    setTimeout(() => setIsWebOpenActive(false), 900)
-  }
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -117,12 +103,9 @@ export function SiteHeader() {
 
   return (
     <>
-      <motion.header
+      <header
         className={`fixed z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#000000]" : "bg-[#000000]"
           } lg:top-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-[70%] top-0 left-0 right-0`}
-        initial={{ y: '-100%' }}
-        animate={{ y: isWebOpenAnimating ? 0 : '-100%' }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         {/* Mobile/Tablet Header */}
         <div className="lg:hidden flex items-center justify-between px-3 md:px-5 py-2 md:py-2 w-full">
@@ -255,7 +238,7 @@ export function SiteHeader() {
             </nav>
           </div>
         </div>
-      </motion.header>
+      </header>
 
       <div
         className={`fixed inset-0 z-40 overflow-hidden ${isAnimating || isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
