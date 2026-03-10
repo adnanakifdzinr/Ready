@@ -19,8 +19,9 @@ const AnimatedText = ({ text, isHovered }: { text: string; isHovered: boolean })
           initial={{ color: '#ffffff' }}
           animate={{ color: isHovered ? '#ff3a09' : '#ffffff' }}
           transition={{
-            duration: 0.3,
-            delay: isHovered ? index * 0.03 : (text.length - index - 1) * 0.03,
+            duration: 0.4,
+            delay: isHovered ? index * 0.04 : (text.length - index - 1) * 0.04,
+            ease: 'easeInOut'
           }}
         >
           {letter}
@@ -119,7 +120,7 @@ export function SiteHeader() {
     <>
       <motion.header
         className={`fixed z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#000000]" : "bg-[#000000]"
-          } lg:top-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-[70%] top-0 left-0 right-0`}
+          } lg:top-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-[70%] top-0 left-0 right-0 lg:rounded-full`}
         initial={{ y: '-100%' }}
         animate={{ y: isWebOpenAnimating ? 0 : '-100%' }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -178,7 +179,7 @@ export function SiteHeader() {
 
         {/* Desktop Header */}
         <div className="hidden lg:flex items-center justify-center py-4 w-full px-8">
-          <div className="flex items-center justify-between w-full max-w-[70%] bg-black rounded-full px-8 py-6">
+          <div className="flex items-center justify-between w-full px-8 py-6">
             {/* Logo SVG */}
             <Link href="/" className="w-24 flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1739.38 371.37" className="w-full h-auto">
