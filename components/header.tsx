@@ -96,8 +96,8 @@ export function SiteHeader() {
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#000000]" : "bg-[#000000]"
-          }`}
+        className={`fixed z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#000000]" : "bg-[#000000]"
+          } lg:top-10 lg:left-1/2 lg:-translate-x-1/2 lg:w-[70%] top-0 left-0 right-0`}
         initial={{ y: '-100%' }}
         animate={{ y: isWebOpenAnimating ? 0 : '-100%' }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -155,7 +155,7 @@ export function SiteHeader() {
         </div>
 
         {/* Desktop Header */}
-        <div className="hidden lg:flex items-center justify-center pt-10 pb-4 w-full px-8">
+        <div className="hidden lg:flex items-center justify-center py-4 w-full px-8">
           <div className="flex items-center justify-between w-full max-w-[70%]">
             {/* Logo SVG */}
             <Link href="/" className="w-24 flex-shrink-0">
@@ -411,7 +411,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className={`${headerVisible ? "h-[40px] md:h-[48px] lg:h-[120px]" : "h-0"}`} />
+      <div className={`${headerVisible ? "h-[40px] md:h-[48px] lg:h-[80px]" : "h-0"}`} />
 
       {/* Web-Open CTA Expansion Animation Overlay */}
       <AnimatePresence mode="wait">
