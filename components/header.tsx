@@ -9,6 +9,27 @@ import { ArrowRight } from "lucide-react"
 import { useWebOpenAnimation } from "@/context/animation-context"
 import { AboutPopup } from "@/components/about-popup"
 
+// Animated Text Component for letter-by-letter animation
+const AnimatedText = ({ text, isHovered }: { text: string; isHovered: boolean }) => {
+  return (
+    <div className="flex">
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          initial={{ color: '#ffffff' }}
+          animate={{ color: isHovered ? '#ff3a09' : '#ffffff' }}
+          transition={{
+            duration: 0.3,
+            delay: isHovered ? index * 0.03 : (text.length - index - 1) * 0.03,
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </div>
+  );
+};
+
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -19,6 +40,7 @@ export function SiteHeader() {
   const [isCtaHovering, setIsCtaHovering] = useState(false)
   const [isWebOpenActive, setIsWebOpenActive] = useState(false)
   const [isWebOpenVisible, setIsWebOpenVisible] = useState(false)
+  const [hoveredNavLink, setHoveredNavLink] = useState<string | null>(null)
   const isScrollDirectionUp = useScrollDirection()
   const pathname = usePathname()
   const { isWebOpenAnimating } = useWebOpenAnimation()
@@ -156,7 +178,7 @@ export function SiteHeader() {
 
         {/* Desktop Header */}
         <div className="hidden lg:flex items-center justify-center py-4 w-full px-8">
-          <div className="flex items-center justify-between w-full max-w-[70%]">
+          <div className="flex items-center justify-between w-full max-w-[70%] bg-black rounded-full px-8 py-6">
             {/* Logo SVG */}
             <Link href="/" className="w-24 flex-shrink-0">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1739.38 371.37" className="w-full h-auto">
@@ -184,9 +206,11 @@ export function SiteHeader() {
                   {link.action === "about" ? (
                     <button
                       onClick={() => setIsAboutOpen(true)}
-                      className="text-white text-sm font-regular tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                      onMouseEnter={() => setHoveredNavLink(link.label)}
+                      onMouseLeave={() => setHoveredNavLink(null)}
+                      className="text-sm font-regular tracking-tight"
                     >
-                      {link.label}
+                      <AnimatedText text={link.label} isHovered={hoveredNavLink === link.label} />
                     </button>
                   ) : link.action === "contact" ? (
                     <button
@@ -196,9 +220,11 @@ export function SiteHeader() {
                           contactSection.scrollIntoView({ behavior: 'smooth' })
                         }
                       }}
-                      className="text-white text-sm font-regular tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                      onMouseEnter={() => setHoveredNavLink(link.label)}
+                      onMouseLeave={() => setHoveredNavLink(null)}
+                      className="text-sm font-regular tracking-tight"
                     >
-                      {link.label}
+                      <AnimatedText text={link.label} isHovered={hoveredNavLink === link.label} />
                     </button>
                   ) : link.section ? (
                     <button
@@ -208,16 +234,20 @@ export function SiteHeader() {
                           element.scrollIntoView({ behavior: "smooth" })
                         }
                       }}
-                      className="text-white text-sm font-regular tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                      onMouseEnter={() => setHoveredNavLink(link.label)}
+                      onMouseLeave={() => setHoveredNavLink(null)}
+                      className="text-sm font-regular tracking-tight"
                     >
-                      {link.label}
+                      <AnimatedText text={link.label} isHovered={hoveredNavLink === link.label} />
                     </button>
                   ) : (
                     <Link
                       href={link.href}
-                      className="text-white text-sm font-regular tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
+                      onMouseEnter={() => setHoveredNavLink(link.label)}
+                      onMouseLeave={() => setHoveredNavLink(null)}
+                      className="text-sm font-regular tracking-tight"
                     >
-                      {link.label}
+                      <AnimatedText text={link.label} isHovered={hoveredNavLink === link.label} />
                     </Link>
                   )}
                 </div>
