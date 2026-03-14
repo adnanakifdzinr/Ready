@@ -4,7 +4,6 @@ import { Hero } from "@/components/hero"
 import { HeroCTASection } from "@/components/hero-cta-section"
 import { BrandStrategySection } from "@/components/brand-strategy-section"
 import { BrandClaritySection } from "@/components/brand-clarity-section"
-import { Separator } from "@/components/ui/separator"
 import { HeroSVGAnimation } from "@/components/hero-svg-animation"
 import { TypewriterText } from "@/components/typewriter-text"
 
@@ -57,16 +56,12 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <Separator className="w-full h-px" />
         <BrandStrategySection />
-        <Separator className="w-full h-px" />
         <BrandClaritySection />
-        <Separator className="w-full h-px" />
         <div className="relative bg-background">
           <section id="work">
             <ProjectThumbnails />
           </section>
-          <Separator className="w-full h-px" />
         </div>
       </main>
     </>
