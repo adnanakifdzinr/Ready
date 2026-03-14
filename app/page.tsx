@@ -1,11 +1,9 @@
 import type { Metadata } from "next"
 import { ProjectThumbnails } from "@/components/project-thumbnails"
-import { ServicesSection } from "@/components/services-section"
 import { Hero } from "@/components/hero"
 import { HeroCTASection } from "@/components/hero-cta-section"
 import { BrandStrategySection } from "@/components/brand-strategy-section"
 import { BrandClaritySection } from "@/components/brand-clarity-section"
-import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { Separator } from "@/components/ui/separator"
 import { HeroSVGAnimation } from "@/components/hero-svg-animation"
 import { TypewriterText } from "@/components/typewriter-text"
@@ -68,12 +66,6 @@ export default function Home() {
           <section id="work">
             <ProjectThumbnails />
           </section>
-          <Separator className="w-full h-px" />
-          <section id="services">
-            <ServicesSection />
-          </section>
-          <Separator className="w-full h-px" />
-          <WhyChooseUsSection />
           <Separator className="w-full h-px" />
         </div>
       </main>
