@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useScrollDirection } from "@/hooks/use-scroll-direction"
 import { motion } from "framer-motion"
+import { ArrowRight } from "lucide-react"
 import { AboutPopup } from "@/components/about-popup"
 
 export function SiteHeader() {
