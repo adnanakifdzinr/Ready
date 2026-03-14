@@ -2,8 +2,6 @@ import type { Metadata } from "next"
 import { ProjectThumbnails } from "@/components/project-thumbnails"
 import { Hero } from "@/components/hero"
 import { HeroCTASection } from "@/components/hero-cta-section"
-import { BrandStrategySection } from "@/components/brand-strategy-section"
-import { BrandClaritySection } from "@/components/brand-clarity-section"
 import { HeroSVGAnimation } from "@/components/hero-svg-animation"
 import { TypewriterText } from "@/components/typewriter-text"
 
@@ -56,8 +54,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <BrandStrategySection />
-        <BrandClaritySection />
         <div className="relative bg-background">
           <section id="work">
             <ProjectThumbnails />
