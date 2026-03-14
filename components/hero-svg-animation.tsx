@@ -1,19 +1,16 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useWebOpenAnimation } from "@/context/animation-context"
 
 export function HeroSVGAnimation() {
-  const { isWebOpenAnimating } = useWebOpenAnimation()
-
   return (
     <motion.div
       className="w-full pointer-events-none overflow-hidden pt-30 px-0 sm:px-0 lg:px-0 mb-0"
       initial={{ opacity: 0, y: 40 }}
-      animate={isWebOpenAnimating ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.8,
-        delay: 0.3,
+        delay: 0.2,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -22,10 +19,10 @@ export function HeroSVGAnimation() {
         className="w-full h-auto"
         xmlns="http://www.w3.org/2000/svg"
         initial={{ y: 50, opacity: 0, filter: "blur(6px)" }}
-        animate={isWebOpenAnimating ? { y: 0, opacity: 1, filter: "blur(0px)" } : { y: 50, opacity: 0, filter: "blur(6px)" }}
+        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
         transition={{
           duration: 1.4,
-          delay: 0.4,
+          delay: 0.3,
           ease: [0.23, 1, 0.32, 1],
         }}
       >

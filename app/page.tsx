@@ -7,7 +7,6 @@ import { BrandStrategySection } from "@/components/brand-strategy-section"
 import { BrandClaritySection } from "@/components/brand-clarity-section"
 import { WhyChooseUsSection } from "@/components/why-choose-us-section"
 import { Separator } from "@/components/ui/separator"
-import { WebOpenAnimation } from "@/components/web-open-animation"
 import { HeroSVGAnimation } from "@/components/hero-svg-animation"
 import { TypewriterText } from "@/components/typewriter-text"
 
@@ -43,7 +42,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <WebOpenAnimation />
       <main className="relative bg-[#f9f9f9] transition-colors duration-300">
         {/* Hero SVG Section */}
         <section id="home" className="w-full lg:py-60 lg:px-8 py-30 px-3 overflow-hidden relative">

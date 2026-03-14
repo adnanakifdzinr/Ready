@@ -4,9 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useScrollDirection } from "@/hooks/use-scroll-direction"
-import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-import { useWebOpenAnimation } from "@/context/animation-context"
+import { motion } from "framer-motion"
 import { AboutPopup } from "@/components/about-popup"
 
 export function SiteHeader() {
@@ -16,22 +14,8 @@ export function SiteHeader() {
   const [headerVisible, setHeaderVisible] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isAboutOpen, setIsAboutOpen] = useState(false)
-  const [isCtaHovering, setIsCtaHovering] = useState(false)
-  const [isWebOpenActive, setIsWebOpenActive] = useState(false)
-  const [isWebOpenVisible, setIsWebOpenVisible] = useState(false)
   const isScrollDirectionUp = useScrollDirection()
   const pathname = usePathname()
-  const { isWebOpenAnimating } = useWebOpenAnimation()
-
-  const handleWebOpenClick = () => {
-    setIsWebOpenActive(true)
-    setTimeout(() => setIsWebOpenVisible(true), 50)
-  }
-
-  const handleWebOpenExit = () => {
-    setIsWebOpenVisible(false)
-    setTimeout(() => setIsWebOpenActive(false), 900)
-  }
 
   useEffect(() => {
     setIsMenuOpen(false)
@@ -98,9 +82,6 @@ export function SiteHeader() {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#f9f9f9]" : "bg-[#f9f9f9]"
           }`}
-        initial={{ y: '-100%' }}
-        animate={{ y: isWebOpenAnimating ? 0 : '-100%' }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
       >
         <div
           className="flex items-center justify-between px-3 md:px-5 lg:px-8 py-2 md:py-2 w-full"
@@ -344,167 +325,6 @@ export function SiteHeader() {
       </div>
 
       <div className={`${headerVisible ? "h-[40px] md:h-[48px]" : "h-0"}`} />
-
-      {/* Web-Open CTA Expansion Animation Overlay */}
-      <AnimatePresence mode="wait">
-        {isWebOpenActive && (
-          <>
-            {/* Black overlay background */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed inset-0 bg-black"
-              style={{ zIndex: 9998 }}
-            />
-
-            {/* Top slice that moves up on exit */}
-            <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: 0 }}
-              exit={{ y: '-100vh' }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed top-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
-              style={{ zIndex: 9997 }}
-            />
-
-            {/* Bottom slice that moves down on exit */}
-            <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: 0 }}
-              exit={{ y: '100vh' }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed bottom-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
-              style={{ zIndex: 9997 }}
-            />
-
-            {/* CTA Button Container with Web-Open Animation */}
-            <motion.div
-              className="fixed inset-0 flex items-center justify-center px-4"
-              style={{ zIndex: 9999, perspective: 1000 }}
-              initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{
-                x: '150vw',
-                opacity: 0,
-                rotateY: 20,
-                transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-              }}
-              transition={{
-                duration: 1.2,
-                delay: 0.3,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-            >
-              <motion.button
-                initial={{ width: 56, backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-                animate={isWebOpenVisible ? { width: 180 } : { width: 56 }}
-                exit={{ width: 56 }}
-                transition={{ duration: 1.1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                onHoverStart={() => setIsCtaHovering(true)}
-                onHoverEnd={() => setIsCtaHovering(false)}
-                onClick={() => {
-                  handleWebOpenExit()
-                  setTimeout(() => {
-                    const contactSection = document.getElementById('contact')
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: 'smooth' })
-                    }
-                  }, 900)
-                }}
-                className="relative h-[52px] backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-2 py-2 gap-2 overflow-hidden cursor-pointer focus:outline-none"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-                whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
-              >
-                {/* Text with character-level 3D flip animation */}
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={isWebOpenVisible ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{
-                    staggerChildren: 0.05,
-                    delayChildren: 0.75,
-                    duration: 0.8
-                  }}
-                  className="text-white font-medium text-base whitespace-nowrap flex"
-                  style={{ perspective: 1200 }}
-                >
-                  {'Open Website'.split('').map((char, index) => (
-                    <motion.span
-                      key={index}
-                      initial={{
-                        opacity: 0,
-                        rotateX: 90,
-                        rotateY: -45,
-                        y: 20,
-                        filter: 'blur(4px)'
-                      }}
-                      animate={{
-                        opacity: 1,
-                        rotateX: 0,
-                        rotateY: 0,
-                        y: 0,
-                        filter: 'blur(0px)'
-                      }}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.23, 1, 0.320, 1]
-                      }}
-                      style={{ perspective: 1200 }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </motion.span>
-                  ))}
-                </motion.span>
-
-                {/* Arrow circle with glow effect */}
-                <motion.div
-                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center overflow-hidden relative flex-shrink-0"
-                  initial={{ boxShadow: '0 0 0px rgba(255, 255, 255, 0)' }}
-                  animate={isWebOpenVisible ? {
-                    boxShadow: [
-                      '0 0 0px rgba(255, 255, 255, 0)',
-                      '0 0 20px rgba(255, 255, 255, 0.4)',
-                      '0 0 0px rgba(255, 255, 255, 0)'
-                    ]
-                  } : {}}
-                  transition={isWebOpenVisible ? {
-                    duration: 2.5,
-                    repeat: Infinity,
-                    delay: 1.2
-                  } : {}}
-                >
-                  {/* Main arrow */}
-                  <motion.div
-                    animate={{
-                      x: isCtaHovering ? 40 : 0,
-                      opacity: isCtaHovering ? 0 : 1,
-                      rotate: isCtaHovering ? 45 : 0
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="absolute"
-                  >
-                    <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
-                  </motion.div>
-
-                  {/* Secondary arrow */}
-                  <motion.div
-                    animate={{
-                      x: isCtaHovering ? 0 : -40,
-                      opacity: isCtaHovering ? 1 : 0,
-                      rotate: isCtaHovering ? -45 : 0
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="absolute"
-                  >
-                    <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
-                  </motion.div>
-                </motion.div>
-              </motion.button>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
       {/* About Popup */}
       <AboutPopup isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />

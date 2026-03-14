@@ -2,14 +2,12 @@
 
 import { useRef, useState, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useWebOpenAnimation } from "@/context/animation-context"
 
 export function Hero() {
   const heroRef = useRef(null)
   const svgContainerRef = useRef(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isHeroInView, setIsHeroInView] = useState(false)
-  const { isWebOpenAnimating } = useWebOpenAnimation()
 
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 500], [0, 150])
@@ -218,40 +216,7 @@ export function Hero() {
           }}
         />
 
-        {/* SVG Slide-up Container */}
-        <motion.div
-          className="absolute inset-0 pointer-events-none overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={isWebOpenAnimating ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-        >
-          <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            initial={{ y: "100%" }}
-            animate={isWebOpenAnimating ? { y: 0 } : { y: "100%" }}
-            transition={{
-              duration: 0.9,
-              delay: 0.8,
-              ease: [0.33, 0.66, 0.66, 1],
-            }}
-          >
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* Floating SVG Element - can be customized with actual SVG */}
-              <motion.div
-                className="w-96 h-96 rounded-full bg-gradient-to-br from-black/10 to-black/5 blur-3xl"
-                animate={{
-                  y: [0, -20, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.7,
-                }}
-              />
-            </div>
-          </motion.div>
-        </motion.div>
+
 
         {/* Unified Hero for all devices */}
         <motion.div
