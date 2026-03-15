@@ -38,6 +38,7 @@ export function ProjectThumbnails() {
   const [visibleCards, setVisibleCards] = useState<Set<string>>(new Set())
   const [selectedProject, setSelectedProject] = useState<Project | null>(projects[0] || null)
   const [isOverlayOpen, setIsOverlayOpen] = useState(false)
+  const [displayedCount, setDisplayedCount] = useState(4)
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   useEffect(() => {
@@ -78,11 +79,11 @@ export function ProjectThumbnails() {
       `}</style>
 
       {/* Split Screen Layout - Desktop Only, Mobile Fallback */}
-      <div className="w-full min-h-screen flex flex-col">
+      <div className="px-3 md:px-5 lg:px-8 py-8 md:py-12 lg:py-16">
         {/* Mobile: Vertical Stack Layout */}
-        <div className="lg:hidden flex flex-col min-h-screen px-3 md:px-5 py-8 md:py-12">
+        <div className="lg:hidden">
           <div className="flex flex-col gap-4">
-            {projects.map((project, index) => {
+            {projects.slice(0, displayedCount).map((project, index) => {
               const isVisible = visibleCards.has(project.id)
 
               return (
@@ -153,9 +154,9 @@ export function ProjectThumbnails() {
         </div>
 
         {/* Desktop: Split Screen Layout */}
-        <div className="hidden lg:flex gap-0 w-full min-h-screen">
-          {/* Left Panel - 40% - Fixed */}
-          <div className="w-2/5 fixed left-0 top-0 h-screen flex flex-col px-8 py-16 bg-black z-10">
+        <div className="hidden lg:flex gap-12">
+          {/* Left Panel - 40% - Sticky Info */}
+          <div className="w-2/5 sticky top-32 h-screen flex flex-col">
             {/* Top - Our Work Title */}
             <motion.h2
               initial={{ opacity: 0, y: -10 }}
@@ -201,9 +202,9 @@ export function ProjectThumbnails() {
           </div>
 
           {/* Right Panel - 60% - Scrollable Thumbnails */}
-          <div className="w-3/5 ml-auto">
-            <div className="flex flex-col gap-4 px-8 py-16 min-h-screen overflow-y-auto">
-              {projects.map((project, index) => {
+          <div className="w-3/5">
+            <div className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto pr-4">
+              {projects.slice(0, displayedCount).map((project, index) => {
                 const isVisible = visibleCards.has(project.id)
                 const isSelected = selectedProject?.id === project.id
 
@@ -264,9 +265,41 @@ export function ProjectThumbnails() {
               })}
             </div>
 
-            </div>
+            {/* See More Button */}
+            {displayedCount < projects.length && (
+              <motion.div
+                className="flex justify-center mt-8 pt-6 border-t border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+              >
+                <button
+                  onClick={() => setDisplayedCount(prev => prev + 4)}
+                  className="px-6 py-2 bg-white/10 text-white font-medium text-sm rounded-full hover:bg-white/20 transition-colors duration-300"
+                >
+                  Load More
+                </button>
+              </motion.div>
+            )}
           </div>
         </div>
+
+        {/* Mobile: See More Button */}
+        {displayedCount < projects.length && (
+          <motion.div
+            className="flex justify-center mt-12 md:mt-16 lg:hidden"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <button
+              onClick={() => setDisplayedCount(prev => prev + 4)}
+              className="px-8 md:px-12 py-4 md:py-5 bg-white text-black font-medium text-base md:text-lg rounded-full hover:bg-white/90 transition-colors duration-300"
+            >
+              See More
+            </button>
+          </motion.div>
+        )}
       </div>
 
       {/* Project Overlay */}
