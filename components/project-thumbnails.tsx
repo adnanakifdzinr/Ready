@@ -78,15 +78,8 @@ export function ProjectThumbnails() {
         }
       `}</style>
 
-      {/* Section Title */}
-      <div className="px-3 md:px-5 lg:px-8 py-8 md:py-12 lg:py-16">
-        <h2 className="text-[32px] sm:text-[48px] md:text-[56px] lg:text-[64px] font-medium leading-tight tracking-tight text-white">
-          Selected Work
-        </h2>
-      </div>
-
       {/* Split Screen Layout - Desktop Only, Mobile Fallback */}
-      <div className="px-3 md:px-5 lg:px-8 pb-8 md:pb-12 lg:pb-16">
+      <div className="px-3 md:px-5 lg:px-8 py-8 md:py-12 lg:py-16">
         {/* Mobile: Vertical Stack Layout */}
         <div className="lg:hidden">
           <div className="flex flex-col gap-4">
@@ -161,49 +154,50 @@ export function ProjectThumbnails() {
         </div>
 
         {/* Desktop: Split Screen Layout */}
-        <div className="hidden lg:flex gap-8">
+        <div className="hidden lg:flex gap-12">
           {/* Left Panel - 40% - Sticky Info */}
-          <div className="w-2/5 sticky top-20 h-fit flex flex-col justify-between min-h-[600px]">
+          <div className="w-2/5 sticky top-32 h-screen flex flex-col">
             {/* Top - Our Work Title */}
             <motion.h2
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-              className="text-4xl font-medium text-white uppercase leading-tight mb-12"
+              className="text-xl font-light text-white leading-tight mb-8"
             >
-              Our Work
+              Our work
             </motion.h2>
 
-            {/* Middle - Project Name */}
+            {/* Project Name - Center Area */}
             {selectedProject && (
-              <motion.div
-                key={selectedProject.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                className="flex-1 flex flex-col justify-center gap-4"
-              >
-                <h3 className="text-5xl font-medium text-white uppercase leading-tight">
+              <>
+                <motion.h3
+                  key={`${selectedProject.id}-title`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+                  className="text-7xl font-light text-white/60 leading-tight"
+                >
                   {selectedProject.title}
-                </h3>
-                <p className="text-lg text-white/80 font-medium">
-                  {selectedProject.category}
-                </p>
-              </motion.div>
-            )}
+                </motion.h3>
 
-            {/* Bottom - Description */}
-            {selectedProject && selectedProject.description && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-                className="mt-auto pt-8 border-t border-white/10"
-              >
-                <p className="text-base text-white/90 leading-relaxed">
-                  {selectedProject.description}
-                </p>
-              </motion.div>
+                {/* Middle Spacer */}
+                <div className="flex-1" />
+
+                {/* Bottom - Description */}
+                {selectedProject.description && (
+                  <motion.div
+                    key={`${selectedProject.id}-desc`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+                    className="pb-12"
+                  >
+                    <p className="text-base text-white/70 leading-relaxed font-light">
+                      {selectedProject.description}
+                    </p>
+                  </motion.div>
+                )}
+              </>
             )}
           </div>
 
