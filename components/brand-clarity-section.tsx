@@ -87,8 +87,8 @@ export function BrandClaritySection() {
   }
 
   const lineVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 30,
       filter: 'blur(4px)'
     },
@@ -104,14 +104,14 @@ export function BrandClaritySection() {
   }
 
   return (
-    <section ref={sectionRef} className="w-full bg-[#f9f9f9] py-12 md:py-20 lg:py-24">
+    <section ref={sectionRef} className="w-full bg-[#000000] py-12 md:py-20 lg:py-24">
       <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8">
         {/* Top Text Section - Line by line slide up */}
         <motion.div
           className="mb-12 md:mb-16 lg:mb-10"
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-[45px] text-black font-medium leading-tight tracking-tighter"
+          <motion.h2
+            className="text-4xl md:text-5xl lg:text-[45px] text-white font-medium leading-tight tracking-tighter"
             variants={containerVariants}
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -142,7 +142,7 @@ export function BrandClaritySection() {
                 animate={isInView ? "visible" : "hidden"}
               >
                 <motion.p
-                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-relaxed"
+                  className="text-base md:text-lg lg:text-[22px] text-white font-medium tracking-tight leading-relaxed"
                 >
                   {paragraph1Lines.map((line, idx) => (
                     <motion.span
@@ -163,7 +163,7 @@ export function BrandClaritySection() {
                 animate={isInView ? "visible" : "hidden"}
               >
                 <motion.p
-                  className="text-base md:text-lg lg:text-[22px] text-black font-medium tracking-tight leading-relaxed"
+                  className="text-base md:text-lg lg:text-[22px] text-white font-medium tracking-tight leading-relaxed"
                 >
                   {paragraph2Lines.map((line, idx) => (
                     <motion.span

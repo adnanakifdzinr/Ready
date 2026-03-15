@@ -1,19 +1,16 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useWebOpenAnimation } from "@/context/animation-context"
 
 export function HeroSVGAnimation() {
-  const { isWebOpenAnimating } = useWebOpenAnimation()
-
   return (
     <motion.div
       className="w-full pointer-events-none overflow-hidden pt-30 px-0 sm:px-0 lg:px-0 mb-0"
       initial={{ opacity: 0, y: 40 }}
-      animate={isWebOpenAnimating ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{
         duration: 0.8,
-        delay: 0.3,
+        delay: 0.2,
         ease: [0.16, 1, 0.3, 1],
       }}
     >
@@ -22,19 +19,19 @@ export function HeroSVGAnimation() {
         className="w-full h-auto"
         xmlns="http://www.w3.org/2000/svg"
         initial={{ y: 50, opacity: 0, filter: "blur(6px)" }}
-        animate={isWebOpenAnimating ? { y: 0, opacity: 1, filter: "blur(0px)" } : { y: 50, opacity: 0, filter: "blur(6px)" }}
+        animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
         transition={{
           duration: 1.4,
-          delay: 0.4,
+          delay: 0.3,
           ease: [0.23, 1, 0.32, 1],
         }}
       >
         <g id="Layer_1" data-name="Layer 1">
-          <path d="M1896.81,76.9h-.08c.03-.91.05-1.81.06-2.72.01.91.02,1.81.02,2.72Z" fill="#000000" />
-          <path d="M1896.81,71.46c0,.91-.01,1.81-.02,2.72-.01-.91-.03-1.81-.06-2.72h.08Z" fill="#000000" />
+          <path d="M1896.81,76.9h-.08c.03-.91.05-1.81.06-2.72.01.91.02,1.81.02,2.72Z" fill="#ffffff" />
+          <path d="M1896.81,71.46c0,.91-.01,1.81-.02,2.72-.01-.91-.03-1.81-.06-2.72h.08Z" fill="#ffffff" />
         </g>
         <g id="Shape_Grid_Output_" data-name="Shape Grid (Output)">
-          <g fill="#000000">
+          <g fill="#ffffff">
             <path d="M3.01,5.66h84.41v284.2h166.33v75.42H3.01V5.66Z" />
             <path d="M328.98,340.81c-26.71-15.92-46.89-37.47-60.56-64.67-13.68-27.18-20.51-57.5-20.51-90.97s6.83-63.78,20.51-90.97c13.67-27.18,33.86-48.74,60.56-64.66,26.7-15.92,58.55-23.89,95.55-23.89s68.84,7.96,95.55,23.89c26.7,15.92,46.89,37.48,60.56,64.66,13.67,27.19,20.51,57.51,20.51,90.97s-6.84,63.78-20.51,90.97c-13.68,27.19-33.86,48.74-60.56,64.67-26.71,15.92-58.56,23.89-95.55,23.89s-68.85-7.96-95.55-23.89ZM355.52,262.63c15.12,20.11,38.12,30.16,69.01,30.16s53.88-10.05,69.01-30.16c15.12-20.1,22.68-45.92,22.68-77.45s-7.56-57.34-22.68-77.45c-15.13-20.1-38.12-30.16-69.01-30.16s-53.89,10.06-69.01,30.16c-15.13,20.11-22.68,45.93-22.68,77.45s7.56,57.35,22.68,77.45Z" />
             <path d="M611.69,297.85l185.81-218.27-90.91,1.5h-88.91V5.66h290.2v64.93l-188.8,220.77,94.4-1.5h96.9v75.42h-298.69v-67.43Z" />
