@@ -154,9 +154,9 @@ export function ProjectThumbnails() {
         </div>
 
         {/* Desktop: Split Screen Layout */}
-        <div className="hidden lg:flex gap-0 w-full">
-          {/* Left Panel - Sticky Full Height */}
-          <div className="fixed left-0 top-0 w-2/5 h-screen bg-black z-10 flex flex-col px-8 py-16">
+        <div className="hidden lg:flex gap-12">
+          {/* Left Panel - 40% - Sticky Info */}
+          <div className="w-2/5 sticky top-32 h-screen flex flex-col">
             {/* Top - Our Work Title */}
             <motion.h2
               initial={{ opacity: 0, y: -10 }}
@@ -190,7 +190,7 @@ export function ProjectThumbnails() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-                    className="pb-16 max-w-md"
+                    className="pb-12"
                   >
                     <p className="text-base text-white/70 leading-relaxed font-light">
                       {selectedProject.description}
@@ -202,8 +202,8 @@ export function ProjectThumbnails() {
           </div>
 
           {/* Right Panel - 60% - Scrollable Thumbnails */}
-          <div className="ml-auto w-3/5">
-            <div className="flex flex-col gap-4 px-8 py-16 max-h-screen overflow-y-auto">
+          <div className="w-3/5">
+            <div className="flex flex-col gap-4 max-h-[70vh] overflow-y-auto pr-4">
               {projects.slice(0, displayedCount).map((project, index) => {
                 const isVisible = visibleCards.has(project.id)
                 const isSelected = selectedProject?.id === project.id
