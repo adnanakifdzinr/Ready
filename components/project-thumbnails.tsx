@@ -163,90 +163,46 @@ export function ProjectThumbnails() {
         {/* Desktop: Split Screen Layout */}
         <div className="hidden lg:flex gap-8">
           {/* Left Panel - 40% - Sticky Info */}
-          <div className="w-2/5 sticky top-20 h-fit flex flex-col">
+          <div className="w-2/5 sticky top-20 h-fit flex flex-col justify-between min-h-[600px]">
+            {/* Top - Our Work Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              className="text-4xl font-medium text-white uppercase leading-tight mb-12"
+            >
+              Our Work
+            </motion.h2>
+
+            {/* Middle - Project Name */}
             {selectedProject && (
               <motion.div
                 key={selectedProject.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                className="flex flex-col"
+                className="flex-1 flex flex-col justify-center gap-4"
               >
-                {/* Selected Image */}
-                <motion.div
-                  className="relative w-full aspect-video overflow-hidden bg-gray-700 rounded-lg mb-8"
-                  initial={{ scale: 0.95, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-                >
-                  <Image
-                    src={selectedProject.image || "/placeholder.jpg"}
-                    alt={selectedProject.title}
-                    fill
-                    sizes="40vw"
-                    className="object-cover"
-                    priority
-                  />
-                </motion.div>
+                <h3 className="text-5xl font-medium text-white uppercase leading-tight">
+                  {selectedProject.title}
+                </h3>
+                <p className="text-lg text-white/80 font-medium">
+                  {selectedProject.category}
+                </p>
+              </motion.div>
+            )}
 
-                {/* Info Section */}
-                <motion.div
-                  className="flex flex-col gap-6"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
-                >
-                  <div>
-                    <h3 className="text-3xl font-medium text-white uppercase leading-tight mb-2">
-                      {selectedProject.title}
-                    </h3>
-                    <p className="text-lg text-white/80 font-medium">
-                      {selectedProject.category}
-                    </p>
-                  </div>
-
-                  {selectedProject.client && (
-                    <div>
-                      <p className="text-sm text-white/60 uppercase tracking-wider mb-1">Client</p>
-                      <p className="text-base text-white font-medium">{selectedProject.client}</p>
-                    </div>
-                  )}
-
-                  {selectedProject.industry && (
-                    <div>
-                      <p className="text-sm text-white/60 uppercase tracking-wider mb-1">Industry</p>
-                      <p className="text-base text-white font-medium">{selectedProject.industry}</p>
-                    </div>
-                  )}
-
-                  {selectedProject.year && (
-                    <div>
-                      <p className="text-sm text-white/60 uppercase tracking-wider mb-1">Year</p>
-                      <p className="text-base text-white font-medium">{selectedProject.year}</p>
-                    </div>
-                  )}
-
-                  {selectedProject.role && (
-                    <div>
-                      <p className="text-sm text-white/60 uppercase tracking-wider mb-1">Role</p>
-                      <p className="text-base text-white font-medium">{selectedProject.role}</p>
-                    </div>
-                  )}
-
-                  {selectedProject.description && (
-                    <div>
-                      <p className="text-sm text-white/60 uppercase tracking-wider mb-2">About</p>
-                      <p className="text-base text-white/90 leading-relaxed">{selectedProject.description}</p>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => setIsOverlayOpen(true)}
-                    className="mt-4 px-6 py-3 bg-white text-black font-medium rounded-full hover:bg-white/90 transition-colors duration-300 w-fit"
-                  >
-                    View Project
-                  </button>
-                </motion.div>
+            {/* Bottom - Description */}
+            {selectedProject && selectedProject.description && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+                className="mt-auto pt-8 border-t border-white/10"
+              >
+                <p className="text-base text-white/90 leading-relaxed">
+                  {selectedProject.description}
+                </p>
               </motion.div>
             )}
           </div>
@@ -275,7 +231,7 @@ export function ProjectThumbnails() {
                     }`}
                     onClick={() => {
                       setSelectedProject(project)
-                      setIsOverlayOpen(false)
+                      setIsOverlayOpen(true)
                     }}
                   >
                     {/* Thumbnail Image */}
