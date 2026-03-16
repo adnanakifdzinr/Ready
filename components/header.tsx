@@ -8,6 +8,41 @@ import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { AboutPopup } from "@/components/about-popup"
 
+// Letter Spin Component
+function SpinningNavLink({ label, onClick, action }: { label: string; onClick: () => void; action?: string }) {
+  const [isHovering, setIsHovering] = useState(false)
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      className="text-[14px] text-white font-medium tracking-tight cursor-pointer relative h-4 overflow-hidden flex"
+      style={{ fontFamily: "'Inter', sans-serif" }}
+    >
+      {label.split('').map((char, index) => (
+        <motion.span
+          key={index}
+          initial={{ rotateX: 0 }}
+          animate={isHovering ? { rotateX: 360 } : { rotateX: 0 }}
+          transition={{
+            duration: 0.6,
+            delay: index * 0.05,
+            ease: [0.23, 1, 0.32, 1]
+          }}
+          style={{
+            perspective: 1000,
+            transformStyle: 'preserve-3d',
+            display: 'inline-block'
+          }}
+        >
+          {char === ' ' ? '\u00A0' : char}
+        </motion.span>
+      ))}
+    </button>
+  )
+}
+
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -118,39 +153,32 @@ export function SiteHeader() {
             {desktopNavLinks.map((link) => (
               <div key={link.label}>
                 {link.action === "about" ? (
-                  <button
+                  <SpinningNavLink
+                    label={link.label}
                     onClick={() => setIsAboutOpen(true)}
-                    className="text-[14px] text-white font-medium tracking-tight"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {link.label}
-                  </button>
+                    action="about"
+                  />
                 ) : link.action === "contact" ? (
-                  <button
+                  <SpinningNavLink
+                    label={link.label}
                     onClick={() => {
                       const contactSection = document.getElementById('contact')
                       if (contactSection) {
                         contactSection.scrollIntoView({ behavior: 'smooth' })
                       }
                     }}
-                    className="text-[14px] text-white font-medium tracking-tight"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {link.label}
-                  </button>
+                    action="contact"
+                  />
                 ) : (
-                  <button
+                  <SpinningNavLink
+                    label={link.label}
                     onClick={() => {
                       const element = document.getElementById(link.section || '')
                       if (element) {
                         element.scrollIntoView({ behavior: "smooth" })
                       }
                     }}
-                    className="text-[14px] text-white font-medium tracking-tight"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {link.label}
-                  </button>
+                  />
                 )}
               </div>
             ))}
