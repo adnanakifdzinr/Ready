@@ -199,7 +199,7 @@ export function SiteHeader() {
           {[0, 1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className={`flex-1 bg-[#0e0e0e] transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "scale-y-100 origin-bottom" : "scale-y-0 origin-top"}`}
+              className={`flex-1 bg-[#000000] transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "scale-y-100 origin-bottom" : "scale-y-0 origin-top"}`}
               style={{
                 transitionDuration: "1500ms",
                 transitionDelay: isMenuOpen ? `${i * 50}ms` : `${(4 - i) * 30}ms`,

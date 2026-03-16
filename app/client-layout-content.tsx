@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/header"
 import { AnimationProvider } from "@/context/animation-context"
 import { usePathname } from "next/navigation"
@@ -18,9 +17,6 @@ export function ClientLayoutContent({ children }: { children: React.ReactNode })
           {!isGalleryRoute && <SiteHeader />}
           {children}
         </div>
-
-        {/* Footer */}
-        <Footer />
       </div>
     </AnimationProvider>
   )
