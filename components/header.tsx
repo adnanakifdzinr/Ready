@@ -107,8 +107,7 @@ export function SiteHeader() {
 
   const desktopNavLinks = [
     { label: "Work", section: "work" },
-    { label: "About", action: "about" },
-    { label: "Services", section: "services" },
+    { label: "Process", section: "process" },
     { label: "Contact", action: "contact" },
   ]
 
@@ -148,8 +147,8 @@ export function SiteHeader() {
             </svg>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Navigation Links */}
+          <nav className="flex items-center gap-8">
             {desktopNavLinks.map((link) => (
               <div key={link.label}>
                 {link.action === "about" ? (
@@ -184,169 +183,11 @@ export function SiteHeader() {
             ))}
           </nav>
 
-          {/* CTA Button and Hamburger */}
-          <div className="flex items-center gap-3 md:gap-4 lg:hidden">
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
-            >
-              <div className="relative w-5 h-3.5">
-                <span
-                  className={`absolute left-0 h-[2.5px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `top-1/2 -translate-y-1/2 rotate-45 w-full`
-                    : `top-0 w-full group-hover:w-3/5`
-                    }`}
-                />
-                <span
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2.5px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `w-0 opacity-0`
-                    : `w-full opacity-100 group-hover:w-4/5 group-hover:translate-x-1`
-                    }`}
-                />
-                <span
-                  className={`absolute left-0 h-[2.5px] bg-white transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `bottom-1/2 translate-y-1/2 -rotate-45 w-full`
-                    : `bottom-0 w-full group-hover:w-2/5`
-                    }`}
-                />
-              </div>
-            </button>
-          </div>
+
         </div>
       </motion.header>
 
-      <div
-        className={`fixed inset-0 z-40 overflow-hidden ${isAnimating || isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
-      >
-        {/* Background curtain panels */}
-        <div className="absolute inset-0 flex">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className={`flex-1 bg-[#000000] transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "scale-y-100 origin-bottom" : "scale-y-0 origin-top"}`}
-              style={{
-                transitionDuration: "1500ms",
-                transitionDelay: isMenuOpen ? `${i * 50}ms` : `${(4 - i) * 30}ms`,
-              }}
-            />
-          ))}
-        </div>
 
-        {/* Content container */}
-        <div className="relative h-full flex flex-col justify-between items-center px-3 md:px-5 lg:px-8 pt-20 pb-8 md:pb-10">
-          {/* Main Navigation */}
-          <nav className="flex-1 flex items-center justify-center">
-            <ul className="flex flex-col gap-2humbnailhang items-center text-center">
-              {navLinks.map((link, index) => (
-                <li key={link.label} className="overflow-hidden">
-                  {link.action === "about" ? (
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        setIsAboutOpen(true)
-                      }}
-                      className={`block text-[50px] md:text-[89px] lg:text-[101px] tracking-tight font-regular leading-[0.95] transition-colors duration-100 ease-in-out cursor-pointer text-white hover:text-[#ff3a09]`}
-                      style={{
-                        transform: isMenuOpen ? "translateY(0)" : "translateY(120%)",
-                        opacity: isMenuOpen ? 1 : 0,
-                        transitionDuration: "1500ms",
-                        transitionDelay: isMenuOpen ? `${400 + index * 80}ms` : `${(navLinks.length - index) * 40}ms`,
-                        transitionProperty: "transform, opacity",
-                      }}
-                    >
-                      {link.label}
-                    </button>
-                  ) : link.action === "contact" ? (
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        const contactSection = document.getElementById('contact')
-                        if (contactSection) {
-                          contactSection.scrollIntoView({ behavior: 'smooth' })
-                        }
-                      }}
-                      className={`block text-[50px] md:text-[89px] lg:text-[101px] tracking-tight font-regular leading-[0.95] transition-colors duration-100 ease-in-out cursor-pointer text-white hover:text-[#ff3a09]`}
-                      style={{
-                        transform: isMenuOpen ? "translateY(0)" : "translateY(120%)",
-                        opacity: isMenuOpen ? 1 : 0,
-                        transitionDuration: "1500ms",
-                        transitionDelay: isMenuOpen ? `${400 + index * 80}ms` : `${(navLinks.length - index) * 40}ms`,
-                        transitionProperty: "transform, opacity",
-                      }}
-                    >
-                      {link.label}
-                    </button>
-                  ) : link.section ? (
-                    <button
-                      onClick={() => {
-                        setIsMenuOpen(false)
-                        const element = document.getElementById(link.section)
-                        if (element) {
-                          element.scrollIntoView({ behavior: "smooth" })
-                        }
-                      }}
-                      className={`block text-[50px] md:text-[89px] lg:text-[101px] tracking-tight font-regular leading-[0.95] transition-colors duration-100 ease-in-out cursor-pointer text-white hover:text-[#ff3a09]`}
-                      style={{
-                        transform: isMenuOpen ? "translateY(0)" : "translateY(120%)",
-                        opacity: isMenuOpen ? 1 : 0,
-                        transitionDuration: "1500ms",
-                        transitionDelay: isMenuOpen ? `${400 + index * 80}ms` : `${(navLinks.length - index) * 40}ms`,
-                        transitionProperty: "transform, opacity",
-                      }}
-                    >
-                      {link.label}
-                    </button>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className={`block text-[50px] md:text-[89px] lg:text-[101px] tracking-tight font-regular leading-[0.95] transition-colors duration-100 ease-in-out ${isActive(link.href) ? "text-white" : "text-white hover:text-[#ff3a09]"}`}
-                      style={{
-                        transform: isMenuOpen ? "translateY(0)" : "translateY(120%)",
-                        opacity: isMenuOpen ? 1 : 0,
-                        transitionDuration: "1500ms",
-                        transitionDelay: isMenuOpen ? `${400 + index * 80}ms` : `${(navLinks.length - index) * 40}ms`,
-                        transitionProperty: "transform, opacity",
-                      }}
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Bottom Section - Social links */}
-          <motion.div className="flex items-center justify-center w-full">
-            <motion.div
-              className="flex flex-row items-center gap-4 md:gap-6"
-              initial={{ opacity: 0, y: 50 }}
-              animate={isMenuOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-              transition={{
-                duration: 0.8,
-                delay: isMenuOpen ? 1.6 : 0,
-                ease: [0.23, 1, 0.32, 1]
-              }}
-            >
-              <motion.a
-                href="https://www.instagram.com/adnanahmedakif/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 md:gap-3 text-white text-[12px] md:text-[14px] font-medium tracking-tight hover:text-[#ff3a09] transition-colors duration-300"
-                initial={{ opacity: 0, x: -20, scale: 0.8 }}
-                animate={isMenuOpen ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: -20, scale: 0.8 }}
-                transition={{
-                  duration: 0.6,
-                  delay: isMenuOpen ? 1.7 : 0,
-                  ease: [0.23, 1, 0.32, 1]
-                }}
-                whileHover={{ x: 5 }}
-              >
-                Instagram
-                <motion.div
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
                   whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
                 >
