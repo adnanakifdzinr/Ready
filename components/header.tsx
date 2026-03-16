@@ -64,11 +64,10 @@ export function SiteHeader() {
   }, [])
 
   const navLinks = [
-    { href: "/", label: "HOME", section: "home" },
-    { href: "/", label: "OUR WORK", section: "work" },
-    { href: "/", label: "OUR SERVICES", section: "services" },
+    { href: "/", label: "WORK", section: "work" },
+    { href: "/", label: "SERVICES", section: "services" },
     { href: "/", label: "ABOUT", action: "about" },
-    { href: "/", label: "CONTACT US", action: "contact" },
+    { href: "/", label: "CONTACT", action: "contact" },
   ]
 
   const desktopNavLinks = [
@@ -121,7 +120,7 @@ export function SiteHeader() {
                 {link.action === "about" ? (
                   <button
                     onClick={() => setIsAboutOpen(true)}
-                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    className="text-[14px] text-white font-medium tracking-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {link.label}
@@ -134,7 +133,7 @@ export function SiteHeader() {
                         contactSection.scrollIntoView({ behavior: 'smooth' })
                       }
                     }}
-                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    className="text-[14px] text-white font-medium tracking-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {link.label}
@@ -147,7 +146,7 @@ export function SiteHeader() {
                         element.scrollIntoView({ behavior: "smooth" })
                       }
                     }}
-                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    className="text-[14px] text-white font-medium tracking-tight"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     {link.label}
