@@ -71,6 +71,13 @@ export function SiteHeader() {
     { href: "/", label: "CONTACT US", action: "contact" },
   ]
 
+  const desktopNavLinks = [
+    { label: "Work", section: "work" },
+    { label: "About", action: "about" },
+    { label: "Services", section: "services" },
+    { label: "Contact", action: "contact" },
+  ]
+
   const isActive = (href: string) => {
     if (href === "/#home") return pathname === "/"
     if (href.startsWith("/#")) return false
@@ -107,8 +114,51 @@ export function SiteHeader() {
             </svg>
           </Link>
 
+          {/* Desktop Navigation Links */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {desktopNavLinks.map((link) => (
+              <div key={link.label}>
+                {link.action === "about" ? (
+                  <button
+                    onClick={() => setIsAboutOpen(true)}
+                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {link.label}
+                  </button>
+                ) : link.action === "contact" ? (
+                  <button
+                    onClick={() => {
+                      const contactSection = document.getElementById('contact')
+                      if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' })
+                      }
+                    }}
+                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      const element = document.getElementById(link.section || '')
+                      if (element) {
+                        element.scrollIntoView({ behavior: "smooth" })
+                      }
+                    }}
+                    className="text-sm font-normal text-white hover:text-white/70 transition-colors duration-300 tracking-wide"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    {link.label}
+                  </button>
+                )}
+              </div>
+            ))}
+          </nav>
+
           {/* CTA Button and Hamburger */}
-          <div className="flex items-center gap-3 md:gap-4">
+          <div className="flex items-center gap-3 md:gap-4 lg:hidden">
             {/* Hamburger Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
