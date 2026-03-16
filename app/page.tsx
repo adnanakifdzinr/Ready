@@ -1,9 +1,4 @@
 import type { Metadata } from "next"
-import { ProjectThumbnails } from "@/components/project-thumbnails"
-import { Hero } from "@/components/hero"
-import { HeroCTASection } from "@/components/hero-cta-section"
-import { HeroSVGAnimation } from "@/components/hero-svg-animation"
-import { TypewriterText } from "@/components/typewriter-text"
 
 export const metadata: Metadata = {
   title: "Lozinr | Logo & Brand Identity Design Agency",
@@ -36,30 +31,8 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <>
-      <main className="relative bg-[#000000] transition-colors duration-300">
-        {/* Hero SVG Section */}
-        <section id="home" className="w-full lg:py-60 lg:px-8 py-30 px-3 overflow-hidden relative">
-          <HeroSVGAnimation />
-          {/* Hero Text Section */}
-          <div className="grid grid-cols-2 gap-0 mt-4 md:mt-5">
-            {/* Left - Empty */}
-            <div></div>
-            {/* Right - Text */}
-            <div className="flex items-center">
-              <TypewriterText
-                text="We create premium brands that command attention."
-                className="text-[20px] md:text-5xl lg:text-[35px] font-regular text-black leading-none tracking-tighter"
-              />
-            </div>
-          </div>
-        </section>
-        <div className="relative bg-background">
-          <section id="work">
-            <ProjectThumbnails />
-          </section>
-        </div>
-      </main>
-    </>
+    <main className="relative bg-[#000000] transition-colors duration-300 min-h-screen">
+      {/* Page content will go here */}
+    </main>
   )
 }
