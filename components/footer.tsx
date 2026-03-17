@@ -256,7 +256,6 @@ export function Footer() {
               </motion.div>
             </div>
           </div>
-        </div>
 
         {/* Animated SVG Bottom Section */}
         <div className="mt-5 md:mt-10 pt-3 md:pt-4 px-3 md:px-4 lg:px-5 overflow-hidden">
