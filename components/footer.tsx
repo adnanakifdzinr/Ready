@@ -71,34 +71,9 @@ const svgVariants = {
 }
 
 export function Footer() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    location: "",
-    company: "",
-    services: {
-      logoDesign: false,
-      brandIdentity: false,
-      visualIdentity: false,
-    },
-    message: "",
-  })
-
-  const [showSuccess, setShowSuccess] = useState(false)
   const [hoveredCta, setHoveredCta] = useState<string | null>(null)
   const [ctasInView, setCtasInView] = useState(false)
-  const [formInView, setFormInView] = useState(false)
   const ctaContainerRef = useRef<HTMLDivElement>(null)
-  const formContainerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (showSuccess) {
-      const timer = setTimeout(() => {
-        setShowSuccess(false)
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [showSuccess])
 
   useEffect(() => {
     if (ctasInView) return
@@ -123,122 +98,16 @@ export function Footer() {
     }
   }, [ctasInView])
 
-  useEffect(() => {
-    if (formInView) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setFormInView(true)
-        }
-      },
-      { threshold: 0.2 }
-    )
-
-    if (formContainerRef.current) {
-      observer.observe(formContainerRef.current)
-    }
-
-    return () => {
-      if (formContainerRef.current) {
-        observer.unobserve(formContainerRef.current)
-      }
-    }
-  }, [formInView])
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
-  const handleCheckboxChange = (service: keyof typeof formData.services) => {
-    setFormData((prev) => ({
-      ...prev,
-      services: {
-        ...prev.services,
-        [service]: !prev.services[service],
-      },
-    }))
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    if (!formData.name.trim() || !formData.email.trim()) {
-      alert("Please fill in all required fields")
-      return
-    }
-
-    const hasSelectedService = Object.values(formData.services).some((value) => value === true)
-    if (!hasSelectedService) {
-      alert("Please select at least one service")
-      return
-    }
-
-    const formElement = e.currentTarget
-    const formDataObj = new FormData(formElement)
-
-    fetch("https://formspree.io/f/mblnejjn", {
-      method: "POST",
-      body: formDataObj,
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          setShowSuccess(true)
-          setFormData({
-            name: "",
-            email: "",
-            location: "",
-            company: "",
-            services: {
-              logoDesign: false,
-              brandIdentity: false,
-              visualIdentity: false,
-            },
-            message: "",
-          })
-        }
-      })
-      .catch((error) => console.error("Form submission error:", error))
-  }
-
   return (
     <>
-      <footer id="contact" className={`text-black transition-colors duration-300 ${showSuccess ? 'bg-[#10b981]' : 'bg-[#f9f9f9]'}`}>
+      <footer id="contact" className="text-black bg-[#f9f9f9]">
         {/* Divider */}
         <div className="w-full h-px bg-black/10" />
 
-        {/* Success Message - Full Footer */}
-        {showSuccess && (
-          <motion.div
-            className="w-full px-3 lg:px-8 py-16 lg:py-25 flex flex-col items-center justify-center min-h-[400px]"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-          >
-            <motion.h1
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white text-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
-            >
-              Successful
-            </motion.h1>
-          </motion.div>
-        )}
-
         {/* Main Footer Content */}
-        {!showSuccess && (
-          <div className="w-full px-3 lg:px-8 py-16 lg:py-25">
-            {/* Single Column Layout */}
-            <div>
+        <div className="w-full px-3 lg:px-8 py-16 lg:py-25">
+            {/* Two Column Layout */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
               {/* Left Column - Schedule a Chat */}
               <motion.div
                 className="flex flex-col justify-start"
@@ -369,112 +238,25 @@ export function Footer() {
                   </motion.div>
                 </motion.div>
               </motion.div>
-            </div>
 
-                  {/* Location and Company - Side by Side */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <motion.div
-                      variants={itemVariants}
-                    >
-                      <Input
-                        type="text"
-                        name="location"
-                        placeholder="Your Location"
-                        value={formData.location}
-                        onChange={handleInputChange}
-                        className="w-full h-auto bg-transparent text-black border-0 border-b border-black rounded-none focus-visible:ring-0 focus-visible:border-black py-2 focus-visible:bg-transparent placeholder:text-black/50 placeholder:text-sm placeholder:font-medium"
-                      />
-                    </motion.div>
-                    <motion.div
-                      variants={itemVariantsReverse}
-                    >
-                      <Input
-                        type="text"
-                        name="company"
-                        placeholder="Your Company Name"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        className="w-full h-auto bg-transparent text-black border-0 border-b border-black rounded-none focus-visible:ring-0 focus-visible:border-black py-2 focus-visible:bg-transparent placeholder:text-black/50 placeholder:text-sm placeholder:font-medium"
-                      />
-                    </motion.div>
-                  </div>
-
-                  {/* Services Checkboxes */}
-                  <motion.div
-                    variants={itemVariants}
-                  >
-                    <p className="text-black font-medium mb-4">What do you want our help with? *</p>
-                    <motion.div className="space-y-3" variants={containerVariants}>
-                      <motion.label
-                        className="flex items-center space-x-3 cursor-pointer"
-                        variants={itemVariants}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={formData.services.logoDesign}
-                          onChange={() => handleCheckboxChange("logoDesign")}
-                          className="w-5 h-5 rounded bg-black/10 border border-black/30 cursor-pointer accent-[#ff3a09]"
-                        />
-                        <span className="text-black">Brand Strategy</span>
-                      </motion.label>
-                      <motion.label
-                        className="flex items-center space-x-3 cursor-pointer"
-                        variants={itemVariantsReverse}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={formData.services.brandIdentity}
-                          onChange={() => handleCheckboxChange("brandIdentity")}
-                          className="w-5 h-5 rounded bg-black/10 border border-black/30 cursor-pointer accent-[#ff3a09]"
-                        />
-                        <span className="text-black">Brand Identity</span>
-                      </motion.label>
-                      <motion.label
-                        className="flex items-center space-x-3 cursor-pointer"
-                        variants={itemVariants}
-                      >
-                        <input
-                          type="checkbox"
-                          checked={formData.services.visualIdentity}
-                          onChange={() => handleCheckboxChange("visualIdentity")}
-                          className="w-5 h-5 rounded bg-black/10 border border-black/30 cursor-pointer accent-[#ff3a09]"
-                        />
-                        <span className="text-black">Visual Identity Systems</span>
-                      </motion.label>
-                    </motion.div>
-                  </motion.div>
-
-                  {/* Project Message */}
-                  <motion.div
-                    variants={itemVariantsReverse}
-                  >
-                    <p className="text-black font-medium mb-3">Tell us about your project *</p>
-                    <Textarea
-                      name="message"
-                      placeholder="Describe your project, goals, and requirements..."
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full h-20 text-black border-0 border-b border-black rounded-none focus-visible:ring-0 focus-visible:border-black py-2 focus-visible:bg-transparent resize-none placeholder:text-black/50 placeholder:text-sm placeholder:font-medium"
-                    />
-                  </motion.div>
-
-                  {/* Submit Button */}
-                  <motion.div
-                    variants={itemVariants}
-                  >
-                    <Button
-                      type="submit"
-                      className="w-full bg-black text-white font-medium py-7 text-base md:text-lg border-0 border-b border-black rounded-none hover:bg-black"
-                    >
-                      Submit Message
-                    </Button>
-                  </motion.div>
-                </form>
+              {/* Right Column - Cal.com Embed */}
+              <motion.div
+                className="flex items-center justify-center"
+                initial="hidden"
+                animate={ctasInView ? "visible" : "hidden"}
+                variants={containerVariants}
+              >
+                <iframe
+                  src="https://cal.com/adnanakif/30-min-meeting?overlayCalendar=true"
+                  width="100%"
+                  height="600"
+                  frameBorder="0"
+                  className="rounded-lg"
+                />
               </motion.div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Animated SVG Bottom Section */}
         <div className="mt-5 md:mt-10 pt-3 md:pt-4 px-3 md:px-4 lg:px-5 overflow-hidden">
