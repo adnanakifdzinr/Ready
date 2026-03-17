@@ -1,0 +1,97 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+
+export function WebsiteReveal() {
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    // Check if reveal animation has already been shown
+    const hasShown = sessionStorage.getItem("websiteRevealShown")
+    if (hasShown) {
+      setIsVisible(false)
+    }
+  }, [])
+
+  if (!isVisible) {
+    return null
+  }
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[9999] pointer-events-auto"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      {/* Black background that slides up */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        initial={{ y: 0 }}
+        animate={{ y: "100%" }}
+        transition={{
+          duration: 1.2,
+          delay: 1.8,
+          ease: [0.23, 1, 0.32, 1],
+        }}
+        onAnimationComplete={() => {
+          setIsVisible(false)
+          sessionStorage.setItem("websiteRevealShown", "true")
+        }}
+      />
+
+      {/* Center logo container */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          className="w-48 h-48 md:w-64 md:h-64 flex items-center justify-center"
+          initial={{
+            scale: 1,
+            rotate: 0,
+            opacity: 1,
+          }}
+          animate={{
+            scale: 0.35,
+            rotate: 360,
+            x: "calc(-50vw + 60px)",
+            y: "calc(-50vh + 40px)",
+            opacity: 1,
+          }}
+          transition={{
+            duration: 1.2,
+            ease: [0.23, 1, 0.32, 1],
+            delay: 0,
+          }}
+        >
+          {/* Logo SVG */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1739.38 371.37"
+            className="w-full h-full"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <g id="Layer_1" data-name="Layer 1">
+              <path d="M1896.81,76.9h-.08c.03-.91.05-1.81.06-2.72.01.91.02,1.81.02,2.72Z" fill="white" />
+              <path d="M1896.81,71.46c0,.91-.01,1.81-.02,2.72-.01-.91-.03-1.81-.06-2.72h.08Z" fill="white" />
+            </g>
+            <g id="Shape_Grid_Output_" data-name="Shape Grid (Output)">
+              <g fill="#ffffff">
+                <path d="M3.01,5.66h84.41v284.2h166.33v75.42H3.01V5.66Z" />
+                <path d="M328.98,340.81c-26.71-15.92-46.89-37.47-60.56-64.67-13.68-27.18-20.51-57.5-20.51-90.97s6.83-63.78,20.51-90.97c13.67-27.18,33.86-48.74,60.56-64.66,26.7-15.92,58.55-23.89,95.55-23.89s68.84,7.96,95.55,23.89c26.7,15.92,46.89,37.48,60.56,64.66,13.67,27.19,20.51,57.51,20.51,90.97s-6.84,63.78-20.51,90.97c-13.68,27.19-33.86,48.74-60.56,64.67-26.71,15.92-58.56,23.89-95.55,23.89s-68.85-7.96-95.55-23.89ZM355.52,262.63c15.12,20.11,38.12,30.16,69.01,30.16s53.88-10.05,69.01-30.16c15.12-20.1,22.68-45.92,22.68-77.45s-7.56-57.34-22.68-77.45c-15.13-20.1-38.12-30.16-69.01-30.16s-53.89,10.06-69.01,30.16c-15.13,20.11-22.68,45.93-22.68,77.45s7.56,57.35,22.68,77.45Z" />
+                <path d="M611.69,297.85l185.81-218.27-90.91,1.5h-88.91V5.66h290.2v64.93l-188.8,220.77,94.4-1.5h96.9v75.42h-298.69v-67.43Z" />
+                <path d="M950.68,5.66h84.41v359.63h-84.41V5.66Z" />
+                <path d="M1162.67,124.04v241.25h-80.92V5.66h91.41l142.85,242.25V5.66h80.92v359.63h-91.41l-142.85-241.25Z" />
+                <path d="M1424.53,5.66h169.03c43.33,0,75.84,9.84,97.52,29.5,21.67,19.67,32.5,45.84,32.5,78.51,0,18.34-4.84,34.93-14.5,49.76-9.67,14.84-51.78,36.22-78.67,31.23,15,7.34,46,5.61,71.92,35.53,9.08,10.49,12.42,25.68,14.75,42.01l14,93.51h-86.51l-12-81.01c-2.67-18-8.34-31.25-17-39.76-8.67-8.5-21.34-12.75-38.01-12.75h-68.51v133.52h-84.51V5.66ZM1578.55,167.68c19.33,0,33.83-3.83,43.51-11.5,9.67-7.67,14.5-19.5,14.5-35.51s-4.84-27.83-14.5-35.51c-9.67-7.67-24.18-11.5-43.51-11.5h-69.51v94.01h69.51Z" />
+              </g>
+            </g>
+          </svg>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  )
+}

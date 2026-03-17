@@ -4,6 +4,7 @@ import type React from "react"
 import { Footer } from "@/components/footer"
 import { SiteHeader } from "@/components/header"
 import { AnimationProvider } from "@/context/animation-context"
+import { WebsiteReveal } from "@/components/website-reveal"
 import { usePathname } from "next/navigation"
 
 export function ClientLayoutContent({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export function ClientLayoutContent({ children }: { children: React.ReactNode })
 
   return (
     <AnimationProvider>
+      <WebsiteReveal />
       <div className="relative">
         {/* Main content - scrollable overlay */}
         <div className="relative z-20">
