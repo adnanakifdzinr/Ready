@@ -237,8 +237,8 @@ export function Footer() {
         {/* Main Footer Content */}
         {!showSuccess && (
           <div className="w-full px-3 lg:px-8 py-16 lg:py-25">
-            {/* Two Column Layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-16">
+            {/* Single Column Layout */}
+            <div>
               {/* Left Column - Schedule a Chat */}
               <motion.div
                 className="flex flex-col justify-start"
@@ -369,64 +369,7 @@ export function Footer() {
                   </motion.div>
                 </motion.div>
               </motion.div>
-
-              {/* Right Column - Contact Form */}
-              <motion.div
-                ref={formContainerRef}
-                initial="hidden"
-                animate={formInView ? "visible" : "hidden"}
-                variants={containerVariants}
-              >
-                {showSuccess && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="mb-4 bg-[#0dce8d] text-black px-4 py-3 rounded-lg font-medium"
-                  >
-                    Message sent successfully! We'll get back to you soon.
-                  </motion.div>
-                )}
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Contact Us Title */}
-                  <motion.div
-                    variants={itemVariants}
-                  >
-                    <h3 className="text-[36px] font-medium text-black tracking-tight mb-6">
-                      Contact Us
-                    </h3>
-                  </motion.div>
-
-                  {/* Name and Email - Side by Side */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    <motion.div
-                      variants={itemVariants}
-                    >
-                      <Input
-                        type="text"
-                        name="name"
-                        placeholder="Your Full Name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full h-auto bg-transparent text-black border-0 border-b border-black rounded-none focus-visible:ring-0 focus-visible:border-black py-2 focus-visible:bg-transparent placeholder:text-black/50 placeholder:text-sm placeholder:font-medium"
-                      />
-                    </motion.div>
-                    <motion.div
-                      variants={itemVariantsReverse}
-                    >
-                      <Input
-                        type="email"
-                        name="email"
-                        placeholder="Your Email Address"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full h-auto bg-transparent text-black border-0 border-b border-black rounded-none focus-visible:ring-0 focus-visible:border-black py-2 focus-visible:bg-transparent placeholder:text-black/50 placeholder:text-sm placeholder:font-medium"
-                      />
-                    </motion.div>
-                  </div>
+            </div>
 
                   {/* Location and Company - Side by Side */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
