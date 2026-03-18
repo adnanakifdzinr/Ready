@@ -214,16 +214,12 @@
 }
 
 /* Hamburger hover state expansion */
-button[aria-expanded] .relative > span:first-child {
-  transition: width 0.5s ease;
-}
-
-button[aria-expanded]:hover .relative > span:first-child {
+button[aria-expanded]:hover .relative > span:nth-child(1) {
   width: 100% !important;
   margin-left: 0 !important;
 }
 
-button[aria-expanded]:hover .relative > span:last-child {
+button[aria-expanded]:hover .relative > span:nth-child(3) {
   width: 100% !important;
 }
 

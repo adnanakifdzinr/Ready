@@ -114,11 +114,12 @@ export function SiteHeader() {
             {/* Pricing CTA - Glassmorphism with Glass Border */}
             <Link
               href="/#pricing"
-              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl"
+              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg"
               style={{
-                border: '1px solid',
-                borderImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) 1',
-                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.1)'
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1)'
               }}
             >
               See pricing
@@ -126,63 +127,63 @@ export function SiteHeader() {
 
             {/* Book a Call CTA */}
             <button
-              onClick={() => {
-                const contactSection = document.getElementById('contact')
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' })
-                }
-              }}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FF3C00] tracking-tight text-white text-[15px] font-medium rounded-lg"
-              style={{
-                boxShadow: 'inset 0 10px 20px 0 rgba(255, 255, 255, 0.2), 0 10px 20px rgba(255, 60, 0, 0.4)'
-              }}
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
+            onClick={() => {
+              const contactSection = document.getElementById('contact')
+              if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#EA2700] tracking-tight text-white text-[15px] font-medium rounded-lg"
+            style={{
+              boxShadow: 'inset 0 10px 20px 0 rgba(255, 255, 255, 0.2), 0 10px 20px rgba(255, 60, 0, 0.4)'
+            }}
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
               Book a call
             </button>
           </div>
 
           {/* Hamburger Button */}
           <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center justify-center w-8 h-8 group"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMenuOpen}
-          >
-            <div className="relative w-6 h-5 flex flex-col justify-between">
-              {/* Top line - expands to left on hover, rotates on click */}
-              <span
-                className="h-0.5 bg-white transition-all duration-500"
-                style={{
-                  width: isMenuOpen ? '100%' : '50%',
-                  transformOrigin: isMenuOpen ? 'center' : 'right',
-                  transform: isMenuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg)',
-                  marginLeft: isMenuOpen ? '0' : 'auto'
-                }}
-              />
-              {/* Middle line - fades out on click */}
-              <span
-                className="h-0.5 bg-white transition-all duration-500"
-                style={{
-                  width: '100%',
-                  opacity: isMenuOpen ? 0 : 1
-                }}
-              />
-              {/* Bottom line - expands to right on hover, rotates on click */}
-              <span
-                className="h-0.5 bg-white transition-all duration-500"
-                style={{
-                  width: isMenuOpen ? '100%' : '50%',
-                  transformOrigin: isMenuOpen ? 'center' : 'left',
-                  transform: isMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg)'
-                }}
-              />
-            </div>
-          </button>
-        </div>
-      </motion.header>
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="flex items-center justify-center w-8 h-8 group"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
+        >
+          <div className="relative w-6 h-4 flex flex-col justify-between">
+            {/* Top line - expands to left on hover, rotates on click */}
+            <span
+              className="h-0.5 bg-white transition-all duration-500"
+              style={{
+                width: isMenuOpen ? '100%' : '50%',
+                transformOrigin: isMenuOpen ? 'center' : 'right',
+                transform: isMenuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg)',
+                marginLeft: isMenuOpen ? '0' : 'auto'
+              }}
+            />
+            {/* Middle line - fades out on click */}
+            <span
+              className="h-0.5 bg-white transition-all duration-500"
+              style={{
+                width: '100%',
+                opacity: isMenuOpen ? 0 : 1
+              }}
+            />
+            {/* Bottom line - expands to right on hover, rotates on click */}
+            <span
+              className="h-0.5 bg-white transition-all duration-500"
+              style={{
+                width: isMenuOpen ? '100%' : '50%',
+                transformOrigin: isMenuOpen ? 'center' : 'left',
+                transform: isMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg)'
+              }}
+            />
+          </div>
+        </button>
+      </div>
+    </motion.header >
 
       <div
         className={`fixed inset-0 z-40 overflow-hidden ${isAnimating || isMenuOpen ? "pointer-events-auto" : "pointer-events-none"}`}
@@ -192,7 +193,7 @@ export function SiteHeader() {
           {[0, 1, 2, 3, 4].map((i) => (
             <div
               key={i}
-              className={`flex-1 bg-[#0e0e0e] transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "scale-y-100 origin-bottom" : "scale-y-0 origin-top"}`}
+              className={`flex-1 bg-[#000000] transition-transform ease-[cubic-bezier(0.76,0,0.24,1)] ${isMenuOpen ? "scale-y-100 origin-bottom" : "scale-y-0 origin-top"}`}
               style={{
                 transitionDuration: "1500ms",
                 transitionDelay: isMenuOpen ? `${i * 50}ms` : `${(4 - i) * 30}ms`,
@@ -370,169 +371,169 @@ export function SiteHeader() {
 
       <div className="h-32" />
 
-      {/* Web-Open CTA Expansion Animation Overlay */}
-      <AnimatePresence mode="wait">
-        {isWebOpenActive && (
-          <>
-            {/* Black overlay background */}
-            <motion.div
+  {/* Web-Open CTA Expansion Animation Overlay */ }
+  <AnimatePresence mode="wait">
+    {isWebOpenActive && (
+      <>
+        {/* Black overlay background */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.6 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="fixed inset-0 bg-black"
+          style={{ zIndex: 9998 }}
+        />
+
+        {/* Top slice that moves up on exit */}
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: 0 }}
+          exit={{ y: '-100vh' }}
+          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="fixed top-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
+          style={{ zIndex: 9997 }}
+        />
+
+        {/* Bottom slice that moves down on exit */}
+        <motion.div
+          initial={{ y: 0 }}
+          animate={{ y: 0 }}
+          exit={{ y: '100vh' }}
+          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="fixed bottom-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
+          style={{ zIndex: 9997 }}
+        />
+
+        {/* CTA Button Container with Web-Open Animation */}
+        <motion.div
+          className="fixed inset-0 flex items-center justify-center px-4"
+          style={{ zIndex: 9999, perspective: 1000 }}
+          initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          exit={{
+            x: '150vw',
+            opacity: 0,
+            rotateY: 20,
+            transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
+          }}
+          transition={{
+            duration: 1.2,
+            delay: 0.3,
+            ease: [0.25, 0.46, 0.45, 0.94]
+          }}
+        >
+          <motion.button
+            initial={{ width: 56, backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+            animate={isWebOpenVisible ? { width: 180 } : { width: 56 }}
+            exit={{ width: 56 }}
+            transition={{ duration: 1.1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+            onHoverStart={() => setIsCtaHovering(true)}
+            onHoverEnd={() => setIsCtaHovering(false)}
+            onClick={() => {
+              handleWebOpenExit()
+              setTimeout(() => {
+                const contactSection = document.getElementById('contact')
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' })
+                }
+              }, 900)
+            }}
+            className="relative h-[52px] backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-2 py-2 gap-2 overflow-hidden cursor-pointer focus:outline-none"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+            whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
+          >
+            {/* Text with character-level 3D flip animation */}
+            <motion.span
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed inset-0 bg-black"
-              style={{ zIndex: 9998 }}
-            />
-
-            {/* Top slice that moves up on exit */}
-            <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: 0 }}
-              exit={{ y: '-100vh' }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed top-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
-              style={{ zIndex: 9997 }}
-            />
-
-            {/* Bottom slice that moves down on exit */}
-            <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: 0 }}
-              exit={{ y: '100vh' }}
-              transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed bottom-0 left-0 right-0 h-1/2 bg-black/70 backdrop-blur-sm"
-              style={{ zIndex: 9997 }}
-            />
-
-            {/* CTA Button Container with Web-Open Animation */}
-            <motion.div
-              className="fixed inset-0 flex items-center justify-center px-4"
-              style={{ zIndex: 9999, perspective: 1000 }}
-              initial={{ opacity: 0, scale: 0.9, rotateY: -20 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{
-                x: '150vw',
-                opacity: 0,
-                rotateY: 20,
-                transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }
-              }}
+              animate={isWebOpenVisible ? { opacity: 1 } : { opacity: 0 }}
               transition={{
-                duration: 1.2,
-                delay: 0.3,
-                ease: [0.25, 0.46, 0.45, 0.94]
+                staggerChildren: 0.05,
+                delayChildren: 0.75,
+                duration: 0.8
               }}
+              className="text-white font-medium text-base whitespace-nowrap flex"
+              style={{ perspective: 1200 }}
             >
-              <motion.button
-                initial={{ width: 56, backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-                animate={isWebOpenVisible ? { width: 180 } : { width: 56 }}
-                exit={{ width: 56 }}
-                transition={{ duration: 1.1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                onHoverStart={() => setIsCtaHovering(true)}
-                onHoverEnd={() => setIsCtaHovering(false)}
-                onClick={() => {
-                  handleWebOpenExit()
-                  setTimeout(() => {
-                    const contactSection = document.getElementById('contact')
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: 'smooth' })
-                    }
-                  }, 900)
-                }}
-                className="relative h-[52px] backdrop-blur-sm border-l-2 border-r-2 border-white rounded-full flex items-center justify-between px-2 py-2 gap-2 overflow-hidden cursor-pointer focus:outline-none"
-                style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
-                whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
-              >
-                {/* Text with character-level 3D flip animation */}
+              {'Open Website'.split('').map((char, index) => (
                 <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={isWebOpenVisible ? { opacity: 1 } : { opacity: 0 }}
-                  transition={{
-                    staggerChildren: 0.05,
-                    delayChildren: 0.75,
-                    duration: 0.8
+                  key={index}
+                  initial={{
+                    opacity: 0,
+                    rotateX: 90,
+                    rotateY: -45,
+                    y: 20,
+                    filter: 'blur(4px)'
                   }}
-                  className="text-white font-medium text-base whitespace-nowrap flex"
+                  animate={{
+                    opacity: 1,
+                    rotateX: 0,
+                    rotateY: 0,
+                    y: 0,
+                    filter: 'blur(0px)'
+                  }}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.23, 1, 0.320, 1]
+                  }}
                   style={{ perspective: 1200 }}
                 >
-                  {'Open Website'.split('').map((char, index) => (
-                    <motion.span
-                      key={index}
-                      initial={{
-                        opacity: 0,
-                        rotateX: 90,
-                        rotateY: -45,
-                        y: 20,
-                        filter: 'blur(4px)'
-                      }}
-                      animate={{
-                        opacity: 1,
-                        rotateX: 0,
-                        rotateY: 0,
-                        y: 0,
-                        filter: 'blur(0px)'
-                      }}
-                      transition={{
-                        duration: 0.7,
-                        ease: [0.23, 1, 0.320, 1]
-                      }}
-                      style={{ perspective: 1200 }}
-                    >
-                      {char === ' ' ? '\u00A0' : char}
-                    </motion.span>
-                  ))}
+                  {char === ' ' ? '\u00A0' : char}
                 </motion.span>
+              ))}
+            </motion.span>
 
-                {/* Arrow circle with glow effect */}
-                <motion.div
-                  className="w-9 h-9 rounded-full bg-white flex items-center justify-center overflow-hidden relative flex-shrink-0"
-                  initial={{ boxShadow: '0 0 0px rgba(255, 255, 255, 0)' }}
-                  animate={isWebOpenVisible ? {
-                    boxShadow: [
-                      '0 0 0px rgba(255, 255, 255, 0)',
-                      '0 0 20px rgba(255, 255, 255, 0.4)',
-                      '0 0 0px rgba(255, 255, 255, 0)'
-                    ]
-                  } : {}}
-                  transition={isWebOpenVisible ? {
-                    duration: 2.5,
-                    repeat: Infinity,
-                    delay: 1.2
-                  } : {}}
-                >
-                  {/* Main arrow */}
-                  <motion.div
-                    animate={{
-                      x: isCtaHovering ? 40 : 0,
-                      opacity: isCtaHovering ? 0 : 1,
-                      rotate: isCtaHovering ? 45 : 0
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="absolute"
-                  >
-                    <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
-                  </motion.div>
+            {/* Arrow circle with glow effect */}
+            <motion.div
+              className="w-9 h-9 rounded-full bg-white flex items-center justify-center overflow-hidden relative flex-shrink-0"
+              initial={{ boxShadow: '0 0 0px rgba(255, 255, 255, 0)' }}
+              animate={isWebOpenVisible ? {
+                boxShadow: [
+                  '0 0 0px rgba(255, 255, 255, 0)',
+                  '0 0 20px rgba(255, 255, 255, 0.4)',
+                  '0 0 0px rgba(255, 255, 255, 0)'
+                ]
+              } : {}}
+              transition={isWebOpenVisible ? {
+                duration: 2.5,
+                repeat: Infinity,
+                delay: 1.2
+              } : {}}
+            >
+              {/* Main arrow */}
+              <motion.div
+                animate={{
+                  x: isCtaHovering ? 40 : 0,
+                  opacity: isCtaHovering ? 0 : 1,
+                  rotate: isCtaHovering ? 45 : 0
+                }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="absolute"
+              >
+                <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
+              </motion.div>
 
-                  {/* Secondary arrow */}
-                  <motion.div
-                    animate={{
-                      x: isCtaHovering ? 0 : -40,
-                      opacity: isCtaHovering ? 1 : 0,
-                      rotate: isCtaHovering ? -45 : 0
-                    }}
-                    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                    className="absolute"
-                  >
-                    <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
-                  </motion.div>
-                </motion.div>
-              </motion.button>
+              {/* Secondary arrow */}
+              <motion.div
+                animate={{
+                  x: isCtaHovering ? 0 : -40,
+                  opacity: isCtaHovering ? 1 : 0,
+                  rotate: isCtaHovering ? -45 : 0
+                }}
+                transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="absolute"
+              >
+                <ArrowRight className="w-6 h-6 text-black" strokeWidth={2} />
+              </motion.div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          </motion.button>
+        </motion.div>
+      </>
+    )}
+  </AnimatePresence>
 
-      {/* About Popup */}
-      <AboutPopup isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+  {/* About Popup */ }
+  <AboutPopup isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
     </>
   )
 }
