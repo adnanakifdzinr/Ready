@@ -96,25 +96,25 @@ export function SiteHeader() {
   return (
     <>
       <motion.header
-        className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl"
+        className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[420px]"
         initial={{ y: '-100%', opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
       >
-        <div className="flex items-center justify-between px-6 py-4 w-full bg-black rounded-full border border-white/10">
+        <div className="flex items-center justify-between px-4 py-2 w-full bg-black rounded-2xl border border-white/10">
           {/* Logo */}
-          <Link href="/" className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full bg-white/90">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" className="w-7 h-7" fill="black">
+          <Link href="/" className="w-12 h-12 flex-shrink-0 flex items-center justify-center ">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" className="w-11 h-11" fill="white">
               <path d="M735.804 364.18C735.408 352.237 734.396 340.235 732.809 328.292C726.203 279.212 709.261 230.746 681.349 185.991L680.476 186.546L680.635 185.832L680.794 185.118C652.822 140.62 616.657 104.375 575.513 77.0576C565.653 70.4911 555.476 64.4404 545.061 58.9451C517.189 44.1655 487.531 33.175 457.02 26.1521C440.039 22.244 422.74 19.5856 405.362 18.1771C391.673 17.0463 377.945 16.7487 364.158 17.205C352.156 17.5621 340.154 18.5738 328.172 20.2006C279.132 26.8068 230.727 43.6893 186.032 71.6219V71.6616C163.654 85.6477 143.36 101.677 125.208 119.373C107.037 137.01 91.0867 156.392 77.3389 176.984C70.6931 187.002 64.5235 197.338 58.9292 207.912C52.5215 220.073 46.7882 232.571 41.8089 245.347C35.3813 261.714 30.2037 278.557 26.236 295.638C19.2134 326.05 16.1781 357.375 17.1898 388.799C19.2133 449.942 36.9089 511.361 71.6454 566.949C99.5774 611.645 135.722 648.068 176.867 675.525C186.944 682.23 197.32 688.4 207.933 694.034C235.607 708.695 265.007 719.626 295.3 726.629C325.811 733.751 357.254 736.865 388.837 735.794C400.581 735.377 412.384 734.425 424.128 732.898C473.049 726.391 521.454 709.607 566.11 681.893L566.407 680.465L566.982 681.318C622.608 646.6 665.419 599.087 694.065 545.027C708.765 517.273 719.696 487.774 726.758 457.361C733.781 426.949 736.836 395.564 735.804 364.18ZM504.83 297.007L504.274 297.364L455.651 508.167L456.068 508.921L455.354 509.338L455.453 508.981C419.506 531.2 377.906 536.894 339.757 527.946C301.509 519.098 266.773 495.649 244.296 459.801L244.098 459.96L244.197 459.603C221.82 423.695 216.126 382.094 224.934 343.905C233.782 305.656 257.112 270.88 292.959 248.383L293.019 248.145L292.82 248.085L293.078 247.926V247.986L293.118 248.145L398.696 272.506L504.413 296.967L504.473 296.61L504.572 296.193L505.127 297.066L504.83 297.007Z" />
             </svg>
           </Link>
 
           {/* CTAs */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Pricing CTA */}
+            {/* Pricing CTA - Glass Effect */}
             <Link
               href="/#pricing"
-              className="hidden sm:block px-4 py-2 text-white text-sm font-medium border border-white/30 rounded-full hover:border-white/60 transition-all duration-300"
+              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium border border-white/30 rounded-lg backdrop-blur-md bg-white/5 hover:bg-white/10 transition-all duration-300"
             >
               See pricing
             </Link>
@@ -127,9 +127,12 @@ export function SiteHeader() {
                   contactSection.scrollIntoView({ behavior: 'smooth' })
                 }
               }}
-              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-[#FF3C00] text-white text-sm font-medium rounded-full hover:bg-[#E63A00] transition-all duration-300"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FF3C00] tracking-tight text-white text-[15px] font-medium rounded-lg hover:bg-[#E63A00] transition-all duration-300"
+              style={{
+                boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 10px 15px rgba(255, 60, 0, 0.3)'
+              }}
             >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
               </svg>
               Book a call
@@ -144,23 +147,26 @@ export function SiteHeader() {
             aria-expanded={isMenuOpen}
           >
             <div className="relative w-5 h-4 flex flex-col justify-between">
+              {/* Top line - 50% width from right on idle, full width on hover */}
               <span
-                className={`h-0.5 bg-white transition-all duration-500 origin-center ${
-                  isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
-                }`}
+                className="h-0.5 bg-white transition-all duration-500 origin-right"
+                style={{
+                  width: isMenuOpen ? '100%' : '50%',
+                  marginLeft: isMenuOpen ? '0' : 'auto'
+                }}
+              />
+              {/* Middle line */}
+              <span
+                className={`h-0.5 bg-white transition-all duration-500 ${isMenuOpen ? 'opacity-0' : 'opacity-100'
+                  }`}
                 style={{ width: '100%' }}
               />
+              {/* Bottom line - 50% width from left on idle, full width on hover */}
               <span
-                className={`h-0.5 bg-white transition-all duration-500 ${
-                  isMenuOpen ? 'opacity-0' : 'opacity-100'
-                }`}
-                style={{ width: '100%' }}
-              />
-              <span
-                className={`h-0.5 bg-white transition-all duration-500 origin-center ${
-                  isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-                }`}
-                style={{ width: '100%' }}
+                className="h-0.5 bg-white transition-all duration-500 origin-left"
+                style={{
+                  width: isMenuOpen ? '100%' : '50%'
+                }}
               />
             </div>
           </button>
@@ -295,7 +301,7 @@ export function SiteHeader() {
                 whileHover={{ x: 5 }}
               >
                 Instagram
-                <motion.div 
+                <motion.div
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
                   whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
                 >
@@ -317,7 +323,7 @@ export function SiteHeader() {
                 whileHover={{ x: 5 }}
               >
                 Facebook
-                <motion.div 
+                <motion.div
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
                   whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
                 >
@@ -339,7 +345,7 @@ export function SiteHeader() {
                 whileHover={{ x: 5 }}
               >
                 YouTube
-                <motion.div 
+                <motion.div
                   className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-white flex items-center justify-center flex-shrink-0 transition-colors duration-300"
                   whileHover={{ scale: 1.15, backgroundColor: '#ff3a09' }}
                 >
