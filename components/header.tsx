@@ -114,7 +114,7 @@ export function SiteHeader() {
             {/* Pricing CTA - Glassmorphism with Glass Border */}
             <Link
               href="/#pricing"
-              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl bg-white/10"
+              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl"
               style={{
                 border: '1px solid',
                 borderImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) 1',
@@ -147,30 +147,36 @@ export function SiteHeader() {
           {/* Hamburger Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center justify-center w-8 h-8 group hover:*:w-full"
+            className="flex items-center justify-center w-8 h-8 group"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
           >
-            <div className="relative w-5 h-4 flex flex-col justify-between">
-              {/* Top line - 50% width from right on idle, full width on hover */}
+            <div className="relative w-6 h-5 flex flex-col justify-between">
+              {/* Top line - expands to left on hover, rotates on click */}
               <span
-                className="h-0.5 bg-white transition-all duration-500 origin-right"
+                className="h-0.5 bg-white transition-all duration-500"
                 style={{
                   width: isMenuOpen ? '100%' : '50%',
+                  transformOrigin: isMenuOpen ? 'center' : 'right',
+                  transform: isMenuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg)',
                   marginLeft: isMenuOpen ? '0' : 'auto'
                 }}
               />
-              {/* Middle line */}
+              {/* Middle line - fades out on click */}
               <span
-                className={`h-0.5 bg-white transition-all duration-500 ${isMenuOpen ? 'opacity-0' : 'opacity-100'
-                  }`}
-                style={{ width: '100%' }}
-              />
-              {/* Bottom line - 50% width from left on idle, full width on hover */}
-              <span
-                className="h-0.5 bg-white transition-all duration-500 origin-left"
+                className="h-0.5 bg-white transition-all duration-500"
                 style={{
-                  width: isMenuOpen ? '100%' : '50%'
+                  width: '100%',
+                  opacity: isMenuOpen ? 0 : 1
+                }}
+              />
+              {/* Bottom line - expands to right on hover, rotates on click */}
+              <span
+                className="h-0.5 bg-white transition-all duration-500"
+                style={{
+                  width: isMenuOpen ? '100%' : '50%',
+                  transformOrigin: isMenuOpen ? 'center' : 'left',
+                  transform: isMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg)'
                 }}
               />
             </div>

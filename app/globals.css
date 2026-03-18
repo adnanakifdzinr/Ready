@@ -213,6 +213,20 @@
   animation: lineBottom 0.4s ease forwards;
 }
 
+/* Hamburger hover state expansion */
+button[aria-expanded] .relative > span:first-child {
+  transition: width 0.5s ease;
+}
+
+button[aria-expanded]:hover .relative > span:first-child {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+
+button[aria-expanded]:hover .relative > span:last-child {
+  width: 100% !important;
+}
+
 @keyframes slideUpSocial {
   from {
     opacity: 0;
