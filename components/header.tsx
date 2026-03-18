@@ -96,66 +96,74 @@ export function SiteHeader() {
   return (
     <>
       <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-500 ease-out ${scrollY >= 100 || isMenuOpen ? "bg-[#f9f9f9]" : "bg-[#f9f9f9]"
-          }`}
-        initial={{ y: '-100%' }}
-        animate={{ y: isWebOpenAnimating ? 0 : '-100%' }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        className="fixed top-8 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-2xl"
+        initial={{ y: '-100%', opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
       >
-        <div
-          className="flex items-center justify-between px-3 md:px-5 lg:px-8 py-2 md:py-2 w-full"
-        >
-          {/* Logo SVG */}
-          <Link href="/" className="w-18 md:w-24 flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1739.38 371.37" className="w-full h-auto">
-              <g id="Layer_1" data-name="Layer 1">
-                <path d="M1896.81,76.9h-.08c.03-.91.05-1.81.06-2.72.01.91.02,1.81.02,2.72Z" />
-                <path d="M1896.81,71.46c0,.91-.01,1.81-.02,2.72-.01-.91-.03-1.81-.06-2.72h.08Z" />
-              </g>
-              <g id="Shape_Grid_Output_" data-name="Shape Grid (Output)">
-                <g fill="currentColor">
-                  <path d="M3.01,5.66h84.41v284.2h166.33v75.42H3.01V5.66Z" />
-                  <path d="M328.98,340.81c-26.71-15.92-46.89-37.47-60.56-64.67-13.68-27.18-20.51-57.5-20.51-90.97s6.83-63.78,20.51-90.97c13.67-27.18,33.86-48.74,60.56-64.66,26.7-15.92,58.55-23.89,95.55-23.89s68.84,7.96,95.55,23.89c26.7,15.92,46.89,37.48,60.56,64.66,13.67,27.19,20.51,57.51,20.51,90.97s-6.84,63.78-20.51,90.97c-13.68,27.19-33.86,48.74-60.56,64.67-26.71,15.92-58.56,23.89-95.55,23.89s-68.85-7.96-95.55-23.89ZM355.52,262.63c15.12,20.11,38.12,30.16,69.01,30.16s53.88-10.05,69.01-30.16c15.12-20.1,22.68-45.92,22.68-77.45s-7.56-57.34-22.68-77.45c-15.13-20.1-38.12-30.16-69.01-30.16s-53.89,10.06-69.01,30.16c-15.13,20.11-22.68,45.93-22.68,77.45s7.56,57.35,22.68,77.45Z" />
-                  <path d="M611.69,297.85l185.81-218.27-90.91,1.5h-88.91V5.66h290.2v64.93l-188.8,220.77,94.4-1.5h96.9v75.42h-298.69v-67.43Z" />
-                  <path d="M950.68,5.66h84.41v359.63h-84.41V5.66Z" />
-                  <path d="M1162.67,124.04v241.25h-80.92V5.66h91.41l142.85,242.25V5.66h80.92v359.63h-91.41l-142.85-241.25Z" />
-                  <path d="M1424.53,5.66h169.03c43.33,0,75.84,9.84,97.52,29.5,21.67,19.67,32.5,45.84,32.5,78.51,0,18.34-4.84,34.93-14.5,49.76-9.67,14.84-51.78,36.22-78.67,31.23,15,7.34,46,5.61,71.92,35.53,9.08,10.49,12.42,25.68,14.75,42.01l14,93.51h-86.51l-12-81.01c-2.67-18-8.34-31.25-17-39.76-8.67-8.5-21.34-12.75-38.01-12.75h-68.51v133.52h-84.51V5.66ZM1578.55,167.68c19.33,0,33.83-3.83,43.51-11.5,9.67-7.67,14.5-19.5,14.5-35.51s-4.84-27.83-14.5-35.51c-9.67-7.67-24.18-11.5-43.51-11.5h-69.51v94.01h69.51Z" />
-                </g>
-              </g>
+        <div className="flex items-center justify-between px-6 py-4 w-full bg-black rounded-full border border-white/10">
+          {/* Logo */}
+          <Link href="/" className="w-12 h-12 flex-shrink-0 flex items-center justify-center rounded-full bg-white/90">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" className="w-7 h-7" fill="black">
+              <path d="M735.804 364.18C735.408 352.237 734.396 340.235 732.809 328.292C726.203 279.212 709.261 230.746 681.349 185.991L680.476 186.546L680.635 185.832L680.794 185.118C652.822 140.62 616.657 104.375 575.513 77.0576C565.653 70.4911 555.476 64.4404 545.061 58.9451C517.189 44.1655 487.531 33.175 457.02 26.1521C440.039 22.244 422.74 19.5856 405.362 18.1771C391.673 17.0463 377.945 16.7487 364.158 17.205C352.156 17.5621 340.154 18.5738 328.172 20.2006C279.132 26.8068 230.727 43.6893 186.032 71.6219V71.6616C163.654 85.6477 143.36 101.677 125.208 119.373C107.037 137.01 91.0867 156.392 77.3389 176.984C70.6931 187.002 64.5235 197.338 58.9292 207.912C52.5215 220.073 46.7882 232.571 41.8089 245.347C35.3813 261.714 30.2037 278.557 26.236 295.638C19.2134 326.05 16.1781 357.375 17.1898 388.799C19.2133 449.942 36.9089 511.361 71.6454 566.949C99.5774 611.645 135.722 648.068 176.867 675.525C186.944 682.23 197.32 688.4 207.933 694.034C235.607 708.695 265.007 719.626 295.3 726.629C325.811 733.751 357.254 736.865 388.837 735.794C400.581 735.377 412.384 734.425 424.128 732.898C473.049 726.391 521.454 709.607 566.11 681.893L566.407 680.465L566.982 681.318C622.608 646.6 665.419 599.087 694.065 545.027C708.765 517.273 719.696 487.774 726.758 457.361C733.781 426.949 736.836 395.564 735.804 364.18ZM504.83 297.007L504.274 297.364L455.651 508.167L456.068 508.921L455.354 509.338L455.453 508.981C419.506 531.2 377.906 536.894 339.757 527.946C301.509 519.098 266.773 495.649 244.296 459.801L244.098 459.96L244.197 459.603C221.82 423.695 216.126 382.094 224.934 343.905C233.782 305.656 257.112 270.88 292.959 248.383L293.019 248.145L292.82 248.085L293.078 247.926V247.986L293.118 248.145L398.696 272.506L504.413 296.967L504.473 296.61L504.572 296.193L505.127 297.066L504.83 297.007Z" />
             </svg>
           </Link>
 
-          {/* CTA Button and Hamburger */}
+          {/* CTAs */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Hamburger Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="relative flex items-center justify-center rounded-full w-9 h-9 md:w-12 md:h-12 group"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isMenuOpen}
+            {/* Pricing CTA */}
+            <Link
+              href="/#pricing"
+              className="hidden sm:block px-4 py-2 text-white text-sm font-medium border border-white/30 rounded-full hover:border-white/60 transition-all duration-300"
             >
-              <div className="relative w-5 h-3.5">
-                <span
-                  className={`absolute left-0 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `top-1/2 -translate-y-1/2 rotate-45 w-full`
-                    : `top-0 w-full group-hover:w-3/5`
-                    }`}
-                />
-                <span
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `w-0 opacity-0`
-                    : `w-full opacity-100 group-hover:w-4/5 group-hover:translate-x-1`
-                    }`}
-                />
-                <span
-                  className={`absolute left-0 h-[2.5px] bg-black transition-all duration-700 ease-in-out ${isMenuOpen
-                    ? `bottom-1/2 translate-y-1/2 -rotate-45 w-full`
-                    : `bottom-0 w-full group-hover:w-2/5`
-                    }`}
-                />
-              </div>
+              See pricing
+            </Link>
+
+            {/* Book a Call CTA */}
+            <button
+              onClick={() => {
+                const contactSection = document.getElementById('contact')
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' })
+                }
+              }}
+              className="hidden sm:flex items-center gap-2 px-5 py-2 bg-[#FF3C00] text-white text-sm font-medium rounded-full hover:bg-[#E63A00] transition-all duration-300"
+            >
+              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              Book a call
             </button>
           </div>
+
+          {/* Hamburger Button */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="flex items-center justify-center w-8 h-8 group"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
+          >
+            <div className="relative w-5 h-4 flex flex-col justify-between">
+              <span
+                className={`h-0.5 bg-white transition-all duration-500 origin-center ${
+                  isMenuOpen ? 'rotate-45 translate-y-1.5' : ''
+                }`}
+                style={{ width: '100%' }}
+              />
+              <span
+                className={`h-0.5 bg-white transition-all duration-500 ${
+                  isMenuOpen ? 'opacity-0' : 'opacity-100'
+                }`}
+                style={{ width: '100%' }}
+              />
+              <span
+                className={`h-0.5 bg-white transition-all duration-500 origin-center ${
+                  isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                }`}
+                style={{ width: '100%' }}
+              />
+            </div>
+          </button>
         </div>
       </motion.header>
 
@@ -343,7 +351,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className={`${headerVisible ? "h-[40px] md:h-[48px]" : "h-0"}`} />
+      <div className="h-32" />
 
       {/* Web-Open CTA Expansion Animation Overlay */}
       <AnimatePresence mode="wait">
