@@ -101,7 +101,7 @@ export function SiteHeader() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
       >
-        <div className="flex items-center justify-between px-4 py-2 w-full bg-black rounded-2xl border border-white/10">
+        <div className="flex items-center justify-between px-4 py-2 w-full bg-black rounded-2xl">
           {/* Logo */}
           <Link href="/" className="w-12 h-12 flex-shrink-0 flex items-center justify-center ">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 752 752" className="w-11 h-11" fill="white">
@@ -111,10 +111,13 @@ export function SiteHeader() {
 
           {/* CTAs */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Pricing CTA - Glass Effect */}
+            {/* Pricing CTA - Glassmorphism */}
             <Link
               href="/#pricing"
-              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium border border-white/30 rounded-lg backdrop-blur-md bg-white/5 hover:bg-white/10 transition-all duration-300"
+              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+              style={{
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.1)'
+              }}
             >
               See pricing
             </Link>
@@ -129,7 +132,7 @@ export function SiteHeader() {
               }}
               className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FF3C00] tracking-tight text-white text-[15px] font-medium rounded-lg hover:bg-[#E63A00] transition-all duration-300"
               style={{
-                boxShadow: 'inset 0 1px 0 0 rgba(255, 255, 255, 0.3), 0 10px 15px rgba(255, 60, 0, 0.3)'
+                boxShadow: 'inset 0 10px 20px 0 rgba(255, 255, 255, 0.2), 0 10px 20px rgba(255, 60, 0, 0.4)'
               }}
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
