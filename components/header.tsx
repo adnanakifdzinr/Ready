@@ -111,12 +111,14 @@ export function SiteHeader() {
 
           {/* CTAs */}
           <div className="flex items-center gap-3 md:gap-4">
-            {/* Pricing CTA - Glassmorphism */}
+            {/* Pricing CTA - Glassmorphism with Glass Border */}
             <Link
               href="/#pricing"
-              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/30 transition-all duration-300"
+              className="hidden sm:block px-4 py-2 text-white text-[15px] tracking-tight font-medium rounded-lg backdrop-blur-xl bg-white/10"
               style={{
-                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.1)'
+                border: '1px solid',
+                borderImage: 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1)) 1',
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.15), inset 0 0 20px rgba(255, 255, 255, 0.1)'
               }}
             >
               See pricing
@@ -130,7 +132,7 @@ export function SiteHeader() {
                   contactSection.scrollIntoView({ behavior: 'smooth' })
                 }
               }}
-              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FF3C00] tracking-tight text-white text-[15px] font-medium rounded-lg hover:bg-[#E63A00] transition-all duration-300"
+              className="hidden sm:flex items-center gap-2 px-4 py-2 bg-[#FF3C00] tracking-tight text-white text-[15px] font-medium rounded-lg"
               style={{
                 boxShadow: 'inset 0 10px 20px 0 rgba(255, 255, 255, 0.2), 0 10px 20px rgba(255, 60, 0, 0.4)'
               }}
@@ -145,7 +147,7 @@ export function SiteHeader() {
           {/* Hamburger Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex items-center justify-center w-8 h-8 group"
+            className="flex items-center justify-center w-8 h-8 group hover:*:w-full"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
           >
