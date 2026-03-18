@@ -119,7 +119,7 @@ export function SiteHeader() {
                 background: 'rgba(255, 255, 255, 0.1)',
                 backdropFilter: 'blur(10px)',
                 border: '1px solid rgba(255, 255, 255, 0.2)',
-                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1)'
+                boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.1)',
               }}
             >
               See pricing
@@ -152,32 +152,35 @@ export function SiteHeader() {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           aria-expanded={isMenuOpen}
         >
-          <div className="relative w-6 h-4 flex flex-col justify-between">
+          <div className="relative w-6 h-5 flex flex-col justify-between hamburger-menu">
             {/* Top line - expands to left on hover, rotates on click */}
             <span
-              className="h-0.5 bg-white transition-all duration-500"
+              className="h-0.5 bg-white hamburger-top"
               style={{
                 width: isMenuOpen ? '100%' : '50%',
                 transformOrigin: isMenuOpen ? 'center' : 'right',
-                transform: isMenuOpen ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg)',
-                marginLeft: isMenuOpen ? '0' : 'auto'
+                transform: isMenuOpen ? 'rotate(45deg) translateY(9px)' : 'rotate(0deg)',
+                marginLeft: isMenuOpen ? '0' : 'auto',
+                transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}
             />
             {/* Middle line - fades out on click */}
             <span
-              className="h-0.5 bg-white transition-all duration-500"
+              className="h-0.5 bg-white hamburger-middle"
               style={{
                 width: '100%',
-                opacity: isMenuOpen ? 0 : 1
+                opacity: isMenuOpen ? 0 : 1,
+                transition: 'opacity 0.5s ease-in-out'
               }}
             />
             {/* Bottom line - expands to right on hover, rotates on click */}
             <span
-              className="h-0.5 bg-white transition-all duration-500"
+              className="h-0.5 bg-white hamburger-bottom"
               style={{
                 width: isMenuOpen ? '100%' : '50%',
                 transformOrigin: isMenuOpen ? 'center' : 'left',
-                transform: isMenuOpen ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg)'
+                transform: isMenuOpen ? 'rotate(-45deg) translateY(-9px)' : 'rotate(0deg)',
+                transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)'
               }}
             />
           </div>
